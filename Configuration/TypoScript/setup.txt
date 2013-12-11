@@ -1,0 +1,56 @@
+plugin.tx_fluidcontentcore.view {
+	templateRootPath = {$plugin.tx_fluidcontentcore.view.templateRootPath}
+	partialRootPath = {$plugin.tx_fluidcontentcore.view.partialRootPath}
+	layoutRootPath = {$plugin.tx_fluidcontentcore.view.layoutRootPath}
+}
+
+plugin.tx_fluidcontentcore.bootstrap = USER
+plugin.tx_fluidcontentcore.bootstrap {
+	userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+    vendorName = FluidTYPO3
+    extensionName = FluidcontentCore
+}
+
+tt_content >
+tt_content = CASE
+tt_content.key.field = CType
+tt_content.text < plugin.tx_fluidcontentcore.bootstrap
+tt_content.text.pluginName = Text
+tt_content.header < plugin.tx_fluidcontentcore.bootstrap
+tt_content.header.pluginName = Header
+tt_content.image < plugin.tx_fluidcontentcore.bootstrap
+tt_content.image.pluginName = Image
+tt_content.textpic < plugin.tx_fluidcontentcore.bootstrap
+tt_content.textpic.pluginName = Textpic
+tt_content.bullets < plugin.tx_fluidcontentcore.bootstrap
+tt_content.bullets.pluginName = Bullets
+tt_content.uploads < plugin.tx_fluidcontentcore.bootstrap
+tt_content.uploads.pluginName = Uploads
+tt_content.table < plugin.tx_fluidcontentcore.bootstrap
+tt_content.table.pluginName = Table
+tt_content.media < plugin.tx_fluidcontentcore.bootstrap
+tt_content.media.pluginName = Media
+tt_content.mailform < plugin.tx_fluidcontentcore.bootstrap
+tt_content.mailform.pluginName = Mailform
+tt_content.search < plugin.tx_fluidcontentcore.bootstrap
+tt_content.search.pluginName = Search
+tt_content.menu < plugin.tx_fluidcontentcore.bootstrap
+tt_content.menu.pluginName = Menu
+tt_content.shortcut < plugin.tx_fluidcontentcore.bootstrap
+tt_content.shortcut.pluginName = Shortcut
+tt_content.div < plugin.tx_fluidcontentcore.bootstrap
+tt_content.div.pluginName = Div
+tt_content.html < plugin.tx_fluidcontentcore.bootstrap
+tt_content.html.pluginName = Html
+tt_content.default < plugin.tx_fluidcontentcore.bootstrap
+tt_content.default.pluginName = Default
+tt_content.list = COA
+tt_content.list {
+	20 = CASE
+	20.key.field = list_type
+	20.stdWrap {
+		editIcons = tt_content: list_type, layout, select_key, pages [recursive]
+		editIcons.iconTitle.data = LLL:EXT:css_styled_content/pi1/locallang.xml:eIcon.plugin
+		prefixComment = 2 | Plugin inserted:
+	}
+}

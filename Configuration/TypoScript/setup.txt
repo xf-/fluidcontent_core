@@ -48,9 +48,4 @@ tt_content.list = COA
 tt_content.list {
 	20 = CASE
 	20.key.field = list_type
-	20.stdWrap {
-		editIcons = tt_content: list_type, layout, select_key, pages [recursive]
-		editIcons.iconTitle.data = LLL:EXT:css_styled_content/pi1/locallang.xml:eIcon.plugin
-		prefixComment = 2 | Plugin inserted:
-	}
 }

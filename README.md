@@ -23,7 +23,7 @@ use to control rendering.
 
 You can even throw any number of these built-in content element types into a Flux Provider extension and add (static) TypoScript
 setup to make this extension use your template paths first, with fallback to the included templates. Note, though, that you
-should not mix these core content element tempaltes with your own custom elements for `EXT:fluidcontent`.
+should not mix these core content element templates with your own custom elements for `EXT:fluidcontent`.
 
 ## Examples
 

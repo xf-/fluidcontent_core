@@ -1,17 +1,79 @@
 {namespace flux=FluidTYPO3\Flux\ViewHelpers}
-<f:layout name="Content" />
+{namespace v=Tx_Vhs_ViewHelpers}
+<f:layout name="Default" />
 
 <f:section name="Configuration">
-	<flux:flexform id="fluidfluxcontent" label="Fluid/FluxContent" icon="Icons/Page.gif">
-		<!-- Insert fields, sheets, grid, form section objects etc. here, in this flux:flexform tag -->
-	</flux:flexform>
+	<flux:form id="text">
+		<f:render partial="Properties/Header" arguments="{_all}" />
+		<f:render partial="Properties/Container" arguments="{_all}" />
+	</flux:form>
 </f:section>
 
 <f:section name="Preview">
-	<!-- uncomment this to use a grid for nested content elements -->
-	<!-- <flux:widget.grid /> -->
+	<f:format.crop maxCharacters="100">{record.bodytext}</f:format.crop>
 </f:section>
 
 <f:section name="Main">
-	<f:format.html>{record.bodytext}</f:format.html>
+	<f:if condition="{blink}">
+		<f:then>
+			<v:asset.style>
+				/* @group Blink */
+
+				.blink {
+				-webkit-animation: blink .75s linear infinite;
+				-moz-animation: blink .75s linear infinite;
+				-ms-animation: blink .75s linear infinite;
+				-o-animation: blink .75s linear infinite;
+				animation: blink .75s linear infinite;
+				}
+
+				@-webkit-keyframes blink {
+				0% { opacity: 1; }
+				50% { opacity: 1; }
+				50.01% { opacity: 0; }
+				100% { opacity: 0; }
+				}
+
+				@-moz-keyframes blink {
+				0% { opacity: 1; }
+				50% { opacity: 1; }
+				50.01% { opacity: 0; }
+				100% { opacity: 0; }
+				}
+
+				@-ms-keyframes blink {
+				0% { opacity: 1; }
+				50% { opacity: 1; }
+				50.01% { opacity: 0; }
+				100% { opacity: 0; }
+				}
+
+				@-o-keyframes blink {
+				0% { opacity: 1; }
+				50% { opacity: 1; }
+				50.01% { opacity: 0; }
+				100% { opacity: 0; }
+				}
+
+				@keyframes blink {
+				0% { opacity: 1; }
+				50% { opacity: 1; }
+				50.01% { opacity: 0; }
+				100% { opacity: 0; }
+				}
+
+				/* @end */
+			</v:asset.style>
+			<f:link.action>OKAY I HAD ENOUGH!!!</f:link.action>
+			<div class="blink">
+				<f:format.html>{record.bodytext}</f:format.html>
+			</div>
+		</f:then>
+		<f:else>
+			<f:link.action arguments="{blink: 1}">START THE SHOW!!!</f:link.action>
+			<div>
+				<f:format.html>{record.bodytext}</f:format.html>
+			</div>
+		</f:else>
+	</f:if>
 </f:section>

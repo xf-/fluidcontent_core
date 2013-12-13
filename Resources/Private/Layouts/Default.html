@@ -1,0 +1,17 @@
+{namespace fcc=FluidTYPO3\FluidcontentCore\ViewHelpers}
+<f:layout name="Default" />
+<f:if condition="{record.header}">
+	<f:render partial="Content/Header" arguments="{_all}" optional="TRUE" />
+</f:if>
+<f:if condition="{settings.container.type}">
+	<f:then>
+		<f:if condition="{settings.container.type} != {settings.constants.none}">
+			<fcc:tag name="{settings.container.type}">
+				<f:render section="Main" />
+			</fcc:tag>
+		</f:if>
+	</f:then>
+	<f:else>
+		<f:render section="Main" />
+	</f:else>
+</f:if>

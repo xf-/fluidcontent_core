@@ -1,7 +1,26 @@
 plugin.tx_fluidcontentcore.view {
+	extensionKey = fluidcontent_core
 	templateRootPath = {$plugin.tx_fluidcontentcore.view.templateRootPath}
 	partialRootPath = {$plugin.tx_fluidcontentcore.view.partialRootPath}
 	layoutRootPath = {$plugin.tx_fluidcontentcore.view.layoutRootPath}
+}
+
+plugin.tx_fluidcontentcore.settings {
+	defaultTemplate = EXT:fluidcontent_core/Resources/Private/Templates/Content/Default.html
+	constants {
+		auto = auto
+		none = none
+	}
+	header {
+		types = auto,1,2,3,4,5,6,7,8
+		autoType = 2
+		classNames =
+	}
+	container {
+		types = none,div,section,chapter
+		autoType = div
+		classNames = container
+	}
 }
 
 plugin.tx_fluidcontentcore.bootstrap = USER
@@ -11,7 +30,6 @@ plugin.tx_fluidcontentcore.bootstrap {
     extensionName = FluidcontentCore
 }
 
-tt_content >
 tt_content = CASE
 tt_content.key.field = CType
 tt_content.text < plugin.tx_fluidcontentcore.bootstrap
@@ -42,10 +60,10 @@ tt_content.div < plugin.tx_fluidcontentcore.bootstrap
 tt_content.div.pluginName = Div
 tt_content.html < plugin.tx_fluidcontentcore.bootstrap
 tt_content.html.pluginName = Html
-tt_content.default < plugin.tx_fluidcontentcore.bootstrap
-tt_content.default.pluginName = Default
 tt_content.list = COA
 tt_content.list {
 	20 = CASE
 	20.key.field = list_type
 }
+tt_content.default < plugin.tx_fluidcontentcore.bootstrap
+tt_content.default.pluginName = Default

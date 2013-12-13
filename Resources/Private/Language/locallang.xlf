@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" product-name="fluidcontent_core" date="2013-12-11T00:56:44+01:00">
+		<header/>
+		<body>
+			<trans-unit id="tt_content.noneFoundLabel">
+				<source>No options found</source>
+			</trans-unit>
+			<trans-unit id="tt_content.nativeLabel">
+				<source>Standard</source>
+			</trans-unit>
+			<trans-unit id="tt_content.content_variant">
+				<source>Variant</source>
+			</trans-unit>
+			<trans-unit id="tt_content.content_version">
+				<source>Version</source>
+			</trans-unit>
+			<trans-unit id="sheets.header">
+				<source>Header</source>
+			</trans-unit>
+			<trans-unit id="sheets.container">
+				<source>Container</source>
+			</trans-unit>
+			<trans-unit id="fields.classNames">
+				<source>CSS class names</source>
+			</trans-unit>
+			<trans-unit id="fields.headerLevel">
+				<source>Header level</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

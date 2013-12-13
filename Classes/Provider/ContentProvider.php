@@ -25,11 +25,17 @@ namespace FluidTYPO3\FluidcontentCore\Provider;
  *****************************************************************/
 
 use FluidTYPO3\Flux\Form;
+use FluidTYPO3\Flux\Provider\AbstractProvider;
 use FluidTYPO3\Flux\Provider\ProviderInterface;
 use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
+use FluidTYPO3\Flux\Utility\RecursiveArrayUtility;
+use FluidTYPO3\Flux\Utility\PathUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * ConfigurationProvider for records in tt_content
@@ -42,7 +48,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * @package Flux
  * @subpackage Provider
  */
-class ContentProvider extends \FluidTYPO3\Flux\Provider\ContentProvider implements ProviderInterface {
+class ContentProvider extends AbstractProvider implements ProviderInterface {
 
 	/**
 	 * @var string
@@ -52,7 +58,7 @@ class ContentProvider extends \FluidTYPO3\Flux\Provider\ContentProvider implemen
 	/**
 	 * @var integer
 	 */
-	protected $priority = 90;
+	protected $priority = 0;
 
 	/**
 	 * @var string
@@ -62,7 +68,120 @@ class ContentProvider extends \FluidTYPO3\Flux\Provider\ContentProvider implemen
 	/**
 	 * @var string
 	 */
-	protected $fieldName = 'pi_flexform';
+	protected $fieldName = 'content_options';
+
+	/**
+	 * @var array
+	 */
+	protected static $variants = array();
+
+	/**
+	 * @var array
+	 */
+	protected static $versions = array();
+
+	/**
+	 * @param array $row
+	 * @return Form
+	 */
+	public function getForm(array $row) {
+		$form = parent::getForm($row);
+		if (NULL == $form) {
+			$form = $this->configurationService->getFormFromTemplateFile($this->templatePathAndFilename, 'Configuration', 'form', $this->templatePaths, $this->extensionKey, $this->templateVariables);
+		}
+		$form->setLocalLanguageFileRelativePath('Resources/Private/Language/locallang.xlf');
+		return $form;
+	}
+
+	/**
+	 * @param string $contentType
+	 * @return array
+	 */
+	public function getVariantExtensionKeysForContentType($contentType) {
+		if (FALSE === isset($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'][$contentType])) {
+			return array();
+		}
+		if (TRUE === isset(self::$variants[$contentType])) {
+			return self::$variants[$contentType];
+		}
+		self::$variants[$contentType] = array();
+		foreach ($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'][$contentType] as $variantExtensionKey) {
+			$templatePathAndFilename = $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($variantExtensionKey, $contentType);
+			if (TRUE === file_exists($templatePathAndFilename)) {
+				array_push(self::$variants[$contentType], $variantExtensionKey);
+			}
+		}
+		return self::$variants[$contentType];
+	}
+
+	/**
+	 * @param string $contentType
+	 * @param string $variant
+	 * @return array
+	 */
+	public function getVariantVersions($contentType, $variant) {
+		if (TRUE === isset(self::$versions[$contentType][$variant])) {
+			return self::$versions[$contentType][$variant];
+		}
+		if (FALSE === isset(self::$versions[$contentType])) {
+			self::$versions[$contentType] = array();
+		}
+		$paths = $this->configurationService->getViewConfigurationForExtensionName($variant);
+		$versionsDirectory = rtrim($paths['templateRootPath'], '/') . '/Content/' . ucfirst($contentType) . '/';
+		if (FALSE === is_dir($versionsDirectory)) {
+			self::$versions[$contentType][$variant] = array();
+		} else {
+			$files = glob($versionsDirectory . '*.html');
+			foreach ($files as &$file) {
+				$file = basename($file, '.html');
+			}
+			self::$versions[$contentType][$variant] = $files;
+		}
+		return self::$versions[$contentType][$variant];
+	}
+
+	/**
+	 * @param string $extensionKey
+	 * @param string $contentType
+	 * @return string
+	 */
+	protected function getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $contentType) {
+		$paths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
+		$templatePathAndFilename = rtrim($paths['templateRootPath'], '/') . '/Content/' . ucfirst($contentType) . '.html';
+		return $templatePathAndFilename;
+	}
+
+	protected function hasVariants(array $row) {
+		$contentType = $row['CType'];
+		return FALSE;
+	}
+
+	protected function createVariantsField(array $row) {
+
+	}
+
+	protected function hasVersions(array $row) {
+		$contentType = $row['CType'];
+		return FALSE;
+	}
+
+	protected function createVersionsField(array $row) {
+
+	}
+
+	/**
+	 * @return void
+	 */
+	public function initializeObject() {
+		$typoScript = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$settings = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['settings.'];
+		$paths = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['view.'];
+		$this->templateVariables['settings'] = GeneralUtility::removeDotsFromTS($settings);
+		$paths = GeneralUtility::removeDotsFromTS($paths);
+		$paths = PathUtility::translatePath($paths);
+		$this->templatePaths = $paths;
+		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaultTemplate']);
+	}
 
 	/**'
 	 * @param array $row
@@ -77,7 +196,10 @@ class ContentProvider extends \FluidTYPO3\Flux\Provider\ContentProvider implemen
 		}
 		$contentObjectType = $row['CType'];
 		$trigger = in_array($contentObjectType, $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types']);
-		return $trigger;
+		if (TRUE === $trigger) {
+			return $trigger;
+		}
+		return (FALSE === empty($row['list_type']) && TRUE === isset($row[$this->fieldName]));
 	}
 
 	/**
@@ -92,5 +214,15 @@ class ContentProvider extends \FluidTYPO3\Flux\Provider\ContentProvider implemen
 		return parent::getTemplatePathAndFilename($row);
 	}
 
+	/**
+	 * @param array $row
+	 * @return array
+	 */
+	public function getPreview(array $row) {
+		$preview = parent::getPreview($row);
+		$preview[2] = FALSE;
+		return $preview;
+	}
 
 }
+

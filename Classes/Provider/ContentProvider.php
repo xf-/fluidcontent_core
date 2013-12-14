@@ -199,7 +199,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		if (TRUE === $trigger) {
 			return $trigger;
 		}
-		return (FALSE === empty($row['list_type']) && TRUE === isset($row[$this->fieldName]));
+		return (FALSE === empty($row['list_type']) && TRUE === isset($row[$this->fieldName]) && $field === $this->fieldName);
 	}
 
 	/**

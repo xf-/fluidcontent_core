@@ -81,6 +81,24 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	protected static $versions = array();
 
 	/**
+	 * Note: This Provider will -always- trigger on any tt_content record
+	 * but has the lowest possible (0) priority, ensuring that any
+	 * Provider which wants to take over, can do so.
+	 *
+	 * @param array $row
+	 * @param string $table
+	 * @param string $field
+	 * @param string $extensionKey
+	 * @return boolean
+	 */
+	public function trigger(array $row, $table, $field, $extensionKey = NULL) {
+		if ($table !== $this->tableName) {
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	/**
 	 * @param array $row
 	 * @return Form
 	 */
@@ -151,24 +169,6 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		return $templatePathAndFilename;
 	}
 
-	protected function hasVariants(array $row) {
-		$contentType = $row['CType'];
-		return FALSE;
-	}
-
-	protected function createVariantsField(array $row) {
-
-	}
-
-	protected function hasVersions(array $row) {
-		$contentType = $row['CType'];
-		return FALSE;
-	}
-
-	protected function createVersionsField(array $row) {
-
-	}
-
 	/**
 	 * @return void
 	 */
@@ -183,25 +183,6 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaultTemplate']);
 	}
 
-	/**'
-	 * @param array $row
-	 * @param string $table
-	 * @param string $field
-	 * @param string $extensionKey
-	 * @return boolean
-	 */
-	public function trigger(array $row, $table, $field, $extensionKey = NULL) {
-		if ($table !== $this->tableName) {
-			return FALSE;
-		}
-		$contentObjectType = $row['CType'];
-		$trigger = in_array($contentObjectType, $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types']);
-		if (TRUE === $trigger) {
-			return $trigger;
-		}
-		return (FALSE === empty($row['list_type']) && TRUE === isset($row[$this->fieldName]) && $field === $this->fieldName);
-	}
-
 	/**
 	 * @param array $row
 	 * @return string
@@ -212,16 +193,6 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 			return $paths['templateRootPath'] . '/Content/' . ucfirst($row['CType']) . '.html';
 		}
 		return parent::getTemplatePathAndFilename($row);
-	}
-
-	/**
-	 * @param array $row
-	 * @return array
-	 */
-	public function getPreview(array $row) {
-		$preview = parent::getPreview($row);
-		$preview[2] = FALSE;
-		return $preview;
 	}
 
 }

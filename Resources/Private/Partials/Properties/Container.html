@@ -1,5 +1,25 @@
 {namespace flux=FluidTYPO3\Flux\ViewHelpers}
+{namespace v=Tx_Vhs_ViewHelpers}
 
 <flux:form.sheet name="container" label="LLL:sheets.container">
-	<flux:field.select name="settings.container.className" size="3" minItems="0" maxItems="100" items="{settings.container.classNames}" label="LLL:fields.classNames" />
+	<flux:field.select name="settings.container.tagName" items="{settings.container.tagNames}" label="LLL:fields.tagName" requestUpdate="TRUE" />
+	<f:if condition="{settings.container.tagName} != {settings.constants.none}">
+		<flux:field.input name="settings.container.titleAttribute" label="LLL:fields.titleAttribute" />
+		<flux:field.checkbox name="settings.container.addAnchor" label="LLL:fields.addAnchor" requestUpdate="TRUE" />
+		<f:if condition="{settings.container.addAnchor}">
+			<flux:field.custom name="void">
+				<f:translate key="anchorLink" />:
+				<h4>{parameters.row.header -> v:or(alternative: settings.container.titleAttribute) -> v:or(alternative: 'content {parameters.row.uid}') -> v:format.url.sanitizeString()}</h4>
+				<em>
+					{f:translate(key: 'value') -> v:format.case(case: 'ucfirst')}
+					<f:translate key="from" />
+					<strong>{f:translate(key: 'LLL:EXT:cms/locallang_ttc.xlf:header') -> v:format.substring(length: '-1')}</strong>
+					<f:translate key="or" />
+					<strong><f:translate key="fields.titleAttribute" /></strong>
+					<f:translate key="or" /> <f:translate key="value" /> <strong>content-$UID</strong>
+				</em>
+			</flux:field.custom>
+		</f:if>
+	</f:if>
+	<flux:field.select name="settings.container.className" renderMode="checkbox" minItems="0" maxItems="100" items="{settings.container.classNames}" label="LLL:fields.classNames" />
 </flux:form.sheet>

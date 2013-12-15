@@ -60,9 +60,6 @@ class ProviderField {
 	 */
 	public function createVariantsField(array $parameters) {
 		$extensionKeys = $this->provider->getVariantExtensionKeysForContentType($parameters['row']['CType']);
-		if (0 === count($extensionKeys)) {
-			return $this->getNoneFoundLabel();
-		}
 		return $this->renderSelectField($parameters, array_combine($extensionKeys, $extensionKeys), $parameters['row']['content_variant']);
 	}
 
@@ -76,7 +73,7 @@ class ProviderField {
 		$hasSelectedValue = TRUE === empty($selectedValue) || TRUE === in_array($selectedValue, $options);
 		$selected = TRUE === empty($selectedValue) ? ' selected="selected"' : NULL;
 		$html = array(
-			'<select size="3" class="select" name="' . $parameters['itemFormElName'] . '" onchange="' . $parameters['fieldChangeFunc']['TBE_EDITOR_fieldChanged'] . ';' . $parameters['fieldChangeFunc']['alert'] . '">',
+			'<select class="select" name="' . $parameters['itemFormElName'] . '" onchange="' . $parameters['fieldChangeFunc']['TBE_EDITOR_fieldChanged'] . ';' . $parameters['fieldChangeFunc']['alert'] . '">',
 			'<option' . $selected . ' value="">' . LocalizationUtility::translate('tt_content.nativeLabel', 'FluidcontentCore') . '</option>'
 		);
 		foreach ($options as $value => $label) {

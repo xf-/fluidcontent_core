@@ -1,6 +1,6 @@
 {namespace v=Tx_Vhs_ViewHelpers}
-{f:if(condition: settings.header.type, then: settings.header.type, else: 'auto') -> v:var.set(name: 'level')}
-{f:if(condition: '{level} == {settings.constants.auto}', then: settings.header.autoType) -> v:var.set(name: 'level')}
-<h{level}{f:if(condition: '{settings.header.className} != {settings.constants.none}', then: ' class="{settings.header.className}"')}>
-	{record.header}
-</h{level}>
+{namespace fcc=FluidTYPO3\FluidcontentCore\ViewHelpers}
+<fcc:tag name="h{f:if(condition: content.settings.header.type, then: content.settings.header.type, else: record.header_layout)}"
+         class="{content.settings.header.className}">
+	{record.header -> f:format.htmlentities()}
+</fcc:tag>

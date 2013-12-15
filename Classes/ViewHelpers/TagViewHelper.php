@@ -43,6 +43,7 @@ class TagViewHelper extends AbstractTagBasedViewHelper {
 	 */
 	public function initializeArguments() {
 		parent::initializeArguments();
+		$this->registerUniversalTagAttributes();
 		$this->registerArgument('name', 'string', 'Tag name', TRUE);
 	}
 
@@ -50,11 +51,17 @@ class TagViewHelper extends AbstractTagBasedViewHelper {
 	 * @return string
 	 */
 	public function render() {
+		$content = $this->renderChildren();
+		if ('none' === $this->arguments['name']) {
+			return $content;
+		}
 		$this->tag->reset();
 		$this->tag->setTagName($this->arguments['name']);
 		$this->applyAttributes($this->arguments['additionalAttributes']);
 		unset($this->arguments['name'], $this->arguments['additionalAttributes']);
 		$this->applyAttributes($this->arguments);
+		$this->tag->setContent($content);
+		return $this->tag->render();
 	}
 
 	/**
@@ -63,7 +70,7 @@ class TagViewHelper extends AbstractTagBasedViewHelper {
 	 */
 	protected function applyAttributes($attributes) {
 		foreach ($attributes as $attributeName => $attributeValue) {
-			if (FALSE === empty($attributeValue) || 0 === $attributeValue || '0' === $attributeValue) {
+			if ('none' !== $attributeValue && (FALSE === empty($attributeValue) || 0 === $attributeValue || '0' === $attributeValue)) {
 				$this->tag->addAttribute($attributeName, $attributeValue);
 			}
 		}

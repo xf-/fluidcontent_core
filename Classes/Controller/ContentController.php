@@ -25,6 +25,7 @@ namespace FluidTYPO3\FluidcontentCore\Controller;
  *****************************************************************/
 
 use FluidTYPO3\Flux\Controller\AbstractFluxController;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
@@ -33,7 +34,7 @@ class ContentController extends AbstractFluxController {
 	/**
 	 * @var string
 	 */
-	protected $fluxRecordField = 'pi_flexform';
+	protected $fluxRecordField = 'content_options';
 
 	/**
 	 * @var string
@@ -45,6 +46,16 @@ class ContentController extends AbstractFluxController {
 	 */
 	protected function initializeProvider() {
 		$this->provider = $this->objectManager->get('FluidTYPO3\FluidcontentCore\Provider\ContentProvider');
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function initializeViewVariables() {
+		$row = $this->getRecord();
+		$flexFormData = $this->configurationService->convertFlexFormContentToArray($row['pi_flexform']);
+		$this->settings = GeneralUtility::array_merge_recursive_overrule($this->settings, $flexFormData, FALSE, FALSE);
+		parent::initializeViewVariables();
 	}
 
 	/**

@@ -13,6 +13,21 @@ TypoScript to manipulate rendering, each content element type is assigned one Fl
 Sure, buddy. Go ahead and try it out! At the time of writing this, though, most of the content templates are "Hello world".
 That'll change though - a sane, very basic set of default templates is intended.
 
+## How do I install it?
+
+1. Download the extension and install it.
+2. Copy, or integrate into your own, the AdditionalConfiguration.php file from `EXT:fluidcontent_core/Build/AdditionalConfiguraion.php`
+   into `typo3conf/AdditionalConfiguration.php`
+
+The second step although more manual than is desirable, is necessary in order to ensure that every plugin and content type that
+is added, will add their rendering instructions on top of the TypoScript `fluidcontent_core` will load, regardless of that
+TypoScript being loaded before or after `fluidcontent_core` itself. It's not magic - but it slightly esoteric (mostly because it
+exploits one of the oldest features in TYPO3; so-called "content rendering templates" which will be loaded before all other
+TypoScript).
+
+There is no static TypoScript to load; this happens automatically. Simply install, use `AdditionalConfiguration.php` and your
+TYPO3 site will begin using the Fluid templates. Read more in this README file about how to create your own templates.
+
 ## Why use it?
 
 It does not get any more flexible than this when it comes to custom styled TYPO3 CMS sites. You can replace any number of built-in
@@ -24,6 +39,13 @@ use to control rendering.
 You can even throw any number of these built-in content element types into a Flux Provider extension and add (static) TypoScript
 setup to make this extension use your template paths first, with fallback to the included templates. Note, though, that you
 should not mix these core content element templates with your own custom elements for `EXT:fluidcontent`.
+
+## Is it faster than `css_styled_content`?
+
+Quite a bit, yes. Initial measurements gave a 400% increase in speed for cached pages simply due to the fact that there is around
+10% of the TypoScript to load (mind you, TypoScript actually gets loaded on cached pages, too, and often account for more than
+50% of the total frontend loading times of cached pages). So yes, it is quite a lot faster on cached pages. But it can be slightly
+slower when generating the cached content and if you intentionally disable caching. You win some, you lose some.
 
 ## Examples
 

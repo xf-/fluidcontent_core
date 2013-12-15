@@ -3,9 +3,11 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'] = array(
-	'fluidcontentcore/Configuration/TypoScript/',
-);
+if (FALSE === isset($GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'])) {
+	$GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'] = array(
+		'fluidcontentcore/Configuration/TypoScript/',
+	);
+}
 
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'] = array(
 	'header', 'text', 'image', 'textpic', 'bullets', 'uploads', 'table', 'media', 'mailform', 'search', 'menu', 'shortcut', 'div', 'html', 'default'

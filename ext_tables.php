@@ -25,10 +25,8 @@ $GLOBALS['TCA']['tt_content']['columns']['content_version'] = array(
 	)
 );
 
-\FluidTYPO3\Flux\Core::addGlobalTypoScript('EXT:fluidcontent_core/Configuration/TypoScript');
 \FluidTYPO3\Flux\Core::registerConfigurationProvider('FluidTYPO3\FluidcontentCore\Provider\ContentProvider');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette('tt_content', 'general', 'content_variant, content_version', 'after:CType');
-#\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Fluid Styled Content');
 
 $GLOBALS['TCA']['tt_content']['palettes']['frames']['showitem'] = 'content_options';
 $GLOBALS['TCA']['tt_content']['palettes']['header']['showitem'] = 'header';

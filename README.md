@@ -50,7 +50,7 @@ slower when generating the cached content and if you intentionally disable cachi
 ## Examples
 
 Built-in template files are under `Resources/Private/Templates/Content` - they all share one Layout file and use one Partial
-template to render a shared header (equivalent of `lib.stdHeader` in `EXT:css_styled_content`). The individual plugins get
+template to render a shared header (equivalent of `lib.stdheader` in `EXT:css_styled_content`). The individual plugins get
 configured in `ext_localconf.php` (one plugin per content type, matching each possible `CType` value) and a tiny little bit of
 TypoScript is used to build a very basic `tt_content.*` array which is required in order to render anything. This, along with the
 template path definitions you already know - and any custom settings you choose to add and thereby make available in templates -

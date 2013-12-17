@@ -209,3 +209,7 @@ with Flux form sheets etc.
 2. Implement any shared fields every content element should use
 3. Introduce an asset configuration integration (possibly leveraging LESS/SASS to grab Flux Form values to use in compiled CSS)
 4. Try to take over the world. Same as every other night, Pinky.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/FluidTYPO3/fluidcontent_core/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

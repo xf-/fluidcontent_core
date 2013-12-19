@@ -145,7 +145,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 			self::$versions[$contentType] = array();
 		}
 		$paths = $this->configurationService->getViewConfigurationForExtensionName($variant);
-		$versionsDirectory = rtrim($paths['templateRootPath'], '/') . '/Content/' . ucfirst($contentType) . '/';
+		$versionsDirectory = rtrim($paths['templateRootPath'], '/') . '/CoreContent/' . ucfirst($contentType) . '/';
 		if (FALSE === is_dir($versionsDirectory)) {
 			self::$versions[$contentType][$variant] = array();
 		} else {
@@ -165,7 +165,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 */
 	protected function getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $contentType) {
 		$paths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
-		$templatePathAndFilename = rtrim($paths['templateRootPath'], '/') . '/Content/' . ucfirst($contentType) . '.html';
+		$templatePathAndFilename = rtrim($paths['templateRootPath'], '/') . '/CoreContent/' . ucfirst($contentType) . '.html';
 		return $templatePathAndFilename;
 	}
 
@@ -190,7 +190,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	public function getTemplatePathAndFilename(array $row) {
 		if (TRUE === $this->trigger($row, $this->tableName, $this->fieldName)) {
 			$paths = $this->getTemplatePaths($row);
-			return $paths['templateRootPath'] . '/Content/' . ucfirst($row['CType']) . '.html';
+			return $paths['templateRootPath'] . '/CoreContent/' . ucfirst($row['CType']) . '.html';
 		}
 		return parent::getTemplatePathAndFilename($row);
 	}

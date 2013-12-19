@@ -29,7 +29,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
-class ContentController extends AbstractFluxController {
+class CoreContentController extends AbstractFluxController {
 
 	/**
 	 * @var string

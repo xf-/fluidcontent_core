@@ -107,7 +107,9 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		if (NULL == $form) {
 			$form = $this->configurationService->getFormFromTemplateFile($this->templatePathAndFilename, 'Configuration', 'form', $this->templatePaths, $this->extensionKey, $this->templateVariables);
 		}
-		$form->setLocalLanguageFileRelativePath('Resources/Private/Language/locallang.xlf');
+		if (NULL !== $form) {
+			$form->setLocalLanguageFileRelativePath('Resources/Private/Language/locallang.xlf');
+		}
 		return $form;
 	}
 

@@ -71,3 +71,34 @@ tt_content.list {
 }
 tt_content.default < plugin.tx_fluidcontentcore.bootstrap
 tt_content.default.pluginName = Default
+
+lib.parseTarget {
+	override =
+}
+
+lib.parseFunc {
+	makelinks = 1
+	makelinks.mailto.keep = path
+	tags {
+		link = TEXT
+		link {
+			current = 1
+			typolink.parameter.data = parameters : allParams
+		}
+	}
+	nonTypoTagStdWrap.HTMLparser = 1
+	nonTypoTagStdWrap.HTMLparser {
+		keepNonMatchedTags = 1
+	}
+}
+
+lib.parseFunc_RTE < lib.parseFunc
+lib.parseFunc_RTE {
+	//  makelinks >
+	# Processing <table> and <blockquote> blocks separately
+	externalBlocks = article,aside,blockquote,div,dd,dl,footer,header,nav,ol,section,table,ul
+	nonTypoTagStdWrap.encapsLines {
+		encapsTagList = p,pre,h1,h2,h3,h4,h5,h6,hr,dt : externalBlocks
+		nonWrappedTag = P
+	}
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" product-name="fluidcontent_core" date="2013-12-26T17:10:02+01:00">
+  <file source-language="en" datatype="plaintext" original="messages" product-name="fluidcontent_core" date="2013-12-26T17:38:49+01:00">
     <header/>
     <body>
       <trans-unit id="from">
@@ -68,6 +68,9 @@
       </trans-unit>
       <trans-unit id="flux.bullets.fields.settings.start" xml:space="preserve">
         <source>Starting list number</source>
+      </trans-unit>
+      <trans-unit id="flux.div.div" xml:space="preserve">
+        <source>Divider</source>
       </trans-unit>
     </body>
   </file>

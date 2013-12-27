@@ -1,0 +1,20 @@
+{namespace flux=FluidTYPO3\Flux\ViewHelpers}
+
+<flux:form.sheet name="image">
+	<flux:field.select name="settings.scaleMode" items="{n: '', c: 'c', m: 'm'}" default="c" />
+	<flux:field.checkbox name="settings.extendedCaptions" />
+	<flux:field.select name="settings.caption.tagName" items="{settings.caption.types}" label="LLL:fields.tagName" requestUpdate="TRUE" />
+</flux:form.sheet>
+<f:if condition="{settings.extendedCaptions}">
+	<flux:grid>
+		<v:resource.record.fal record="{record}" field="image" table="tt_content" as="images">
+			<f:for each="{images}" as="image" iteration="iteration">
+				<flux:grid.row>
+					<flux:grid.column>
+						<flux:form.content name="content{image.checksum}" label="Caption, {image.name}" />
+					</flux:grid.column>
+				</flux:grid.row>
+			</f:for>
+		</v:resource.record.fal>
+	</flux:grid>
+</f:if>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" product-name="fluidcontent_core" date="2013-12-26T17:38:49+01:00">
+  <file source-language="en" datatype="plaintext" original="messages" product-name="fluidcontent_core" date="2013-12-27T01:39:02+01:00">
     <header/>
     <body>
       <trans-unit id="from">
@@ -71,6 +71,18 @@
       </trans-unit>
       <trans-unit id="flux.div.div" xml:space="preserve">
         <source>Divider</source>
+      </trans-unit>
+      <trans-unit id="flux.image.image" xml:space="preserve">
+        <source>Images</source>
+      </trans-unit>
+      <trans-unit id="flux.image.sheets.image" xml:space="preserve">
+        <source>Images</source>
+      </trans-unit>
+      <trans-unit id="flux.image.fields.settings.scaleMode" xml:space="preserve">
+        <source>Scaling mode (c)rop, (m)aximum or normal (applies stretching if both width and height are given)</source>
+      </trans-unit>
+      <trans-unit id="flux.image.fields.settings.extendedCaptions" xml:space="preserve">
+        <source>Create content containers for image captions</source>
       </trans-unit>
     </body>
   </file>

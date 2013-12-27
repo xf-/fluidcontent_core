@@ -1,17 +1,34 @@
 {namespace flux=FluidTYPO3\Flux\ViewHelpers}
+{namespace fcc=FluidTYPO3\FluidcontentCore\ViewHelpers}
+{namespace v=Tx_Vhs_ViewHelpers}
 <f:layout name="Default" />
 
 <f:section name="Configuration">
-	<flux:flexform id="fluidfluxcontent" label="Fluid/FluxContent" icon="Icons/Page.gif">
-		<!-- Insert fields, sheets, grid, form section objects etc. here, in this flux:flexform tag -->
-	</flux:flexform>
+	<flux:form id="image">
+		<f:render partial="Properties/Header" arguments="{_all}" />
+		<f:render partial="Properties/Container" arguments="{_all}" />
+		<f:render partial="Properties/Images" arguments="{_all}" />
+	</flux:form>
 </f:section>
 
 <f:section name="Preview">
-	<!-- uncomment this to use a grid for nested content elements -->
-	<!-- <flux:widget.grid /> -->
+	<v:resource.record.fal record="{record}" field="image" table="tt_content" as="images">
+		<f:for each="{images}" as="image" iteration="iteration">
+			<v:media.image src="{image.url}" treatIdAsReference="TRUE" alt="{image.id}" height="50" />
+		</f:for>
+	</v:resource.record.fal>
+	<flux:widget.grid />
 </f:section>
 
 <f:section name="Main">
-	Hello world!
+	<v:resource.record.fal record="{record}" field="image" table="tt_content" as="images">
+		<f:for each="{images}" as="image" iteration="iteration">
+			<fcc:tag name="{settings.caption.tagName}">
+				<f:image src="{image.url}" treatIdAsReference="TRUE" alt="{image.id}"
+				         width="{record.imagewidth -> v:or(alternative: '-1')}{f:if(condition: record.imagewidth, then: settings.scaleMode)}"
+				         height="{record.imageheight -> v:or(alternative: '-1')}{f:if(condition: record.imageheight, then: settings.scaleMode)}" />
+				<flux:content.render area="content{image.checksum}" />
+			</fcc:tag>
+		</f:for>
+	</v:resource.record.fal>
 </f:section>

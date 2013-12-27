@@ -1,6 +1,6 @@
 {namespace flux=FluidTYPO3\Flux\ViewHelpers}
 
-<flux:form.sheet name="image">
+<flux:form.sheet name="image" label="LLL:sheets.image">
 	<flux:field.select name="settings.scaleMode" items="{n: '', c: 'c', m: 'm'}" default="c" />
 	<flux:field.checkbox name="settings.extendedCaptions" />
 	<flux:field.select name="settings.caption.tagName" items="{settings.caption.types}" label="LLL:fields.tagName" requestUpdate="TRUE" />

@@ -32,3 +32,21 @@ $GLOBALS['TCA']['tt_content']['palettes']['frames']['showitem'] = 'content_optio
 $GLOBALS['TCA']['tt_content']['palettes']['header']['showitem'] = 'header';
 $GLOBALS['TCA']['tt_content']['columns']['header']['label'] = NULL;
 $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] .= ',content_variant,content_version';
+
+unset(
+	$GLOBALS['TCA']['tt_content']['types']['swfobject'],
+	$GLOBALS['TCA']['tt_content']['types']['qtobject'],
+	$GLOBALS['TCA']['tt_content']['types']['multimedia'],
+	$GLOBALS['TCA']['tt_content']['types']['mailform'],
+	$GLOBALS['TCA']['tt_content']['types']['search'],
+	$GLOBALS['TCA']['tt_content']['columns']['text_properties'],
+	$GLOBALS['TCA']['tt_content']['columns']['text_align'],
+	$GLOBALS['TCA']['tt_content']['columns']['text_color'],
+	$GLOBALS['TCA']['tt_content']['columns']['text_face'],
+	$GLOBALS['TCA']['tt_content']['columns']['text_size'],
+	$GLOBALS['TCA']['tt_content']['columns']['image_compression'],
+	$GLOBALS['TCA']['tt_content']['columns']['image_effects'],
+	$GLOBALS['TCA']['tt_content']['columns']['image_frames'],
+	$GLOBALS['TCA']['tt_content']['columns']['imageborder'],
+	$GLOBALS['TCA']['tt_content']['palettes']['imageblock']
+);

@@ -45,6 +45,9 @@ class WizardItemsHookSubscriber implements NewContentElementWizardHookInterface 
 		$definitions = array_slice($GLOBALS['TCA']['tt_content']['columns']['list_type']['config']['items'], 1);
 		$plugins = $items['plugins'];
 		unset($items['forms'], $items['forms_mailform'], $items['forms_search'], $items['plugins_general'], $items['plugins']);
+		if (0 === count($definitions)) {
+			return;
+		}
 		$items['plugins'] = $plugins;
 		foreach ($definitions as $definition) {
 			list ($title, $name, $icon) = $definition;

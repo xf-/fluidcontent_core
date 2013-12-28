@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" product-name="fluidcontent_core" date="2013-12-27T23:08:09+01:00">
+  <file source-language="en" datatype="plaintext" original="messages" product-name="fluidcontent_core" date="2013-12-28T02:13:54+01:00">
     <header/>
     <body>
       <trans-unit id="from">
@@ -57,16 +57,16 @@
       <trans-unit id="list.ul">
         <source>Unordered list</source>
       </trans-unit>
-      <trans-unit id="flux.form.text" xml:space="preserve">
+      <trans-unit id="flux.text" xml:space="preserve">
         <source>Text element</source>
       </trans-unit>
-      <trans-unit id="flux.form.bullets" xml:space="preserve">
+      <trans-unit id="flux.bullets" xml:space="preserve">
         <source>Bullet list</source>
       </trans-unit>
-      <trans-unit id="flux.form.div" xml:space="preserve">
+      <trans-unit id="flux.div" xml:space="preserve">
         <source>Divider</source>
       </trans-unit>
-      <trans-unit id="flux.form.image" xml:space="preserve">
+      <trans-unit id="flux.image" xml:space="preserve">
         <source>Images</source>
       </trans-unit>
       <trans-unit id="flux.bullets.sheets.bullets" xml:space="preserve">
@@ -84,11 +84,8 @@
       <trans-unit id="flux.image.fields.settings.extendedCaptions" xml:space="preserve">
         <source>Create content containers for image captions</source>
       </trans-unit>
-      <trans-unit id="flux.div" xml:space="preserve">
-        <source>flux.div</source>
-      </trans-unit>
-      <trans-unit id="flux.image" xml:space="preserve">
-        <source>flux.image</source>
+      <trans-unit id="flux.image.fields.settings.directInclusion" xml:space="preserve">
+        <source>Include image directly, only assign "src", "alt" and CSS class names (nice for responsive images)</source>
       </trans-unit>
     </body>
   </file>

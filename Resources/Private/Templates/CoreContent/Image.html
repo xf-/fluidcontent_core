@@ -37,9 +37,7 @@
 	<v:resource.record.fal record="{record}" field="image" table="tt_content" as="images">
 		<f:for each="{images}" as="image" iteration="iteration">
 			<fcc:tag name="{settings.caption.tagName}">
-				<f:image src="{image.url}" treatIdAsReference="TRUE" alt="{image.id}"
-				         width="{record.imagewidth -> v:or(alternative: '-1')}{f:if(condition: record.imagewidth, then: settings.scaleMode)}"
-				         height="{record.imageheight -> v:or(alternative: '-1')}{f:if(condition: record.imageheight, then: settings.scaleMode)}" />
+				<f:render partial="Image" arguments="{_all}" />
 				<flux:content.render area="content{image.checksum}" />
 			</fcc:tag>
 		</f:for>

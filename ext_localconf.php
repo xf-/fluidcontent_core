@@ -32,3 +32,5 @@ for ($i = 0; $i < count($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore
 		array('CoreContent' => $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'][$i]),
 		array());
 }
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms']['db_new_content_el']['wizardItemsHook']['fluidcontent_core'] = 'FluidTYPO3\FluidcontentCore\Hooks\WizardItemsHookSubscriber';

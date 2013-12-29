@@ -39,6 +39,7 @@ unset(
 	$GLOBALS['TCA']['tt_content']['types']['multimedia'],
 	$GLOBALS['TCA']['tt_content']['types']['mailform'],
 	$GLOBALS['TCA']['tt_content']['types']['search'],
+	$GLOBALS['TCA']['tt_content']['types']['textpic'],
 	$GLOBALS['TCA']['tt_content']['columns']['text_properties'],
 	$GLOBALS['TCA']['tt_content']['columns']['text_align'],
 	$GLOBALS['TCA']['tt_content']['columns']['text_color'],

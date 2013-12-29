@@ -92,10 +92,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 * @return boolean
 	 */
 	public function trigger(array $row, $table, $field, $extensionKey = NULL) {
-		if ($table !== $this->tableName) {
-			return FALSE;
-		}
-		return TRUE;
+		return ($table === $this->tableName && TRUE === in_array($row['CType'], $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types']));
 	}
 
 	/**
@@ -192,11 +189,8 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 * @return string
 	 */
 	public function getTemplatePathAndFilename(array $row) {
-		if (TRUE === $this->trigger($row, $this->tableName, $this->fieldName)) {
-			$paths = $this->getTemplatePaths($row);
-			return $paths['templateRootPath'] . '/CoreContent/' . ucfirst($row['CType']) . '.html';
-		}
-		return parent::getTemplatePathAndFilename($row);
+		$extensionKey = $this->getExtensionKey($row);
+		return $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $row['CType']);
 	}
 
 }

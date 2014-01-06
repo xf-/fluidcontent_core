@@ -92,7 +92,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 * @return boolean
 	 */
 	public function trigger(array $row, $table, $field, $extensionKey = NULL) {
-		return ($table === $this->tableName && TRUE === in_array($row['CType'], $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types']));
+		return ($table === $this->tableName && $field === $this->fieldName);
 	}
 
 	/**
@@ -103,9 +103,6 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		$form = parent::getForm($row);
 		$variables = $this->templateVariables;
 		$variables['record'] = $row;
-		if (NULL == $form) {
-			$form = $this->configurationService->getFormFromTemplateFile($this->templatePathAndFilename, 'Configuration', 'form', $this->templatePaths, $this->extensionKey, $variables);
-		}
 		if (NULL !== $form) {
 			$form->setLocalLanguageFileRelativePath('Resources/Private/Language/locallang.xlf');
 		}
@@ -190,7 +187,11 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 */
 	public function getTemplatePathAndFilename(array $row) {
 		$extensionKey = $this->getExtensionKey($row);
-		return $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $row['CType']);
+		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $row['CType']);
+		if (TRUE === file_exists($template)) {
+			return $template;
+		}
+		return $this->templatePathAndFilename;
 	}
 
 }

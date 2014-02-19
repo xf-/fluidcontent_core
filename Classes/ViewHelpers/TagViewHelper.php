@@ -70,6 +70,9 @@ class TagViewHelper extends AbstractTagBasedViewHelper {
 	 * @return void
 	 */
 	protected function applyAttributes($attributes) {
+		if (NULL === $attributes) {
+			return;
+		}
 		foreach ($attributes as $attributeName => $attributeValue) {
 			if ('none' !== $attributeValue && (FALSE === empty($attributeValue) || 0 === $attributeValue || '0' === $attributeValue)) {
 				$this->tag->addAttribute($attributeName, $attributeValue);

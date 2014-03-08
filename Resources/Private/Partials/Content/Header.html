@@ -2,5 +2,5 @@
 {namespace fcc=FluidTYPO3\FluidcontentCore\ViewHelpers}
 <fcc:tag name="h{f:if(condition: content.settings.header.type, then: content.settings.header.type, else: record.header_layout)}"
          class="{content.settings.header.className}">
-	{record.header -> f:format.htmlentities()}
+	{record.header -> f:format.raw()}
 </fcc:tag>

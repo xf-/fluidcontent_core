@@ -56,6 +56,10 @@ class TagViewHelper extends AbstractTagBasedViewHelper {
 			// skip building a tag if special keyword "none" is used, or tag name is empty
 			return $content;
 		}
+		// process a few key variables to support values coming from TCEforms storage:
+		if (FALSE === empty($this->arguments['class'])) {
+			$this->arguments['class'] = str_replace(',', ' ', $this->arguments['class']);
+		}
 		$this->tag->reset();
 		$this->tag->setTagName($this->arguments['name']);
 		$this->applyAttributes($this->arguments['additionalAttributes']);

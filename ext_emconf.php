@@ -27,7 +27,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'modify_tables' => 'tt_content',
 	'clearcacheonload' => 1,
 	'lockType' => '',
-	'author' => 'Claus Due',
+	'author' => 'FluidTYPO3 Team',
 	'author_email' => 'claus@namelesscoder.net',
 	'author_company' => '',
 	'CGLcompliance' => '',
@@ -36,7 +36,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'depends' => array(
 			'typo3' => '6.1.0-6.2.99',
 			'cms' => '',
-			'flux' => '',
+			'flux' => '7.0.0-7.0.99',
 		),
 		'conflicts' => array(
 			'css_styled_content' => ''

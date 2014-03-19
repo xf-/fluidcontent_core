@@ -29,6 +29,7 @@ use TYPO3\CMS\Backend\Wizard\NewContentElementWizardHookInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * WizardItems Hook Subscriber
@@ -51,11 +52,17 @@ class WizardItemsHookSubscriber implements NewContentElementWizardHookInterface 
 		$items['plugins'] = $plugins;
 		foreach ($definitions as $definition) {
 			list ($title, $name, $icon) = $definition;
+			list ($extensionNameCompacted, $listType) = explode('_', $name);
+			$descriptionLabelName = 'plugin.' . $listType . '.description';
+			$description = LocalizationUtility::translate($descriptionLabelName, $extensionNameCompacted);
+			if (TRUE === empty($description)) {
+				$description = LocalizationUtility::translate('newContentWizardDescriptionFallback', 'FluidcontentCore', array($descriptionLabelName, $extensionNameCompacted));
+			}
 			$index = 'plugins_' . $name;
 			$items[$index] =  array(
 				'title' => $title,
 				'icon' => '../' . substr(GeneralUtility::getFileAbsFileName($icon, FALSE, TRUE), strlen(PATH_site)),
-				'description' => '-',
+				'description' => $description,
 				'tt_content_defValues' => array(
 					'list_type' => $name,
 				),

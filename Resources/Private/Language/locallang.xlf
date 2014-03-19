@@ -3,9 +3,6 @@
 	<file source-language="en" datatype="plaintext" original="messages" product-name="fluidcontent_core" date="2014-01-04T16:56:53+01:00">
 		<header/>
 		<body>
-			<trans-unit id="newContentWizardDescriptionFallback">
-				<source>To have a description listed here, add the LLL label "%s" for extension "%s"</source>
-			</trans-unit>
 			<trans-unit id="from">
 				<source>from</source>
 			</trans-unit>

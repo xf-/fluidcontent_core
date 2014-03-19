@@ -55,19 +55,20 @@ class WizardItemsHookSubscriber implements NewContentElementWizardHookInterface 
 			list ($extensionNameCompacted, $listType) = explode('_', $name);
 			$descriptionLabelName = 'plugin.' . $listType . '.description';
 			$description = LocalizationUtility::translate($descriptionLabelName, $extensionNameCompacted);
-			if (TRUE === empty($description)) {
-				$description = LocalizationUtility::translate('newContentWizardDescriptionFallback', 'FluidcontentCore', array($descriptionLabelName, $extensionNameCompacted));
-			}
 			$index = 'plugins_' . $name;
 			$items[$index] =  array(
 				'title' => $title,
 				'icon' => '../' . substr(GeneralUtility::getFileAbsFileName($icon, FALSE, TRUE), strlen(PATH_site)),
-				'description' => $description,
 				'tt_content_defValues' => array(
 					'list_type' => $name,
 				),
 				'params' => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=' . $name,
 			);
+			if (TRUE === empty($description)) {
+				GeneralUtility::devLog('LLL label for plugin list type "%s" in extension "%s" was not found', $extensionNameCompacted, GeneralUtility::SYSLOG_SEVERITY_NOTICE);
+			} else {
+				$items[$index]['description'] = $description;
+			}
 		}
 	}
 

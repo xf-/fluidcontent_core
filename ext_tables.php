@@ -37,6 +37,7 @@ if ('BE' === TYPO3_MODE) {
 $GLOBALS['TCA']['tt_content']['palettes']['frames']['showitem'] = 'content_options';
 $GLOBALS['TCA']['tt_content']['palettes']['header']['showitem'] = 'header';
 $GLOBALS['TCA']['tt_content']['columns']['header']['label'] = NULL;
+$GLOBALS['TCA']['tt_content']['types']['header']['showitem'] = str_replace('--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.headers;headers,', '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header, ', $GLOBALS['TCA']['tt_content']['types']['header']['showitem']);
 $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] .= ',content_variant,content_version';
 
 unset(

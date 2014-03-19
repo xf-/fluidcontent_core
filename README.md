@@ -191,13 +191,10 @@ with Flux form sheets etc.
 * Header.html
 * Text.html
 * Image.html
-* Textpic.html
 * Bullets.html
 * Uploads.html
 * Table.html
 * Media.html
-* Mailform.html
-* Search.html
 * Menu.html
 * Shortcut.html
 * Div.html

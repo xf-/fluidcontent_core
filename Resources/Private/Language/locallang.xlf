@@ -39,6 +39,9 @@
 			<trans-unit id="fields.classNames">
 				<source>CSS class names</source>
 			</trans-unit>
+			<trans-unit id="fields.additionalClassNames">
+				<source>Optional, additional CSS class names</source>
+			</trans-unit>
 			<trans-unit id="fields.tagName">
 				<source>HTML element type</source>
 			</trans-unit>

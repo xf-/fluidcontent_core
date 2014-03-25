@@ -101,11 +101,61 @@ lib.parseFunc {
 
 lib.parseFunc_RTE < lib.parseFunc
 lib.parseFunc_RTE {
-	//  makelinks >
-	# Processing <table> and <blockquote> blocks separately
 	externalBlocks = article,aside,blockquote,div,dd,dl,footer,header,nav,ol,section,table,ul
+	externalBlocks {
+		# The blockquote content is passed into parseFunc again...
+		blockquote.stripNL=1
+		blockquote.callRecursive=1
+		blockquote.callRecursive.tagStdWrap.HTMLparser = 1
+
+		ol.stripNL=1
+		ol.stdWrap.parseFunc = < lib.parseFunc
+
+		ul.stripNL=1
+		ul.stdWrap.parseFunc = < lib.parseFunc
+
+		table.stripNL=1
+		table.stdWrap.HTMLparser = 1
+		table.stdWrap.HTMLparser.tags.table.fixAttrib.class {
+			default = contenttable
+			always = 1
+			list = contenttable
+		}
+		table.stdWrap.HTMLparser.keepNonMatchedTags = 1
+		table.HTMLtableCells=1
+		table.HTMLtableCells {
+			# Recursive call to self but without wrapping non-wrapped cell content
+			default.stdWrap {
+				parseFunc =< lib.parseFunc_RTE
+				parseFunc.nonTypoTagStdWrap.encapsLines.nonWrappedTag =
+			}
+			addChr10BetweenParagraphs=1
+		}
+		div.stripNL = 1
+		div.callRecursive = 1
+
+		article < .div
+		aside < .div
+		footer < .div
+		header < .div
+		nav < .div
+		section < .div
+
+		# Definition list processing
+		dl < .div
+		dd < .div
+	}
 	nonTypoTagStdWrap.encapsLines {
 		encapsTagList = p,pre,h1,h2,h3,h4,h5,h6,hr,dt : externalBlocks
+		remapTag.DIV = P
 		nonWrappedTag = P
+		innerStdWrap_all.ifBlank = &nbsp;
+		addAttributes.P.class = bodytext
+		addAttributes.P.class.setOnly=blank
+	}
+	nonTypoTagStdWrap.HTMLparser = 1
+	nonTypoTagStdWrap.HTMLparser {
+		keepNonMatchedTags = 1
+		htmlSpecialChars = 2
 	}
 }

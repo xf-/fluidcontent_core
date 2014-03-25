@@ -10,9 +10,9 @@
 </f:section>
 
 <f:section name="Preview">
-	<f:format.crop maxCharacters="100">{record.bodytext}</f:format.crop>
+	{record.bodytext -> f:format.crop(maxCharacters: 100)}
 </f:section>
 
 <f:section name="Main">
-	{record.bodytext -> f:format.raw()}
+	{record.bodytext -> f:format.html()}
 </f:section>

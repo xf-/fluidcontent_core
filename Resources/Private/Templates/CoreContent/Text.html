@@ -14,5 +14,5 @@
 </f:section>
 
 <f:section name="Main">
-	<f:format.html>{record.bodytext}</f:format.html>
+	{record.bodytext -> f:format.raw()}
 </f:section>

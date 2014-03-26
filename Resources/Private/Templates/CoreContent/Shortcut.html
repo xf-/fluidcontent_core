@@ -1,17 +1,16 @@
 {namespace flux=FluidTYPO3\Flux\ViewHelpers}
-<f:layout name="Default" />
+{namespace v=Tx_Vhs_ViewHelpers}
+<f:layout name="NoHeader" />
 
 <f:section name="Configuration">
-	<flux:form id="fluidfluxcontent" label="Fluid/FluxContent" icon="Icons/Page.gif">
-		<!-- Insert fields, sheets, grid, form section objects etc. here, in this flux:form tag -->
+	<flux:form id="shortcut">
+		<f:render partial="Properties/Container" arguments="{_all}" />
 	</flux:form>
 </f:section>
 
 <f:section name="Preview">
-	<!-- uncomment this to use a grid for nested content elements -->
-	<!-- <flux:widget.grid /> -->
 </f:section>
 
 <f:section name="Main">
-	Hello world!
+	<v:content.render contentUids="{record.records -> v:iterator.explode()}" />
 </f:section>

@@ -150,8 +150,6 @@ lib.parseFunc_RTE {
 		remapTag.DIV = P
 		nonWrappedTag = P
 		innerStdWrap_all.ifBlank = &nbsp;
-		addAttributes.P.class = bodytext
-		addAttributes.P.class.setOnly=blank
 	}
 	nonTypoTagStdWrap.HTMLparser = 1
 	nonTypoTagStdWrap.HTMLparser {

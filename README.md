@@ -17,7 +17,7 @@ That'll change though - a sane, very basic set of default templates is intended.
 
 1. Disable the extension "CSS styled content" (css_styled_content). **You can't use css_styled_content and fluidcontent_core at the same time!**
 2. Download the extension and install it.
-3. Copy, or integrate into your own, the AdditionalConfiguration.php file from `EXT:fluidcontent_core/Build/AdditionalConfiguraion.php`
+3. Copy, or integrate into your own, the AdditionalConfiguration.php file from `EXT:fluidcontent_core/Build/AdditionalConfiguration.php`
    into `typo3conf/AdditionalConfiguration.php`
 
 The third step although more manual than is desirable, is necessary in order to ensure that every plugin and content type that

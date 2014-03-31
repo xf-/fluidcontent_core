@@ -195,4 +195,3 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	}
 
 }
-

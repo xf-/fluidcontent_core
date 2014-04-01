@@ -1,18 +1,31 @@
 {namespace flux=FluidTYPO3\Flux\ViewHelpers}
+{namespace v=Tx_Vhs_ViewHelpers}
 
 <f:layout name="Default" />
 
 <f:section name="Configuration">
-	<flux:form id="fluidfluxcontent" label="Fluid/FluxContent" icon="Icons/Page.gif">
+	<flux:form id="uploads">
 		<!-- Insert fields, sheets, grid, form section objects etc. here, in this flux:form tag -->
 	</flux:form>
 </f:section>
 
 <f:section name="Preview">
-	<!-- uncomment this to use a grid for nested content elements -->
-	<!-- <flux:widget.grid /> -->
 </f:section>
 
 <f:section name="Main">
-	Hello world!
+	<v:content.resources.fal record="{record}" field="media" as="files">
+		{f:render(section: 'FileList', arguments: {files: files}) -> f:if(condition: files)}
+	</v:content.resources.fal>
+</f:section>
+
+<f:section name="FileList">
+	<ul>
+		<f:for each="{files}" as="fileRecord">
+			<li>
+				<a href="{fileRecord.url}">
+					{fileRecord.title -> v:or(alternative: fileRecord.name)}
+				</a>
+			</li>
+		</f:for>
+	</ul>
 </f:section>

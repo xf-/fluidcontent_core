@@ -4,6 +4,12 @@ if (!defined('TYPO3_MODE')) {
 }
 
 if (FALSE === isset($GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'])) {
+	\TYPO3\CMS\Core\Utility\GeneralUtility::sysLog('FluidcontentCore requires an additional configuration file in typo3conf/AdditionalConfiguration.php - '
+		. 'you can have FluidcontentCore generate this file for you from the extension manager by running the FluidcontentCore update script. A dummy '
+		. 'has been created, but you will only be able to render content (not plugins!) until the file is created',
+		'fluidcontent_core',
+		\TYPO3\CMS\Core\Utility\GeneralUtility::SYSLOG_SEVERITY_WARNING
+	);
 	$GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'] = array(
 		'fluidcontentcore/Configuration/TypoScript/',
 	);

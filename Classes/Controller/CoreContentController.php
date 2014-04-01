@@ -89,13 +89,6 @@ class CoreContentController extends AbstractFluxController {
 	/**
 	 * @return void
 	 */
-	public function textpicAction() {
-
-	}
-
-	/**
-	 * @return void
-	 */
 	public function bulletsAction() {
 
 	}
@@ -118,20 +111,6 @@ class CoreContentController extends AbstractFluxController {
 	 * @return void
 	 */
 	public function mediaAction() {
-
-	}
-
-	/**
-	 * @return void
-	 */
-	public function mailformAction() {
-
-	}
-
-	/**
-	 * @return void
-	 */
-	public function searchAction() {
 
 	}
 

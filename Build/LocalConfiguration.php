@@ -100,4 +100,3 @@ return array(
 				'setMemoryLimit' => 1024,
 		),
 );
-?>

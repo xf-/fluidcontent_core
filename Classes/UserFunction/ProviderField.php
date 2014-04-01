@@ -70,8 +70,8 @@ class ProviderField {
 	 * @return string
 	 */
 	protected function renderSelectField($parameters, $options, $selectedValue) {
-		$hasSelectedValue = TRUE === empty($selectedValue) || TRUE === in_array($selectedValue, $options);
-		$selected = TRUE === empty($selectedValue) ? ' selected="selected"' : NULL;
+		$hasSelectedValue = (TRUE === empty($selectedValue) || TRUE === in_array($selectedValue, $options));
+		$selected = (TRUE === empty($selectedValue) ? ' selected="selected"' : NULL);
 		$html = array(
 			'<select class="select" name="' . $parameters['itemFormElName'] . '" onchange="' . $parameters['fieldChangeFunc']['TBE_EDITOR_fieldChanged'] . ';' . $parameters['fieldChangeFunc']['alert'] . '">',
 			'<option' . $selected . ' value="">' . LocalizationUtility::translate('tt_content.nativeLabel', 'FluidcontentCore') . '</option>'

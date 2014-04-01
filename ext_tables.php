@@ -56,5 +56,10 @@ unset(
 	$GLOBALS['TCA']['tt_content']['columns']['image_effects'],
 	$GLOBALS['TCA']['tt_content']['columns']['image_frames'],
 	$GLOBALS['TCA']['tt_content']['columns']['imageborder'],
-	$GLOBALS['TCA']['tt_content']['palettes']['imageblock']
+	$GLOBALS['TCA']['tt_content']['palettes']['imageblock'],
+	$GLOBALS['TCA']['tt_content']['palettes']['table'],
+	$GLOBALS['TCA']['tt_content']['columns']['table_bgColor'],
+	$GLOBALS['TCA']['tt_content']['columns']['table_border'],
+	$GLOBALS['TCA']['tt_content']['columns']['table_cellspacing'],
+	$GLOBALS['TCA']['tt_content']['columns']['table_cellpadding']
 );

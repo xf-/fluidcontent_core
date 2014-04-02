@@ -19,6 +19,7 @@ That'll change though - a sane, very basic set of default templates is intended.
 2. Download the extension and install it.
 3. Copy, or integrate into your own, the AdditionalConfiguration.php file from `EXT:fluidcontent_core/Build/AdditionalConfiguration.php`
    into `typo3conf/AdditionalConfiguration.php`
+**4. If you are TYPO3 < 6.2 (means 6.1) you will have to add the static Typoscript template from EXT:fluidcontent_core to your root template**
 
 The third step although more manual than is desirable, is necessary in order to ensure that every plugin and content type that
 is added, will add their rendering instructions on top of the TypoScript `fluidcontent_core` will load, regardless of that
@@ -26,7 +27,7 @@ TypoScript being loaded before or after `fluidcontent_core` itself. It's not mag
 exploits one of the oldest features in TYPO3; so-called "content rendering templates" which will be loaded before all other
 TypoScript).
 
-There is no static TypoScript to load; this happens automatically. Simply install, use `AdditionalConfiguration.php` and your
+With TYPO3 6.2 there is no static TypoScript to load; this happens automatically. Simply install, use `AdditionalConfiguration.php` and your
 TYPO3 site will begin using the Fluid templates. Read more in this README file about how to create your own templates.
 
 ## Why use it?

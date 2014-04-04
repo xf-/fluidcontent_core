@@ -194,4 +194,12 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		return $this->templatePathAndFilename;
 	}
 
+	/**
+	 * @param array $row
+	 * @return string
+	 */
+	public function getControllerActionFromRecord(array $row) {
+		return ucfirst($row['CType']);
+	}
+
 }

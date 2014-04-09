@@ -65,7 +65,7 @@ The `Variant` concept simply means you can add any number of variations of each 
 ```php
 // ext_tables.php
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = 'myextensionkey';
-$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['textpic'][] = 'myextensionkey';
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['image'][] = 'myextensionkey';
 ```
 
 Then create the template files:
@@ -76,18 +76,18 @@ The text: {record.bodytext}
 ```
 
 ```xml
-<!-- EXT:myextensionkey/Resource/Private/Templates/Content/Textpic.html -->
-The text: {record.bodytext}
+<!-- EXT:myextensionkey/Resource/Private/Templates/Content/Image.html -->
+My custom images:
 <!-- some custom rendering of images -->
 ```
 
-This would make a total of two variants of the `text` and `textpic` `CType` content elements: The always-present, first option called "Standard" which means "no thanks, just the default type in whichever template path the site TS has configured, please", and your newly added variant - which will be identified by the extension key to which it belongs.
+This would make a total of two variants of the `text` and `image` `CType` content elements: The always-present, first option called "Standard" which means "no thanks, just the default type in whichever template path the site TS has configured, please", and your newly added variant - which will be identified by the extension key to which it belongs.
 
-Selecting a variant when editing either `text` or `textpic` elements from then on, will make FluidcontentCore render the variant template from your extension instead of the one that exists in the default template location configured in TypoScript.
+Selecting a variant when editing either `text` or `image` elements from then on, will make FluidcontentCore render the variant template from your extension instead of the one that exists in the default template location configured in TypoScript.
 
 > Note: changing the TypoScript that sets templateRootPath etc. for `myextensionkey` in this example, will make FluidcontentCore look in that other location for the template files belonging to your variant!
 
-You cannot choose custom template file names for your variants, nor a custom location - they must be in the `Content` template folder and must be named in UpperCamelCase according to the `CType` they cover: `Text.html`, `Textpic.html`, `Uploads.html` etc.
+You cannot choose custom template file names for your variants, nor a custom location - they must be in the `Content` template folder and must be named in UpperCamelCase according to the `CType` they cover: `Text.html`, `Image.html`, `Uploads.html` etc.
 
 > Note: the template files **must exist or your variant will be ignored!**
 

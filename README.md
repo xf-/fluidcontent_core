@@ -1,6 +1,8 @@
 Fluid Content: Core Elements
 ============================
 
+[![Build Status](https://travis-ci.org/FluidTYPO3/fluidcontent_core.svg?branch=development)](https://travis-ci.org/FluidTYPO3/fluidcontent_core)
+
 > A replacement for `EXT:css_styled_content` 100% powered by Fluid and Flux Forms.
 
 ## What does it do?

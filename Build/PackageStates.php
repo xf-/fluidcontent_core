@@ -447,6 +447,14 @@ return array (
 										'packagePath' => 'typo3/sysext/version/',
 										'classesPath' => 'Classes/',
 								),
+						'vhs' =>
+								array (
+										'manifestPath' => '',
+										'composerName' => 'typo3/cms/vhs',
+										'state' => 'active',
+										'packagePath' => 'typo3/sysext/vhs/',
+										'classesPath' => 'Classes/',
+								),
 						'viewpage' =>
 								array (
 										'manifestPath' => '',

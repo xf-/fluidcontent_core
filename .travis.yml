@@ -32,6 +32,7 @@ before_script:
   - git clone --depth 1 --single-branch --branch $TRAVIS_BRANCH git://github.com/FluidTYPO3/flux.git typo3conf/ext/flux
   - git clone --depth 1 git://git.typo3.org/TYPO3CMS/Extensions/phpunit.git typo3conf/ext/phpunit
   - git clone --depth 1 git://github.com/FluidTYPO3/builder.git typo3conf/ext/builder
+  - git clone --depth 1 git://github.com/FluidTYPO3/vhs.git typo3conf/ext/vhs
   - mv fluidcontent_core ./typo3conf/ext/
 
   - if [[ "$DB" == "mysql" ]]; then mysql -e "DROP DATABASE IF EXISTS typo3_test;" -uroot; fi

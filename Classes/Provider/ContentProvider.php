@@ -92,7 +92,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 * @return boolean
 	 */
 	public function trigger(array $row, $table, $field, $extensionKey = NULL) {
-		return ($table === $this->tableName && $field === $this->fieldName);
+		return ($table === $this->tableName && ($field === $this->fieldName || NULL === $field));
 	}
 
 	/**

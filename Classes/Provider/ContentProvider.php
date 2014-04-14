@@ -189,9 +189,9 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		$extensionKey = $this->getExtensionKey($row);
 		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $row['CType']);
 		if (TRUE === file_exists($template)) {
-			return $template;
+			return GeneralUtility::getFileAbsFileName($template);
 		}
-		return $this->templatePathAndFilename;
+		return GeneralUtility::getFileAbsFileName($this->templatePathAndFilename);
 	}
 
 	/**

@@ -1,5 +1,7 @@
-{namespace flux=FluidTYPO3\Flux\ViewHelpers}
-{namespace v=Tx_Vhs_ViewHelpers}
+<div xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers" flux:schemaLocation="http://fluidtypo3.org/schemas/flux-development.xsd"
+     xmlns:fcc="http://typo3.org/ns/FluidTYPO3/FluidcontentCore/ViewHelpers" flux:schemaLocation="http://fluidtypo3.org/schemas/fluidcontent_core-development.xsd"
+     xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers" flux:schemaLocation="http://fluidtypo3.org/schemas/vhs-development.xsd"
+     xmlns:f="http://typo3.org/ns/fluid/ViewHelpers" f:schemaLocation="http://fluidtypo3.org/schemas/fluid-master.xsd">
 
 <flux:form.sheet name="container" label="LLL:sheets.container">
 	<flux:field.select name="settings.container.tagName" items="{settings.container.tagNames}" label="LLL:fields.tagName" requestUpdate="TRUE" />
@@ -24,3 +26,5 @@
 	<flux:field.select name="settings.container.className" renderMode="checkbox" minItems="0" maxItems="100" items="{settings.container.classNames}" label="LLL:fields.classNames" />
 	<flux:field.input name="settings.container.additionalClassNames" label="LLL:fields.additionalClassNames" />
 </flux:form.sheet>
+
+</div>

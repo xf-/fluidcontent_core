@@ -160,11 +160,16 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	/**
 	 * @param string $extensionKey
 	 * @param string $contentType
+	 * @param string $contentVersion
 	 * @return string
 	 */
-	protected function getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $contentType) {
+	protected function getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $contentType, $contentVersion = '') {
 		$paths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
-		$templatePathAndFilename = rtrim($paths['templateRootPath'], '/') . '/CoreContent/' . ucfirst($contentType) . '.html';
+		$templatePathAndFilename = rtrim($paths['templateRootPath'], '/') . '/CoreContent/' . ucfirst($contentType);
+		if (FALSE === empty($contentVersion)) {
+			$templatePathAndFilename .= '/' . $contentVersion;
+		}
+		$templatePathAndFilename .= '.html';
 		return $templatePathAndFilename;
 	}
 
@@ -184,12 +189,23 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 
 	/**
 	 * @param array $row
+	 * @return string|NULL
+	 */
+	public function getExtensionKey(array $row) {
+		if (FALSE === empty($row['content_variant'])) {
+			return $row['content_variant'];
+		}
+		return $this->extensionKey;
+	}
+
+	/**
+	 * @param array $row
 	 * @return string
 	 */
 	public function getTemplatePathAndFilename(array $row) {
 		$extensionKey = $this->getExtensionKey($row);
-		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $row['CType']);
-		if (TRUE === file_exists($template)) {
+		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $row['CType'], $row['content_version']);
+		if (TRUE === file_exists(PathUtility::translatePath($template))) {
 			return GeneralUtility::getFileAbsFileName($template);
 		}
 		return GeneralUtility::getFileAbsFileName($this->templatePathAndFilename);

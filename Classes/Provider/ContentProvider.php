@@ -103,9 +103,6 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		$form = parent::getForm($row);
 		$variables = $this->templateVariables;
 		$variables['record'] = $row;
-		if (NULL !== $form) {
-			$form->setLocalLanguageFileRelativePath('Resources/Private/Language/locallang.xlf');
-		}
 		return $form;
 	}
 

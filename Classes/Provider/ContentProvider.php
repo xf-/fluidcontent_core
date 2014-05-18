@@ -123,7 +123,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		self::$variants[$contentType] = array();
 		foreach ($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'][$contentType] as $variantExtensionKey) {
 			$templatePathAndFilename = $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($variantExtensionKey, $contentType);
-			if (TRUE === file_exists($templatePathAndFilename)) {
+			if (TRUE === file_exists(PathUtility::translatePath($templatePathAndFilename))) {
 				array_push(self::$variants[$contentType], $variantExtensionKey);
 			}
 		}
@@ -144,6 +144,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		}
 		$paths = $this->configurationService->getViewConfigurationForExtensionName($variant);
 		$versionsDirectory = rtrim($paths['templateRootPath'], '/') . '/CoreContent/' . ucfirst($contentType) . '/';
+		$versionsDirectory = PathUtility::translatePath($versionsDirectory);
 		if (FALSE === is_dir($versionsDirectory)) {
 			self::$versions[$contentType][$variant] = array();
 		} else {

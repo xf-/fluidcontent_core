@@ -60,7 +60,12 @@ class ProviderField {
 	 */
 	public function createVariantsField(array $parameters) {
 		$extensionKeys = $this->provider->getVariantExtensionKeysForContentType($parameters['row']['CType']);
-		return $this->renderSelectField($parameters, array_combine($extensionKeys, $extensionKeys), $parameters['row']['content_variant']);
+		if (TRUE === is_array($extensionKeys) && 0 < count($extensionKeys)) {
+			$options = array_combine($extensionKeys, $extensionKeys);
+		} else {
+			$options = array();
+		}
+		return $this->renderSelectField($parameters, $options, $parameters['row']['content_variant']);
 	}
 
 	/**
@@ -93,7 +98,12 @@ class ProviderField {
 	 */
 	public function createVersionsField(array $parameters) {
 		$versions = $this->provider->getVariantVersions($parameters['row']['CType'], $parameters['row']['content_variant']);
-		return $this->renderSelectField($parameters, array_combine($versions, $versions), $parameters['row']['content_version']);
+		if (TRUE === is_array($versions) && 0 < count($versions)) {
+			$options = array_combine($versions, $versions);
+		} else {
+			$options = array();
+		}
+		return $this->renderSelectField($parameters, $options, $parameters['row']['content_version']);
 	}
 
 	/**

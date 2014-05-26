@@ -28,7 +28,7 @@ Quite a bit, yes. Initial measurements gave a 400% increase in speed for cached 
 
 ## Examples
 
-Built-in template files are under `Resources/Private/Templates/Content` - they all share one Layout file and use one Partial template to render a shared header (equivalent of `lib.stdheader` in `EXT:css_styled_content`). The individual plugins get configured in `ext_localconf.php` (one plugin per content type, matching each possible `CType` value) and a tiny little bit of TypoScript is used to build a very basic `tt_content.*` array which is required in order to render anything. This, along with the template path definitions you already know - and any custom settings you choose to add and thereby make available in templates - is the only TypoScript needed by this extension. The view definitions are exactly like you know from any Extbase plugin.
+Built-in template files are under `Resources/Private/Templates/CoreContent` - they all share one Layout file and use one Partial template to render a shared header (equivalent of `lib.stdheader` in `EXT:css_styled_content`). The individual plugins get configured in `ext_localconf.php` (one plugin per content type, matching each possible `CType` value) and a tiny little bit of TypoScript is used to build a very basic `tt_content.*` array which is required in order to render anything. This, along with the template path definitions you already know - and any custom settings you choose to add and thereby make available in templates - is the only TypoScript needed by this extension. The view definitions are exactly like you know from any Extbase plugin.
 
 In essence, this is an Extbase plugin to replace the TypoScript based rendering of `EXT:css_styled_content` and leveraging Flux to make it extremely easy to configure exactly the right fields you want to use to configure your contents' appearance.
 
@@ -73,12 +73,12 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['image'][
 Then create the template files:
 
 ```xml
-<!-- EXT:myextensionkey/Resource/Private/Templates/Content/Text.html -->
+<!-- EXT:myextensionkey/Resource/Private/Templates/CoreContent/Text.html -->
 The text: {record.bodytext}
 ```
 
 ```xml
-<!-- EXT:myextensionkey/Resource/Private/Templates/Content/Image.html -->
+<!-- EXT:myextensionkey/Resource/Private/Templates/CoreContent/Image.html -->
 My custom images:
 <!-- some custom rendering of images -->
 ```
@@ -105,19 +105,19 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][]
 ```
 
 ```xml
-<!-- EXT:myextensionkey/Resource/Private/Templates/Content/Text.html -->
+<!-- EXT:myextensionkey/Resource/Private/Templates/CoreContent/Text.html -->
 The basic version: {record.bodytext}
 ```
 
 Then, to provide more versions of the "text" content element:
 
 ```xml
-<!-- EXT:myextensionkey/Resource/Private/Templates/Content/Text/Truncated.html -->
+<!-- EXT:myextensionkey/Resource/Private/Templates/CoreContent/Text/Truncated.html -->
 The shortened version: {record.bodytext -> f:format.crop(maxCharacters: 100)}
 ```
 
 ```xml
-<!-- EXT:myextensionkey/Resource/Private/Templates/Content/Text/Raw.html -->
+<!-- EXT:myextensionkey/Resource/Private/Templates/CoreContent/Text/Raw.html -->
 The raw version: {record.bodytext -> f:format.raw()}
 ```
 

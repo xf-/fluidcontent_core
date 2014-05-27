@@ -2,11 +2,12 @@
     "name": "fluidtypo3/fluidcontent_core",
     "description": "Replace css_styled_content with your own templates",
     "require": {
-        "fluidtypo3/flux": "*"
+        "fluidtypo3/flux": "*",
+        "fluidtypo3/vhs": "*"
     },
     "type": "typo3-cms-extension",
     "keywords": ["TYPO3 CMS", "templating", "bootstrap", "flux", "fluidcontent", "fedext", "fluid"],
-    "homepage": "https://fedext.net",
+    "homepage": "http://fluidtypo3.org/",
     "license": "GPL-2.0+",
     "version": "1.0.0",
     "support": {

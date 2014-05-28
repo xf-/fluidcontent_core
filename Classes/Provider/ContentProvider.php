@@ -213,7 +213,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 * @return string
 	 */
 	public function getControllerActionFromRecord(array $row) {
-		return ucfirst($row['CType']);
+		return strtolower($row['CType']);
 	}
 
 }

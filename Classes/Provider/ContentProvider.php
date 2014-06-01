@@ -81,6 +81,20 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	protected static $versions = array();
 
 	/**
+	 * @return void
+	 */
+	public function initializeObject() {
+		$typoScript = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$settings = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['settings.'];
+		$paths = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['view.'];
+		$this->templateVariables['settings'] = GeneralUtility::removeDotsFromTS($settings);
+		$paths = GeneralUtility::removeDotsFromTS($paths);
+		$paths = PathUtility::translatePath($paths);
+		$this->templatePaths = $paths;
+		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaultTemplate']);
+	}
+
+	/**
 	 * Note: This Provider will -always- trigger on any tt_content record
 	 * but has the lowest possible (0) priority, ensuring that any
 	 * Provider which wants to take over, can do so.
@@ -168,20 +182,6 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		}
 		$templatePathAndFilename .= '.html';
 		return $templatePathAndFilename;
-	}
-
-	/**
-	 * @return void
-	 */
-	public function initializeObject() {
-		$typoScript = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$settings = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['settings.'];
-		$paths = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['view.'];
-		$this->templateVariables['settings'] = GeneralUtility::removeDotsFromTS($settings);
-		$paths = GeneralUtility::removeDotsFromTS($paths);
-		$paths = PathUtility::translatePath($paths);
-		$this->templatePaths = $paths;
-		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaultTemplate']);
 	}
 
 	/**

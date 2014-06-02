@@ -140,6 +140,14 @@ And so on. These are of course very basic examples - the point of this is not to
 * Html.html (yep, html-dot-html, like that...)
 * Default.html
 
+### Special note about the Textpic (Text with Images) content type
+
+As you may have already noticed, there is no template shipped for the TYPO3 core content type `Textpic` (Text with Images). The reason for this is as simple as it is opinionated: this particular content element type requires an inordinate amount of settings and rendering instructions to serve just the most common use cases. This is also evident in the TypoScript setup that is shipped with CSS Styled Content - the setup required to manage positioning and flow of images and text is so massive that in most sites you use only a fraction of the settings.
+
+A decision was therefore made to _simply not ship any template for this content type at all, as to not invite the inevitable explosion in complexity that happened in CSS Styled Content_.
+
+Our alternative recommendation is to create container elements which control the structure into which you then insert regular `Text` and `Image` elements. The result being more elements, but a much clearer separation of the types (which is useful for example in the context of site search with content type facets). You can of course also go one step further and create your own custom elements which use your own custom fields to define the text and image(s) which you render in a completely custom way.
+
 ## Plans for future improvements
 
 1. Finish the basic set of included templates to make a fallback-quality rendering

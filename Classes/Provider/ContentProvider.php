@@ -33,6 +33,7 @@ use FluidTYPO3\Flux\Utility\PathUtility;
 use FluidTYPO3\Flux\Utility\ResolveUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -50,6 +51,9 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  * @subpackage Provider
  */
 class ContentProvider extends AbstractProvider implements ProviderInterface {
+
+	const MODE_SAVE = 'save';
+	const MODE_PRESELECT = 'preselect';
 
 	/**
 	 * @var string
@@ -209,11 +213,47 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 */
 	public function getTemplatePathAndFilename(array $row) {
 		$extensionKey = $this->getExtensionKey($row);
-		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($extensionKey, $row['CType'], $row['content_variant'], $row['content_version']);
+		$variant = $this->getVariant($row);
+		$version = $this->getVersion($row);
+		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($extensionKey, $row['CType'], $variant, $version);
 		if (TRUE === file_exists(PathUtility::translatePath($template))) {
 			return GeneralUtility::getFileAbsFileName($template);
 		}
 		return GeneralUtility::getFileAbsFileName($this->templatePathAndFilename);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getDefaults() {
+		$typoScript = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$defaults = ObjectAccess::getPropertyPath($typoScript, 'plugin.tx_fluidcontentcore.settings.defaults');
+		$defaults = GeneralUtility::removeDotsFromTS($defaults);
+		return $defaults;
+	}
+
+	/**
+	 * @param array $row
+	 * @return string
+	 */
+	protected function getVariant(array $row) {
+		$defaults = $this->getDefaults();
+		if (self::MODE_RECORD !== $defaults['mode'] && TRUE === empty($row['content_variant'])) {
+			return $defaults['variant'];
+		}
+		return $row['content_variant'];
+	}
+
+	/**
+	 * @param array $row
+	 * @return string
+	 */
+	protected function getVersion(array $row) {
+		$defaults = $this->getDefaults();
+		if (self::MODE_RECORD !== $defaults['mode'] && TRUE === empty($row['content_version'])) {
+			return $defaults['version'];
+		}
+		return $row['content_version'];
 	}
 
 	/**
@@ -222,6 +262,26 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 */
 	public function getControllerActionFromRecord(array $row) {
 		return strtolower($row['CType']);
+	}
+
+	/**
+	 * @param string $operation
+	 * @param integer $id
+	 * @param array $row
+	 * @param DataHandler $reference
+	 * @return void
+	 */
+	public function postProcessRecord($operation, $id, array &$row, DataHandler $reference) {
+		$defaults = $this->getDefaults();
+		if (self::MODE_RECORD === $defaults['mode']) {
+			if (TRUE === empty($row['content_variant'])) {
+				$row['content_variant'] = $defaults['variant'];
+			}
+			if (TRUE === empty($row['content_version'])) {
+				$row['content_version'] = $defaults['version'];
+			}
+		}
+		return parent::postProcessRecord($operation, $id, $row, $reference);
 	}
 
 }

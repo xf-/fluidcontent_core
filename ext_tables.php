@@ -12,6 +12,7 @@ $GLOBALS['TCA']['tt_content']['columns']['content_options'] = array(
 );
 $GLOBALS['TCA']['tt_content']['columns']['content_variant'] = array(
 	'label' => 'LLL:EXT:fluidcontent_core/Resources/Private/Language/locallang.xlf:tt_content.content_variant',
+	'exclude' => 1,
 	'config' => array(
 		'type' => 'user',
 		'userFunc' => 'FluidTYPO3\FluidcontentCore\UserFunction\ProviderField->createVariantsField',
@@ -19,6 +20,7 @@ $GLOBALS['TCA']['tt_content']['columns']['content_variant'] = array(
 );
 $GLOBALS['TCA']['tt_content']['columns']['content_version'] = array(
 	'label' => 'LLL:EXT:fluidcontent_core/Resources/Private/Language/locallang.xlf:tt_content.content_version',
+	'exclude' => 1,
 	'config' => array(
 		'type' => 'user',
 		'userFunc' => 'FluidTYPO3\FluidcontentCore\UserFunction\ProviderField->createVersionsField',

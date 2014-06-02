@@ -96,6 +96,9 @@
 			<trans-unit id="default" xml:space="preserve">
 				<source>default</source>
 			</trans-unit>
+			<trans-unit id="caption">
+				<source>Caption, %s</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

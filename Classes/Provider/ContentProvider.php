@@ -184,7 +184,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		$controllerName = 'CoreContent';
 		$controllerAction = $contentType;
 		$format = 'html';
-		if (FALSE === empty($contentVersion)) {
+		if (FALSE === empty($version)) {
 			$controllerAction .= '/' . $version;
 		}
 
@@ -209,7 +209,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 */
 	public function getTemplatePathAndFilename(array $row) {
 		$extensionKey = $this->getExtensionKey($row);
-		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($extensionKey, $row['CType'], $row['content_version']);
+		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($extensionKey, $row['CType'], $row['content_variant'], $row['content_version']);
 		if (TRUE === file_exists(PathUtility::translatePath($template))) {
 			return GeneralUtility::getFileAbsFileName($template);
 		}

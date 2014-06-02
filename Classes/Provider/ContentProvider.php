@@ -52,7 +52,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  */
 class ContentProvider extends AbstractProvider implements ProviderInterface {
 
-	const MODE_SAVE = 'save';
+	const MODE_RECORD = 'record';
 	const MODE_PRESELECT = 'preselect';
 
 	/**

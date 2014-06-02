@@ -227,7 +227,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 */
 	public function getDefaults() {
 		$typoScript = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$defaults = ObjectAccess::getPropertyPath($typoScript, 'plugin.tx_fluidcontentcore.settings.defaults');
+		$defaults = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['settings.']['defaults.'];
 		$defaults = GeneralUtility::removeDotsFromTS($defaults);
 		return $defaults;
 	}

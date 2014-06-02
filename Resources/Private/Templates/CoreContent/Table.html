@@ -12,7 +12,9 @@
 	</flux:form>
 </f:section>
 
-<f:section name="Preview"></f:section>
+<f:section name="Preview">
+	{record.bodytext -> f:format.crop(maxCharacters: settings.preview.maxCharacters) -> f:format.nl2br()}
+</f:section>
 
 <f:section name="Main">
 	<table>

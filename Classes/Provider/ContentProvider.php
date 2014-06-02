@@ -30,6 +30,7 @@ use FluidTYPO3\Flux\Provider\ProviderInterface;
 use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
 use FluidTYPO3\Flux\Utility\RecursiveArrayUtility;
 use FluidTYPO3\Flux\Utility\PathUtility;
+use FluidTYPO3\Flux\Utility\ResolveUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -133,7 +134,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		}
 		self::$variants[$contentType] = array();
 		foreach ($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'][$contentType] as $variantExtensionKey) {
-			$templatePathAndFilename = $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($variantExtensionKey, $contentType);
+			$templatePathAndFilename = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($variantExtensionKey, $contentType, $variantExtensionKey);
 			if (TRUE === file_exists(PathUtility::translatePath($templatePathAndFilename))) {
 				array_push(self::$variants[$contentType], $variantExtensionKey);
 			}
@@ -171,16 +172,23 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	/**
 	 * @param string $extensionKey
 	 * @param string $contentType
-	 * @param string $contentVersion
+	 * @param string $variant
+	 * @param string $version
 	 * @return string
 	 */
-	protected function getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $contentType, $contentVersion = '') {
-		$paths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
-		$templatePathAndFilename = rtrim($paths['templateRootPath'], '/') . '/CoreContent/' . ucfirst($contentType);
-		if (FALSE === empty($contentVersion)) {
-			$templatePathAndFilename .= '/' . $contentVersion;
+	protected function getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($extensionKey, $contentType, $variant = NULL, $version = NULL) {
+		if (FALSE === empty($variant)) {
+			$extensionKey = $variant;
 		}
-		$templatePathAndFilename .= '.html';
+		$paths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
+		$controllerName = 'CoreContent';
+		$controllerAction = $contentType;
+		$format = 'html';
+		if (FALSE === empty($contentVersion)) {
+			$controllerAction .= '/' . $version;
+		}
+
+		$templatePathAndFilename = ResolveUtility::resolveTemplatePathAndFilenameByPathAndControllerNameAndActionAndFormat($paths, $controllerName, $controllerAction, $format);
 		return $templatePathAndFilename;
 	}
 
@@ -201,7 +209,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 */
 	public function getTemplatePathAndFilename(array $row) {
 		$extensionKey = $this->getExtensionKey($row);
-		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentType($extensionKey, $row['CType'], $row['content_version']);
+		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($extensionKey, $row['CType'], $row['content_version']);
 		if (TRUE === file_exists(PathUtility::translatePath($template))) {
 			return GeneralUtility::getFileAbsFileName($template);
 		}

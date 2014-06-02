@@ -6,7 +6,9 @@ plugin.tx_fluidcontentcore.view {
 }
 
 plugin.tx_fluidcontentcore.settings {
-	defaultTemplate = EXT:fluidcontent_core/Resources/Private/Templates/CoreContent/Default.html
+	defaults {
+		template = EXT:fluidcontent_core/Resources/Private/Templates/CoreContent/Default.html
+	}
 	constants {
 		auto = auto
 		none = none

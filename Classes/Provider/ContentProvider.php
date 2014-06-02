@@ -92,7 +92,7 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 		$paths = GeneralUtility::removeDotsFromTS($paths);
 		$paths = PathUtility::translatePath($paths);
 		$this->templatePaths = $paths;
-		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaultTemplate']);
+		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaults']['template']);
 	}
 
 	/**

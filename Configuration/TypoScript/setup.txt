@@ -35,6 +35,9 @@ plugin.tx_fluidcontentcore.settings {
 	caption {
 		types = none,div,span,p
 	}
+	preview {
+		maxCharacters = 100
+	}
 }
 
 plugin.tx_fluidcontentcore.bootstrap = USER

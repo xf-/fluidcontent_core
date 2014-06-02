@@ -104,7 +104,7 @@ class ProviderField {
 	public function createVersionsField(array $parameters) {
 		$defaults = $this->provider->getDefaults();
 		$preSelectedVariant = $parameters['row']['content_variant'];
-		$preSelectedVersion = $parameters['row']['content_variant'];
+		$preSelectedVersion = $parameters['row']['content_version'];
 		if (ContentProvider::MODE_PRESELECT === $defaults['mode']) {
 			if (TRUE === empty($preSelectedVariant)) {
 				$preSelectedVariant = $defaults['variant'];

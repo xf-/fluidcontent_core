@@ -27,7 +27,7 @@
 </f:section>
 
 <f:section name="Main">
-	{settings.start -> f:if(condition: '{settings.tagName} == \'ol\'') -> v:var.set(name: 'startIndex')}
+	{settings.start -> f:if(condition: '{settings.tagName} == \'ol\'') -> v:variable.set(name: 'startIndex')}
 	<fcc:tag name="{settings.tagName}" additionalAttributes="{start: '{startIndex -> v:or(alternative: 1)}'}">
 		<f:for each="{record.bodytext -> v:format.eliminate(windowsBreaks: 1) -> v:format.trim()
 			-> v:iterator.explode(glue: 'constant:LF')}" as="item">

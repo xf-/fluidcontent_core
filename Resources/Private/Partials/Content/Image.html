@@ -7,7 +7,7 @@
 			<img src="{image.url}" alt="{image.name}" class="{settings.image.className}" />
 		</f:then>
 		<f:else>
-			<f:image src="{image.url}" treatIdAsReference="TRUE" alt="{image.name}"
+			<f:image src="{image.url}" treatIdAsReference="TRUE" alt="{image.name}" class="{settings.image.className}"
 			         width="{record.imagewidth -> v:or(alternative: '-1')}{f:if(condition: record.imagewidth, then: settings.scaleMode)}"
 			         height="{record.imageheight -> v:or(alternative: '-1')}{f:if(condition: record.imageheight, then: settings.scaleMode)}" />
 		</f:else>

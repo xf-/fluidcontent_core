@@ -45,6 +45,7 @@ class TagViewHelper extends AbstractTagBasedViewHelper {
 		parent::initializeArguments();
 		$this->registerUniversalTagAttributes();
 		$this->registerArgument('name', 'string', 'Tag name', TRUE);
+		$this->registerArgument('hideIfEmpty', 'boolean', 'Hide the tag completely if there is no tag content', FALSE, FALSE);
 	}
 
 	/**
@@ -53,6 +54,10 @@ class TagViewHelper extends AbstractTagBasedViewHelper {
 	public function render() {
 		$this->arguments['class'] = trim($this->arguments['class']);
 		$content = $this->renderChildren();
+		$trimmedContent = trim($content);
+		if (TRUE === empty($trimmedContent)) {
+			return '';
+		}
 		if ('none' === $this->arguments['name'] || TRUE === empty($this->arguments['name'])) {
 			// skip building a tag if special keyword "none" is used, or tag name is empty
 			return $content;

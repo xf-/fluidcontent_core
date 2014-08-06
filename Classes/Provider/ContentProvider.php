@@ -91,10 +91,11 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	public function initializeObject() {
 		$typoScript = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 		$settings = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['settings.'];
+		$settings = GeneralUtility::removeDotsFromTS($settings);
 		$paths = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['view.'];
-		$this->templateVariables['settings'] = GeneralUtility::removeDotsFromTS($settings);
 		$paths = GeneralUtility::removeDotsFromTS($paths);
 		$paths = PathUtility::translatePath($paths);
+		$this->templateVariables['settings'] = $settings;
 		$this->templatePaths = $paths;
 		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaults']['template']);
 	}

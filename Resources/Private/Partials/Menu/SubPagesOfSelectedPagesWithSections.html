@@ -5,24 +5,14 @@
 	<f:section name="Main">
 		<f:for each="{record.pages -> v:iterator.explode()}" as="menuPage">
 			<v:page.menu pageUid="{menuPage}">
+				<fcc:tag name="h{content.settings.header.type -> v:or(alternative: record.header_layout)
+					-> v:or(alternative: settings.header.type) -> v:math.sum(b: 1)}">
+					<f:link.page pageUid="{menuPageData.uid}">{menuPageData.linktext}</f:link.page>
+				</fcc:tag>
 				<ul>
 					<f:for each="{menu}" as="{menuPageData}">
 						<li>
-							<fcc:tag name="h{content.settings.header.type -> v:or(alternative: record.header_layout)
-								-> v:or(alternative: settings.header.type) -> v:math.sum(b: 1)}">
-								<f:link.page pageUid="{menuPageData.uid}">{menuPageData.linktext}</f:link.page>
-							</fcc:tag>
-							<v:content.get pageUid="{menuPageData.uid}" sectionIndexOnly="TRUE" as="contentElements">
-								<f:for each="{contentElements}" as="contentElementRecord">
-									<f:link.page pageUid="{menuPageData.uid}" section="{contentElementRecord.header
-										-> v:or(alternative: contentElementRecord.titleAttribute)
-										-> v:or(alternative: 'content-{record.uid}') -> v:format.url.sanitizeString()}">
-										{contentElementRecord.header -> v:or(alternative: contentElementRecord.titleAttribute)
-											-> v:or(alternative: '{contentElementRecord.bodyText -> f:format.html()}')
-											-> f:format.crop(maxCharacters: content.settings.preview.maxCharacters)}
-									</f:link.page>
-								</f:for>
-							</v:content.get>
+							<f:render partial="Content/SectionIndex" arguments="{menuPage: menuPage}" />
 						</li>
 					</f:for>
 				</ul>

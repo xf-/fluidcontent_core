@@ -58,6 +58,7 @@ unset(
 	$GLOBALS['TCA']['tt_content']['columns']['image_effects'],
 	$GLOBALS['TCA']['tt_content']['columns']['image_frames'],
 	$GLOBALS['TCA']['tt_content']['columns']['imageborder'],
+	$GLOBALS['TCA']['tt_content']['columns']['linkToTop'],
 	$GLOBALS['TCA']['tt_content']['columns']['accessibility_title'],
 	$GLOBALS['TCA']['tt_content']['columns']['accessibility_bypass'],
 	$GLOBALS['TCA']['tt_content']['columns']['accessibility_bypass_text'],

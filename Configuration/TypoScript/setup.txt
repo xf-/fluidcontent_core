@@ -25,10 +25,21 @@ plugin.tx_fluidcontentcore.settings {
 		hideIfEmpty = 1
 	}
 	container {
-		types = none,div,section,chapter
-		autoType = div
+		types {
+			default = div
+			text = div
+			header = none
+			image = div
+			bullets = div
+			uploads = div
+			table = none
+			media = div
+			menu = navigation
+			html = none
+			list = div
+		}
 		classNames = container
-		tagNames = none,div,header,section
+		addAnchor = 0
 	}
 	image {
 		classNames = image,responsive-image

@@ -64,13 +64,10 @@ class TagViewHelper extends AbstractTagBasedViewHelper {
 		}
 		// process a few key variables to support values coming from TCEforms storage:
 		if (FALSE === empty($this->arguments['class'])) {
-			$this->arguments['class'] = str_replace(',', ' ', $this->arguments['class']);
+			$class = str_replace(',', ' ', $this->arguments['class']);
+			$this->tag->addAttribute('class', $class);
 		}
-		$this->tag->reset();
 		$this->tag->setTagName($this->arguments['name']);
-		$this->applyAttributes($this->arguments['additionalAttributes']);
-		unset($this->arguments['name'], $this->arguments['additionalAttributes']);
-		$this->applyAttributes($this->arguments);
 		$this->tag->setContent($content);
 		return $this->tag->render();
 	}

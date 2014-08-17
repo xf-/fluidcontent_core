@@ -33,6 +33,9 @@
 			<trans-unit id="sheets.container">
 				<source>Container</source>
 			</trans-unit>
+			<trans-unit id="sheets.menu">
+				<source>Menu</source>
+			</trans-unit>
 			<trans-unit id="sheets.image" xml:space="preserve">
 				<source>Images</source>
 			</trans-unit>
@@ -53,6 +56,9 @@
 			</trans-unit>
 			<trans-unit id="fields.titleAttribute">
 				<source>Title (crawlers, indexers; some browsers as mouseover text)</source>
+			</trans-unit>
+			<trans-unit id="fields.menuLimit">
+				<source>Maximum number of page links to display</source>
 			</trans-unit>
 			<trans-unit id="list.ol">
 				<source>Ordered list</source>

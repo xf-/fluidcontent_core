@@ -54,6 +54,8 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 
 	const MODE_RECORD = 'record';
 	const MODE_PRESELECT = 'preselect';
+	const CTYPE_MENU = 'menu';
+	const CTYPE_FIELDNAME = 'CType';
 
 	/**
 	 * @var string
@@ -84,6 +86,29 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 * @var array
 	 */
 	protected static $versions = array();
+
+	/**
+	 * Filled with an integer-or-string -> Fluid section name
+	 * map which maps machine names of menu types to human
+	 * readable values that are sensible as Fluid section names.
+	 * When type is selected in menu element, corresponding
+	 * section gets rendered.
+	 *
+	 * @var array
+	 */
+	protected $menuTypeToSectionNameMap = array(
+		'0' => 'SelectedPages',
+		'1' => 'SubPagesOfSelectedPages',
+		'4' => 'SubPagesOfSelectedPagesWithAbstract',
+		'7' => 'SubPagesOfSelectedPagesWithSections',
+		'2' => 'SiteMap',
+		'8' => 'SiteMapsOfSelectedPages',
+		'3' => 'SectionIndex',
+		'5' => 'RecentlyUpdated',
+		'6' => 'RelatedPages',
+		'categorized_pages' => 'CategorizedPages',
+		'categorized_content' => 'CategorizedContent'
+	);
 
 	/**
 	 * @return void
@@ -120,10 +145,14 @@ class ContentProvider extends AbstractProvider implements ProviderInterface {
 	 * @return Form
 	 */
 	public function getForm(array $row) {
-		$form = parent::getForm($row);
-		$variables = $this->templateVariables;
-		$variables['record'] = $row;
-		return $form;
+		if (self::CTYPE_MENU === $row[self::CTYPE_FIELDNAME]) {
+			// addtional menu variables
+			$menuType = $row['menu_type'];
+			$partialTemplateName = $this->menuTypeToSectionNameMap[$menuType];
+			$this->templateVariables['menuPartialTemplateName'] = $partialTemplateName;
+			$this->templateVariables['pageUids'] = GeneralUtility::trimExplode(',', $row['pages']);
+		}
+		return parent::getForm($row);
 	}
 
 	/**

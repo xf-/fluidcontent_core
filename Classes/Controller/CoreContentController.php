@@ -42,29 +42,6 @@ class CoreContentController extends AbstractFluxController {
 	protected $fluxTableName = 'tt_content';
 
 	/**
-	 * Filled with an integer-or-string -> Fluid section name
-	 * map which maps machine names of menu types to human
-	 * readable values that are sensible as Fluid section names.
-	 * When type is selected in menu element, corresponding
-	 * section gets rendered.
-	 *
-	 * @var array
-	 */
-	protected $menuTypeToSectionNameMap = array(
-		'0' => 'SelectedPages',
-		'1' => 'SubPagesOfSelectedPages',
-		'4' => 'SubPagesOfSelectedPagesWithAbstract',
-		'7' => 'SubPagesOfSelectedPagesWithSections',
-		'2' => 'SiteMap',
-		'8' => 'SiteMapsOfSelectedPages',
-		'3' => 'SectionIndex',
-		'5' => 'RecentlyUpdated',
-		'6' => 'RelatedPages',
-		'categorized_pages' => 'CategorizedPages',
-		'categorized_content' => 'CategorizedContent'
-	);
-
-	/**
 	 * @return void
 	 */
 	protected function initializeProvider() {
@@ -141,10 +118,7 @@ class CoreContentController extends AbstractFluxController {
 	 * @return void
 	 */
 	public function menuAction() {
-		$record = $this->getRecord();
-		$menuType = $record['menu_type'];
-		$partialTemplateName = $this->menuTypeToSectionNameMap[$menuType];
-		$this->view->assign('menuPartialTemplateName', $partialTemplateName);
+
 	}
 
 	/**

@@ -4,10 +4,10 @@
 <f:section name="image">
 	<f:if condition="{settings.directInclusion}">
 		<f:then>
-			<img src="{image.url}" alt="{image.name}" class="{settings.image.className}" />
+			<img src="{image.url}" alt="{f:if(condition: image.alternative, then: image.alternative, else: image.name)}" class="{settings.image.className}" />
 		</f:then>
 		<f:else>
-			<f:image src="{image.url}" treatIdAsReference="TRUE" alt="{image.name}" class="{settings.image.className}"
+			<f:image src="{image.url}" treatIdAsReference="TRUE" alt="{f:if(condition: image.alternative, then: image.alternative, else: image.name)}" class="{settings.image.className}"
 			         width="{record.imagewidth -> v:or(alternative: '-1')}{f:if(condition: record.imagewidth, then: settings.scaleMode)}"
 			         height="{record.imageheight -> v:or(alternative: '-1')}{f:if(condition: record.imageheight, then: settings.scaleMode)}" />
 		</f:else>

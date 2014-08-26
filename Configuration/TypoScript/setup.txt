@@ -19,7 +19,7 @@ plugin.tx_fluidcontentcore.settings {
 	}
 	header {
 		type = 1
-		types = 1,2,3,4,5,6,7,8
+		types = 1,2,3,4,5,6
 		autoType = 2
 		classNames = page-header
 		hideIfEmpty = 1

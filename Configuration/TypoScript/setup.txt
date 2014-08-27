@@ -1,57 +1,59 @@
-plugin.tx_fluidcontentcore.view {
-	extensionKey = fluidcontent_core
-	templateRootPath = {$plugin.tx_fluidcontentcore.view.templateRootPath}
-	partialRootPath = {$plugin.tx_fluidcontentcore.view.partialRootPath}
-	layoutRootPath = {$plugin.tx_fluidcontentcore.view.layoutRootPath}
-}
-
-plugin.tx_fluidcontentcore.settings {
-	defaults {
-		template = EXT:fluidcontent_core/Resources/Private/Templates/CoreContent/Default.html
-		variant =
-		version =
-		# mode of defaults usage. Possible values: "record", "preselect" or empty. When set to "record", default values will be saved in records when they are saved, but only if no variant or version was chosen. If set to "preselect" the values entered in defaults will be the initially selected values when creating or editing records. If set to anything else, defaults are used only when the record has empty values in variant or version but the defaults will not be saved to the database.
-		mode = preselect
+[global]
+plugin.tx_fluidcontentcore {
+	view {
+		extensionKey = fluidcontent_core
+		templateRootPath = {$plugin.tx_fluidcontentcore.view.templateRootPath}
+		partialRootPath = {$plugin.tx_fluidcontentcore.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_fluidcontentcore.view.layoutRootPath}
 	}
-	constants {
-		auto = auto
-		none = none
-	}
-	header {
-		type = 1
-		types = 1,2,3,4,5,6
-		autoType = 2
-		classNames = page-header
-		hideIfEmpty = 1
-	}
-	container {
-		types {
-			default = div
-			text = div
-			header = none
-			image = div
-			bullets = div
-			uploads = div
-			table = none
-			media = div
-			menu = navigation
-			html = none
-			list = div
+	settings {
+		defaults {
+			template = {$plugin.tx_fluidcontentcore.settings.defaults.template}
+			variant =
+			version =
+			# mode of defaults usage. Possible values: "record", "preselect" or empty. When set to "record", default values will be saved in records when they are saved, but only if no variant or version was chosen. If set to "preselect" the values entered in defaults will be the initially selected values when creating or editing records. If set to anything else, defaults are used only when the record has empty values in variant or version but the defaults will not be saved to the database.
+			mode = {$plugin.tx_fluidcontentcore.settings.defaults.mode}
 		}
-		classNames = container
-		addAnchor = 0
-	}
-	image {
-		classNames = image,responsive-image
-	}
-	table {
-		classNames = table
-	}
-	caption {
-		types = none,div,span,p
-	}
-	preview {
-		maxCharacters = 100
+		constants {
+			auto = auto
+			none = none
+		}
+		header {
+			type = {$plugin.tx_fluidcontentcore.settings.header.type}
+			types = {$plugin.tx_fluidcontentcore.settings.header.types}
+			autoType = {$plugin.tx_fluidcontentcore.settings.header.autoType}
+			classNames = {$plugin.tx_fluidcontentcore.settings.header.classNames}
+			hideIfEmpty = {$plugin.tx_fluidcontentcore.settings.header.hideIfEmpty}
+		}
+		container {
+			types {
+				default = div
+				text = div
+				header = none
+				image = div
+				bullets = div
+				uploads = div
+				table = none
+				media = div
+				menu = navigation
+				html = none
+				list = div
+			}
+			classNames = {$plugin.tx_fluidcontentcore.settings.container.classNames}
+			addAnchor = {$plugin.tx_fluidcontentcore.settings.container.addAnchor}
+		}
+		image {
+			classNames = {$plugin.tx_fluidcontentcore.settings.image.classNames}
+		}
+		table {
+			classNames = {$plugin.tx_fluidcontentcore.settings.table.classNames}
+		}
+		caption {
+			types = {$plugin.tx_fluidcontentcore.settings.caption.types}
+		}
+		preview {
+			maxCharacters = {$plugin.tx_fluidcontentcore.settings.preview.maxCharacters}
+		}
 	}
 }
 

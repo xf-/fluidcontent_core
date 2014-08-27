@@ -20,7 +20,7 @@ Just like `EXT:css_styled_content` this extension adds rendering instructions fo
 
 It does not get any more flexible than this when it comes to custom styled TYPO3 CMS sites. You can replace any number of built-in content elements with your own Fluid templates. You can switch which templates get used on individual subpages (using TypoScript to override view paths). You can use template path overlays like you know from `EXT:view`. Instead of using either a FlexForm or adding TCA/DB columns, you can simply insert a Flux form definition in the template file and add any number of fields you wish to use to control rendering.
 
-You can even throw any number of these built-in content element types into a Flux Provider extension and add (static) TypoScript setup to make this extension use your template paths first, with fallback to the included templates. Note, though, that you should not mix these core content element templates with your own custom elements for `EXT:fluidcontent`.
+You can even throw any number of these built-in content element types into a Flux Provider extension and add (static) TypoScript setup to make this extension use your template paths first, with fallback to the included templates.
 
 ## Is it faster than `css_styled_content`?
 

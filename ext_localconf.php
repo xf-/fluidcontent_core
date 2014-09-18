@@ -19,7 +19,7 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'] = array(
 	'header', 'text', 'image', 'bullets', 'uploads', 'table', 'media', 'menu', 'shortcut', 'div', 'html', 'default'
 );
 
-\FluidTYPO3\Flux\Core::registerConfigurationProvider('FluidTYPO3\FluidcontentCore\Provider\ContentProvider');
+\FluidTYPO3\Flux\Core::registerConfigurationProvider('FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider');
 
 // Prepare a global variants registration array indexed by CType value.
 // To add your own, do fx: $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['textpic'][] = 'myextensionkey';

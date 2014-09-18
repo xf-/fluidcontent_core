@@ -43,7 +43,7 @@ class CoreContentController extends AbstractFluxController {
 	 * @return void
 	 */
 	protected function initializeProvider() {
-		$this->provider = $this->objectManager->get('FluidTYPO3\FluidcontentCore\Provider\ContentProvider');
+		$this->provider = $this->objectManager->get('FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider');
 	}
 
 	/**

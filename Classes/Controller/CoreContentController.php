@@ -24,8 +24,10 @@ namespace FluidTYPO3\FluidcontentCore\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *****************************************************************/
 
+use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
 use FluidTYPO3\Flux\Controller\AbstractFluxController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository;
 
 class CoreContentController extends AbstractFluxController {
 
@@ -116,7 +118,35 @@ class CoreContentController extends AbstractFluxController {
 	 * @return void
 	 */
 	public function menuAction() {
-
+		$record = $this->getRecord();
+		$type = $record[CoreContentProvider::MENUTYPE_FIELDNAME];
+		switch ($type) {
+			case CoreContentProvider::MENU_CATEGORIZEDPAGES:
+				$selected = $record['selected_categories'];
+				$bindings = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+					'uid_foreign',
+					'sys_category_record_mm',
+					"fieldname = 'categories' AND tablenames = 'pages' AND uid_local IN (" . $selected . ')',
+					'uid_foreign',
+					'sorting ASC'
+				);
+				$pageUids = array_map('array_pop', $bindings);
+				$this->view->assign('pageUids', $pageUids);
+				break;
+			case CoreContentProvider::MENU_CATEGORIZEDCONTENT:
+				$selected = $record['selected_categories'];
+				$bindings = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+					'uid_foreign',
+					'sys_category_record_mm',
+					"fieldname = 'categories' AND tablenames = 'tt_content' AND uid_local IN (" . $selected . ')',
+					'uid_foreign',
+					'sorting ASC'
+				);
+				$contentUids = array_map('array_pop', $bindings);
+				$this->view->assign('contentUids', $contentUids);
+				break;
+			default:
+		}
 	}
 
 	/**

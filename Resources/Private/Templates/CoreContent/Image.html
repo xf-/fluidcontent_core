@@ -1,5 +1,4 @@
 <div xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers"
-     xmlns:fcc="http://typo3.org/ns/FluidTYPO3/FluidcontentCore/ViewHelpers"
      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
      xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
 
@@ -40,10 +39,10 @@
 <f:section name="Main">
 	<v:resource.record.fal record="{record}" field="image" table="tt_content" as="images">
 		<f:for each="{images}" as="image" iteration="iteration">
-			<fcc:tag name="{settings.caption.tagName}">
+			<v:tag name="{settings.caption.tagName}">
 				<f:render partial="Content/Image" arguments="{_all}" />
 				<flux:content.render area="content{image.checksum}" />
-			</fcc:tag>
+			</v:tag>
 		</f:for>
 	</v:resource.record.fal>
 </f:section>

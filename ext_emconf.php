@@ -13,7 +13,7 @@
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Fluid Styled Content',
 	'description' => 'Not CSS styled content - Fluid styled content',
-	'category' => 'misc',
+	'category' => 'fe',
 	'shy' => 0,
 	'version' => '1.0.0',
 	'dependencies' => 'cms,flux,vhs',

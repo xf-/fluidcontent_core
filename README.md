@@ -44,7 +44,11 @@ FluidcontentCore enables three levels of content usage, in order of simplicity:
 2. Providing further variations of each content element type, for example "text" elements from multiple extensions, for example fitting different CSS frameworks, which can be configured to be used by default.
 3. Providing additional versions of each content element type variation, for example when a Twitter Bootstrap text element is selected, you may want to provide a version that uses `<p class="lead"></p>` and supports the `text-warning` etc. CSS classes.
 
-The first approach is the one you know from any Fluid context in TYPO3. The second can be explained as `fluidcontent_bootstrap` for TYPO3's built-in content elements (as in: whereas the actual `fluidcontent_bootstrap` only **adds** new content types, this concept allows adding also new variations of core content elements - without replacing the standard ones). The third approach can be viewed as a way to version each variant you add: for example, copying existing elements to a legacy template when you make changes, trying out new versions of your content without replacing the current ones, or simply dividing one variant of a content element into multiple specialised "rendering versions" like in the Twitter Bootstrap example above.
+**The first** approach is the one you know from any Fluid context in TYPO3.
+
+**The second** approach can be explained in looking at how the extension `fluidbootstraptheme` *only adds* additional content elements to TYPO3's already built-in content elements. This allows adding also new variations of core content elements without replacing the standard ones.
+
+**The third** approach can be viewed as a way to version each variant you add: for example, copying existing elements to a legacy template when you make changes, trying out new versions of your content without replacing the current ones, or simply dividing one variant of a content element into multiple specialised "rendering versions" like in the Twitter Bootstrap extension example above.
 
 A more detailed description follows in these chapters.
 

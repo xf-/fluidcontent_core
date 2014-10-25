@@ -17,6 +17,6 @@
     "suggest": {
         "fluidtypo3/fluidcontent": "Gives the ability to render Content Templates with pure fluid.",
         "fluidtypo3/fluidpages": "Gives the ability to render Page Templates with pure fluid.",
-        "fluidtypo3/fluidcontent_bootstrap": "Provides Twitter Bootstrap templates for fluidcontent"
+        "fluidbt/fluidbootstraptheme": "Provides Twitter Bootstrap templates for fluidcontent and fluidpages"
     }
 }

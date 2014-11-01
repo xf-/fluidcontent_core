@@ -46,16 +46,43 @@ class ext_update {
 	 * @return boolean
 	 */
 	public function access() {
-		return (FALSE === file_exists($this->targetConfigurationFile) && TRUE === \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('fluidcontent_core'));
+		return (TRUE === $this->existingFileIsMigratable() && TRUE === \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('fluidcontent_core'));
 	}
 
 	/**
 	 * @return string
 	 */
 	public function main() {
-		$sourceFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('fluidcontent_core', 'Build/AdditionalConfiguration.php');
-		copy($sourceFile, $this->targetConfigurationFile);
-		return 'Deployed "' . $sourceFile . '" to "' . $this->targetConfigurationFile . '"';
+		$this->targetConfigurationFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('fluidcontent_core', 'Build/AdditionalConfiguration.php');
+		if (TRUE === $this->existingFileIsMigratable()) {
+			$this->installAdditionalConfiguration();
+			return 'Deployed "' . $this->targetConfigurationFile . '" to "' . $this->targetConfigurationFile . '"';
+		}
+		return 'No action performed';
+	}
+
+	/**
+	 * @return boolean
+	 */
+	protected function existingFileIsMigratable() {
+		$migrationHistoryFiles = glob(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('fluidcontent_core', 'Migrations/Configuration/AdditionalConfiguration*.php'));
+		if (FALSE === file_exists($this->targetConfigurationFile)) {
+			return TRUE;
+		}
+		$targetContent = file_get_contents($this->targetConfigurationFile);
+		foreach ($migrationHistoryFiles as $migrationHistoryFile) {
+			if ($targetContent === file_get_contents($migrationHistoryFile)) {
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function installAdditionalConfiguration() {
+		copy($this->targetConfigurationFile, $this->targetConfigurationFile);
 	}
 
 }

@@ -33,6 +33,11 @@ class ext_update {
 	/**
 	 * @var string
 	 */
+	protected $sourceConfigurationFile;
+
+	/**
+	 * @var string
+	 */
 	protected $targetConfigurationFile = 'typo3conf/AdditionalConfiguration.php';
 
 	/**
@@ -53,7 +58,7 @@ class ext_update {
 	 * @return string
 	 */
 	public function main() {
-		$this->targetConfigurationFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('fluidcontent_core', 'Build/AdditionalConfiguration.php');
+		$this->sourceConfigurationFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('fluidcontent_core', 'Build/AdditionalConfiguration.php');
 		if (TRUE === $this->existingFileIsMigratable()) {
 			$this->installAdditionalConfiguration();
 			return 'Deployed "' . $this->targetConfigurationFile . '" to "' . $this->targetConfigurationFile . '"';
@@ -82,7 +87,7 @@ class ext_update {
 	 * @return void
 	 */
 	protected function installAdditionalConfiguration() {
-		copy($this->targetConfigurationFile, $this->targetConfigurationFile);
+		copy($this->sourceConfigurationFile, $this->targetConfigurationFile);
 	}
 
 }

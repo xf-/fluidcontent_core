@@ -93,7 +93,7 @@ Selecting a variant when editing either `text` or `image` elements from then on,
 
 > Note: changing the TypoScript that sets templateRootPath etc. for `myextensionkey` in this example, will make FluidcontentCore look in that other location for the template files belonging to your variant!
 
-You cannot choose custom template file names for your variants, nor a custom location - they must be in the `Content` template folder and must be named in UpperCamelCase according to the `CType` they cover: `Text.html`, `Image.html`, `Uploads.html` etc.
+You cannot choose custom template file names for your variants, nor a custom location - they must be in the `CoreContent` template folder and must be named in UpperCamelCase according to the `CType` they cover: `Text.html`, `Image.html`, `Uploads.html` etc.
 
 > Note: the template files **must exist or your variant will be ignored!**
 

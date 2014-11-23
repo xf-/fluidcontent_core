@@ -74,6 +74,15 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][]
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['image'][] = 'myextensionkey';
 ```
 
+Or if your extension uses namespaces **and contain a vendor name**:
+
+```php
+// ext_tables.php
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = 'VendorName.ExtensionName';
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['image'][] = 'VendorName.ExtensionName';
+```
+
+
 Then create the template files:
 
 ```xml
@@ -106,6 +115,13 @@ Since this concept only applies to you when you use variants, you must first reg
 ```php
 // ext_tables.php
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = 'myextensionkey';
+```
+
+Or if your extension uses namespaces **and contain a vendor name**:
+
+```php
+// ext_tables.php
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = 'VendorName.ExtensionName';
 ```
 
 ```xml

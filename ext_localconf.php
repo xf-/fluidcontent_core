@@ -32,6 +32,6 @@ for ($i = 0; $i < count($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		'FluidTYPO3.FluidcontentCore',
 		ucfirst($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'][$i]),
-		array('CoreContent' => $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'][$i]),
+		array('CoreContent' => 'render,error'),
 		array());
 }

@@ -1,7 +1,7 @@
 Fluid Content: Core Elements
 ============================
 
-[![Build Status](https://travis-ci.org/FluidTYPO3/fluidcontent_core.svg?branch=development)](https://travis-ci.org/FluidTYPO3/fluidcontent_core)
+[![Build Status](https://img.shields.io/jenkins/s/https/jenkins.fluidtypo3.org/fluidcontent_core.svg?style=flat-square)](https://jenkins.fluidtypo3.org/job/fluidcontent_core) [![Coverage Status](https://img.shields.io/coveralls/FluidTYPO3/fluidcontent_core/development.svg?style=flat-square)](https://coveralls.io/r/FluidTYPO3/fluidcontent_core)
 
 > A replacement for `EXT:css_styled_content` 100% powered by Fluid and Flux Forms.
 

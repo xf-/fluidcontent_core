@@ -28,10 +28,12 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'] = array_c
 	array_fill(0, count($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types']), array())
 );
 
-for ($i = 0; $i < count($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types']); $i++) {
+$types = count($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types']);
+for ($i = 0; $i < $types; $i++) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		'FluidTYPO3.FluidcontentCore',
 		ucfirst($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'][$i]),
 		array('CoreContent' => 'render,error'),
 		array());
 }
+unset($types);

@@ -25,7 +25,7 @@ namespace FluidTYPO3\FluidcontentCore\Controller;
  *****************************************************************/
 
 use FluidTYPO3\Flux\Controller\AbstractFluxController;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use FluidTYPO3\Flux\Utility\RecursiveArrayUtility;
 use TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository;
 
 /**
@@ -56,7 +56,7 @@ abstract class AbstractCoreContentController extends AbstractFluxController {
 	protected function initializeViewVariables() {
 		$row = $this->getRecord();
 		$flexFormData = $this->configurationService->convertFlexFormContentToArray($row['pi_flexform']);
-		$this->settings = GeneralUtility::array_merge_recursive_overrule($this->settings, $flexFormData, FALSE, FALSE);
+		$this->settings = RecursiveArrayUtility::merge($this->settings, $flexFormData, FALSE, FALSE);
 		parent::initializeViewVariables();
 	}
 

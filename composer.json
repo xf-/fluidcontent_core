@@ -24,10 +24,10 @@
     ],
     "autoload": {
         "psr-4": {
+            "FluidTYPO3\\FluidcontentCore\\Tests\\": "Tests/",
             "FluidTYPO3\\FluidcontentCore\\": "Classes/"
         },
         "classmap": [
-            "Tests",
             "vendor/typo3/cms/typo3/sysext/extbase",
             "vendor/typo3/cms/typo3/sysext/fluid",
             "vendor/typo3/cms/typo3/sysext/core",

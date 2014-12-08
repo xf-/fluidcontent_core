@@ -22,7 +22,7 @@
             }
         }
     ],
-    "autoload": {
+    "autoload-dev": {
         "psr-4": {
             "FluidTYPO3\\FluidcontentCore\\Tests\\": "Tests/",
             "FluidTYPO3\\FluidcontentCore\\": "Classes/"

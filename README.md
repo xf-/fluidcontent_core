@@ -74,7 +74,7 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][]
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['image'][] = 'myextensionkey';
 ```
 
-Or if your extension uses namespaces **and contain a vendor name**:
+Or if your extension uses namespaces **and contains a vendor name**:
 
 ```php
 // ext_tables.php

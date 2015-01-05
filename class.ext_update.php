@@ -58,7 +58,7 @@ class ext_update {
 	 * @return string
 	 */
 	public function main() {
-		$this->sourceConfigurationFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('fluidcontent_core', 'Build/AdditionalConfiguration.php');
+		$this->sourceConfigurationFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('fluidcontent_core', 'Resources/Private/Configuration/AdditionalConfiguration.php');
 		if (TRUE === $this->existingFileIsMigratable()) {
 			$this->installAdditionalConfiguration();
 			return 'Deployed "' . $this->targetConfigurationFile . '" to "' . $this->targetConfigurationFile . '"';

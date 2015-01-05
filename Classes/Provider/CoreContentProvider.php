@@ -27,6 +27,7 @@ namespace FluidTYPO3\FluidcontentCore\Provider;
 use FluidTYPO3\Flux\Form;
 use FluidTYPO3\Flux\Provider\AbstractProvider;
 use FluidTYPO3\Flux\Provider\ProviderInterface;
+use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
 use FluidTYPO3\Flux\Utility\PathUtility;
 use FluidTYPO3\Flux\Utility\ResolveUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
@@ -261,6 +262,17 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	 * @param array $row
 	 * @return string
 	 */
+	public function getControllerExtensionKeyFromRecord(array $row) {
+		if (FALSE === empty($row['content_variant'])) {
+			return $row['content_variant'];
+		}
+		return $this->extensionKey;
+	}
+
+	/**
+	 * @param array $row
+	 * @return string
+	 */
 	public function getTemplatePathAndFilename(array $row) {
 		$extensionKey = $this->getExtensionKey($row);
 		$variant = $this->getVariant($row);
@@ -332,6 +344,25 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 			}
 		}
 		return parent::postProcessRecord($operation, $id, $row, $reference);
+	}
+
+	/**
+	 * @param array $row
+	 * @return array
+	 */
+	public function getTemplatePaths(array $row) {
+		$paths = parent::getTemplatePaths($row);
+
+		$variant = $this->getVariant($row);
+		if (FALSE === empty($variant)) {
+			$extensionKey = ExtensionNamingUtility::getExtensionKey($variant);
+			if (FALSE === empty($extensionKey)) {
+				$overlayPaths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
+				$paths['overlays'][$extensionKey] = $overlayPaths;
+			}
+		}
+
+		return $paths;
 	}
 
 }

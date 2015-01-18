@@ -26,7 +26,6 @@ namespace FluidTYPO3\FluidcontentCore\Controller;
 
 use FluidTYPO3\Flux\Controller\AbstractFluxController;
 use FluidTYPO3\Flux\Utility\RecursiveArrayUtility;
-use TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository;
 
 /**
  * Class AbstractCoreContentController

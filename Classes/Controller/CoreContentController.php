@@ -25,8 +25,6 @@ namespace FluidTYPO3\FluidcontentCore\Controller;
  *****************************************************************/
 
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository;
 
 /**
  * Class CoreContentController

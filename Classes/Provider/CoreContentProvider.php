@@ -180,7 +180,7 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 				list ($variantExtensionKey, $labelReference) = $variantExtensionKey;
 			} else {
 				$actualKey = ExtensionNamingUtility::getExtensionKey($variantExtensionKey);
-				$labelReference = 'EXT:' . $actualKey. '/Resources/Private/Language/locallang.xlf:fluidcontent_core.variantLabel';
+				$labelReference = 'fluidcontent_core.variantLabel';
 			}
 			$templatePathAndFilename = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($variantExtensionKey, $contentType, $variantExtensionKey);
 			if (TRUE === file_exists(PathUtility::translatePath($templatePathAndFilename))) {

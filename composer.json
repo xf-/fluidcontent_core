@@ -8,10 +8,14 @@
     "require-dev": {
         "fluidtypo3/development": "*"
     },
+    "autoload": {
+        "psr-4": {
+            "FluidTYPO3\\FluidcontentCore\\": "Classes/"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
-            "FluidTYPO3\\FluidcontentCore\\Tests\\": "Tests/",
-            "FluidTYPO3\\FluidcontentCore\\": "Classes/"
+            "FluidTYPO3\\FluidcontentCore\\Tests\\": "Tests/"
         },
         "classmap": [
             "vendor/typo3/cms/typo3/sysext/extbase",

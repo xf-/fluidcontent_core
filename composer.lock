@@ -4,24 +4,24 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0a35c7e45ae4490c3f952e1bf24bc4cc",
+    "hash": "906ec37e9f321735f00d155da66988de",
     "packages": [
         {
             "name": "fluidtypo3/flux",
-            "version": "7.1.2",
+            "version": "dev-development",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/flux.git",
-                "reference": "8c968d20e4a4cc001d49f2cf0ae687658b80f720"
+                "reference": "61cdb0d770b39a1c6902d7d0695feea467d4c8c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/8c968d20e4a4cc001d49f2cf0ae687658b80f720",
-                "reference": "8c968d20e4a4cc001d49f2cf0ae687658b80f720",
+                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/61cdb0d770b39a1c6902d7d0695feea467d4c8c4",
+                "reference": "61cdb0d770b39a1c6902d7d0695feea467d4c8c4",
                 "shasum": ""
             },
             "require-dev": {
-                "satooshi/php-coveralls": "dev-master"
+                "fluidtypo3/development": "*"
             },
             "suggest": {
                 "fluidtypo3/fluidcontent": "Gives the ability to render Content Templates with pure fluid.",
@@ -32,7 +32,6 @@
             "type": "typo3-cms-extension",
             "autoload": {
                 "psr-4": {
-                    "FluidTYPO3\\Flux\\Tests\\Unit\\": "Tests/Unit/",
                     "FluidTYPO3\\Flux\\": "Classes/"
                 }
             },
@@ -42,7 +41,7 @@
             ],
             "description": "The flux package from FluidTYPO3",
             "homepage": "http://fluidtypo3.org",
-            "time": "2014-10-31 00:24:12"
+            "time": "2015-02-08 22:00:03"
         },
         {
             "name": "fluidtypo3/vhs",
@@ -1571,7 +1570,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "fluidtypo3/flux": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

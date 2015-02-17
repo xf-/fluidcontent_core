@@ -12,11 +12,40 @@ use FluidTYPO3\FluidcontentCore\Controller\CoreContentController;
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
 use TYPO3\CMS\Core\Tests\Unit\Resource\BaseTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Class CoreContentControllerTest
  */
 class CoreContentControllerTest extends BaseTestCase {
+
+	/**
+	 * @return void
+	 */
+	public function testInitializeProvider() {
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\Controller\\CoreContentController', array('dummy'));
+		$instance->injectObjectManager(GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager'));
+		$this->callInaccessibleMethod($instance, 'initializeProvider');
+		$this->assertAttributeInstanceOf('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider', 'provider', $instance);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testInitializeViewVariables() {
+		$instance = $this->getMock(
+			'FluidTYPO3\\FluidcontentCore\\Controller\\CoreContentController',
+			array('getRecord', 'initializeSettings', 'initializeViewObject')
+		);
+		$instance->expects($this->atLeastOnce())->method('getRecord')->willReturn(array('uid' => 0));
+		$instance->expects($this->once())->method('initializeSettings');
+		$instance->expects($this->once())->method('initializeViewObject');
+		$service = $this->getMock('FluidTYPO3\\Flux\\Service\\FluxService', array('convertFlexFormContentToArray'));
+		$service->expects($this->once())->method('convertFlexFormContentToArray')->willReturn(array());
+		$instance->injectObjectManager(GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager'));
+		$instance->injectConfigurationService($service);
+		$instance->initializeView(new StandaloneView());
+	}
 
 	/**
 	 * @dataProvider getNoopActionNames

@@ -68,4 +68,97 @@ class CoreContentProviderTest extends UnitTestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider getExtensionKeyTestValues
+	 * @param array $row
+	 * @param string|NULL $expected
+	 */
+	public function testGetExtensionKey(array $row, $expected) {
+		$instance = new CoreContentProvider();
+		$result = $instance->getExtensionKey($row);
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @dataProvider getExtensionKeyTestValues
+	 * @param array $row
+	 * @param string|NULL $expected
+	 */
+	public function testGetControllerExtensionKeyFromRecord(array $row, $expected) {
+		$instance = new CoreContentProvider();
+		$result = $instance->getControllerExtensionKeyFromRecord($row);
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getExtensionKeyTestValues() {
+		return array(
+			array(array(), 'fluidcontent_core'),
+			array(array('content_variant' => 'test'), 'test'),
+			array(array('content_variant' => 'Vendor.Test'), 'test')
+		);
+	}
+
+	/**
+	 * @dataProvider getVariantVersionTestValues
+	 * @param array $row
+	 * @param string $expected
+	 */
+	public function testGetVariant(array $row, $expected) {
+		$defaults = array('version' => 'version', 'variant' => 'variant');
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider', array('getDefaults'));
+		$instance->expects($this->once())->method('getDefaults')->willReturn($defaults);
+		$result = $this->callInaccessibleMethod($instance, 'getVariant', $row);
+		$this->assertEquals(NULL === $expected ? $defaults['variant'] : $expected, $result);
+	}
+
+	/**
+	 * @dataProvider getVariantVersionTestValues
+	 * @param array $row
+	 * @param string $expected
+	 */
+	public function testGetVersion(array $row, $expected) {
+		$defaults = array('version' => 'version', 'variant' => 'variant');
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider', array('getDefaults'));
+		$instance->expects($this->once())->method('getDefaults')->willReturn($defaults);
+		$result = $this->callInaccessibleMethod($instance, 'getVersion', $row);
+		$this->assertEquals(NULL === $expected ? $defaults['version'] : $expected, $result);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getVariantVersionTestValues() {
+		return array(
+			array(array(), NULL),
+			array(array('content_version' => '1', 'content_variant' => '1'), '1'),
+		);
+	}
+
+	/**
+	 * @dataProvider getControllerActionFromRecordTestValues
+	 * @param array $row
+	 * @param string|NULL $expected
+	 */
+	public function testGetControllerActionFromRecord(array $row, $expected) {
+		$instance = new CoreContentProvider();
+		$result = $instance->getControllerActionFromRecord($row);
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getControllerActionFromRecordTestValues() {
+		return array(
+			array(array(), NULL),
+			array(array('CType' => 'test'), 'test'),
+			array(array('CType' => 'Test'), 'test'),
+			array(array('CType' => 'CamelCase'), 'camelcase'),
+			array(array('CType' => 'under_scored'), 'under_scored'),
+		);
+	}
+
 }

@@ -53,12 +53,7 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	/**
 	 * @var string
 	 */
-	protected $extensionKey = 'fluidcontent_core';
-
-	/**
-	 * @var string
-	 */
-	protected $packageName = 'FluidTYPO3.FluidcontentCore';
+	protected $extensionKey = 'FluidTYPO3.FluidcontentCore';
 
 	/**
 	 * @var integer
@@ -245,10 +240,11 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	 * @return string|NULL
 	 */
 	public function getExtensionKey(array $row) {
+		$extensionKey = $this->extensionKey;
 		if (FALSE === empty($row['content_variant'])) {
-			return $row['content_variant'];
+			$extensionKey = $row['content_variant'];
 		}
-		return $this->extensionKey;
+		return ExtensionNamingUtility::getExtensionKey($extensionKey);
 	}
 
 	/**
@@ -256,10 +252,7 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	 * @return string
 	 */
 	public function getControllerExtensionKeyFromRecord(array $row) {
-		if (FALSE === empty($row['content_variant'])) {
-			return $row['content_variant'];
-		}
-		return $this->extensionKey;
+		return $this->getExtensionKey($row);
 	}
 
 	/**

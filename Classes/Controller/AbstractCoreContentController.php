@@ -8,9 +8,6 @@ namespace FluidTYPO3\FluidcontentCore\Controller;
  * LICENSE.md file that was distributed with this source code.
  */
 
-use FluidTYPO3\Flux\Controller\AbstractFluxController;
-use FluidTYPO3\Flux\Utility\RecursiveArrayUtility;
-
 /**
  * Class AbstractCoreContentController
  *

@@ -10,7 +10,9 @@ namespace FluidTYPO3\FluidcontentCore\Tests\Unit\Provider;
 
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
 use FluidTYPO3\Flux\Form;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class CoreContentProviderTest
@@ -108,8 +110,10 @@ class CoreContentProviderTest extends UnitTestCase {
 	 */
 	public function testGetVariant(array $row, $expected) {
 		$defaults = array('version' => 'version', 'variant' => 'variant');
-		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider', array('getDefaults'));
-		$instance->expects($this->once())->method('getDefaults')->willReturn($defaults);
+		$instance = new CoreContentProvider();
+		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
+		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
+		$instance->injectConfigurationService($service);
 		$result = $this->callInaccessibleMethod($instance, 'getVariant', $row);
 		$this->assertEquals(NULL === $expected ? $defaults['variant'] : $expected, $result);
 	}
@@ -121,8 +125,10 @@ class CoreContentProviderTest extends UnitTestCase {
 	 */
 	public function testGetVersion(array $row, $expected) {
 		$defaults = array('version' => 'version', 'variant' => 'variant');
-		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider', array('getDefaults'));
-		$instance->expects($this->once())->method('getDefaults')->willReturn($defaults);
+		$instance = new CoreContentProvider();
+		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
+		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
+		$instance->injectConfigurationService($service);
 		$result = $this->callInaccessibleMethod($instance, 'getVersion', $row);
 		$this->assertEquals(NULL === $expected ? $defaults['version'] : $expected, $result);
 	}
@@ -158,6 +164,78 @@ class CoreContentProviderTest extends UnitTestCase {
 			array(array('CType' => 'Test'), 'test'),
 			array(array('CType' => 'CamelCase'), 'camelcase'),
 			array(array('CType' => 'under_scored'), 'under_scored'),
+		);
+	}
+
+	/**
+	 * @dataProvider getPostProcessRecordTestValues
+	 * @param array $row
+	 * @param array $defaults
+	 * @param array $expected
+	 */
+	public function testPostProcessRecord(array $row, array $defaults, $expected) {
+		$instance = new CoreContentProvider();
+		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
+		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
+		$instance->injectConfigurationService($service);
+		$copy = $row;
+		$handler = new DataHandler();
+		$instance->postProcessRecord('anything', 1, $copy, $handler);
+		$this->assertEquals($expected, $copy);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getPostProcessRecordTestValues() {
+		return array(
+			array(array(), array(), array()),
+			array(array(), array('version' => 'test'), array()),
+			array(array(), array('variant' => 'test'), array()),
+			array(
+				array(),
+				array('version' => 'test', 'variant' => 'test2', 'mode' => CoreContentProvider::MODE_RECORD),
+				array('content_version' => 'test', 'content_variant' => 'test2')
+			),
+			array(
+				array(),
+				array('variant' => 'test', 'version' => 'test2', 'mode' => CoreContentProvider::MODE_RECORD),
+				array('content_variant' => 'test', 'content_version' => 'test2')
+			),
+		);
+	}
+
+	/**
+	 * @dataProvider getTemplatePathsTestValues
+	 * @param array $row
+	 * @param array $expected
+	 */
+	public function testGetTemplatePaths(array $row, array $expected) {
+		$instance = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+			->get('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider');
+		$instance->setTemplatePaths(array('foo' => 'bar'));
+		$result = $instance->getTemplatePaths($row);
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getTemplatePathsTestValues() {
+		$paths1 = array(
+			'templateRootPaths' => array('EXT:test/Resources/Private/Templates'),
+			'partialRootPaths' => array('EXT:test/Resources/Private/Partials'),
+			'layoutRootPaths' => array('EXT:test/Resources/Private/Layouts'),
+		);
+		$paths2 = array(
+			'templateRootPaths' => array('EXT:test2/Resources/Private/Templates'),
+			'partialRootPaths' => array('EXT:test2/Resources/Private/Partials'),
+			'layoutRootPaths' => array('EXT:test2/Resources/Private/Layouts'),
+		);
+		return array(
+			array(array(), array('foo' => 'bar')),
+			array(array('content_variant' => 'test'), array('foo' => 'bar', 'overlays' => array('test' => $paths1))),
+			array(array('content_variant' => 'test2'), array('foo' => 'bar', 'overlays' => array('test2' => $paths2))),
 		);
 	}
 

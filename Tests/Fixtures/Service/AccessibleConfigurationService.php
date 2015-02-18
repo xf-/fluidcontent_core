@@ -78,6 +78,14 @@ class AccessibleConfigurationService extends ConfigurationService {
 	}
 
 	/**
+	 * @param array $defaults
+	 * @return void
+	 */
+	public function setDefaults(array $defaults) {
+		$this->defaults = $defaults;
+	}
+
+	/**
 	 * @param string $extensionName
 	 * @return array
 	 */

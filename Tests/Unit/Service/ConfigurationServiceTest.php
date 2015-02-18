@@ -99,9 +99,10 @@ class ConfigurationServiceTest extends UnitTestCase {
 	 * @return array
 	 */
 	public function getVariantExtensionKeysForContentTypeTestValues() {
+		$config = array('fluidcontent_core', 'label', 'icon');
 		return array(
 			array(array(), 'default', array()),
-			array(array('test' => array(array('fluidcontent_core', 'label', 'icon'))), 'test', array('fluidcontent_core')),
+			array(array('test' => array($config)), 'test', array($config)),
 		);
 	}
 

@@ -23,7 +23,7 @@ class ProviderFieldTest extends BaseTestCase {
 		$instance = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
 			->get('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField');
 		$this->assertAttributeInstanceOf('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface', 'objectManager', $instance);
-		$this->assertAttributeInstanceOf('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider', 'provider', $instance);
+		$this->assertAttributeInstanceOf('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', 'configurationService', $instance);
 	}
 
 }

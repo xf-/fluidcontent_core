@@ -59,6 +59,7 @@ class ConfigurationServiceTest extends UnitTestCase {
 	public function getInitializeVariantsTestValues() {
 		return array(
 			array(array(), array(), array()),
+			array(array(array()), array(), array()),
 			array(
 				array('test' => 'fluidcontent_core'),
 				array('test' => array(array('fluidcontent_core', 'fluidcontent_core.variantLabel', NULL))),

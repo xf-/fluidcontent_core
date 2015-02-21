@@ -27,5 +27,11 @@
         "fluidtypo3/fluidcontent": "Gives the ability to render Content Templates with pure fluid.",
         "fluidtypo3/fluidpages": "Gives the ability to render Page Templates with pure fluid.",
         "fluidbt/fluidbootstraptheme": "Provides Twitter Bootstrap templates for fluidcontent and fluidpages"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/TYPO3/TYPO3.CMS"
+        }
+    ]
 }

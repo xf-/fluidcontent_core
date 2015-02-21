@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "86a0e6a6f1f186b37dbec82107bc4dea",
+    "hash": "5bd4951c2ef9a87c0d2ee13cad4261c9",
     "packages": [
         {
             "name": "fluidtypo3/flux",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/flux.git",
-                "reference": "185f4bcaa1b84bbd6539f1cf672485a9733eb60c"
+                "reference": "ff69465913e115225aba7ec3c031e654fd3fd431"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/185f4bcaa1b84bbd6539f1cf672485a9733eb60c",
-                "reference": "185f4bcaa1b84bbd6539f1cf672485a9733eb60c",
+                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/ff69465913e115225aba7ec3c031e654fd3fd431",
+                "reference": "ff69465913e115225aba7ec3c031e654fd3fd431",
                 "shasum": ""
             },
             "require-dev": {
@@ -41,7 +41,7 @@
             ],
             "description": "The flux package from FluidTYPO3",
             "homepage": "http://fluidtypo3.org",
-            "time": "2015-02-18 03:20:21"
+            "time": "2015-02-21 19:17:52"
         },
         {
             "name": "fluidtypo3/vhs",
@@ -154,16 +154,16 @@
         },
         {
             "name": "fluidtypo3/development",
-            "version": "1.1.8",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/fluidtypo3-development.git",
-                "reference": "6e6de100891c3e8f563078d68f5740e74f8b979f"
+                "reference": "97bdf7fec76386261186a882385ad93c3bd3dcf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/fluidtypo3-development/zipball/6e6de100891c3e8f563078d68f5740e74f8b979f",
-                "reference": "6e6de100891c3e8f563078d68f5740e74f8b979f",
+                "url": "https://api.github.com/repos/FluidTYPO3/fluidtypo3-development/zipball/97bdf7fec76386261186a882385ad93c3bd3dcf7",
+                "reference": "97bdf7fec76386261186a882385ad93c3bd3dcf7",
                 "shasum": ""
             },
             "require": {
@@ -173,7 +173,7 @@
                 "phpunit/phpunit": "4.3.*",
                 "satooshi/php-coveralls": "*",
                 "squizlabs/php_codesniffer": "*",
-                "typo3/cms": "6.2.9"
+                "typo3/cms": "6.2.*"
             },
             "replace": {
                 "typo3/cms-composer-installers": "*"
@@ -208,7 +208,7 @@
                 "php",
                 "typo3"
             ],
-            "time": "2015-02-10 13:58:27"
+            "time": "2015-02-19 15:53:48"
         },
         {
             "name": "guzzle/guzzle",

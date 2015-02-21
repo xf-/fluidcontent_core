@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/flux.git",
-                "reference": "ff69465913e115225aba7ec3c031e654fd3fd431"
+                "reference": "43339aadcb20e508accd15e58f6d8fc3ecc94b27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/ff69465913e115225aba7ec3c031e654fd3fd431",
-                "reference": "ff69465913e115225aba7ec3c031e654fd3fd431",
+                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/43339aadcb20e508accd15e58f6d8fc3ecc94b27",
+                "reference": "43339aadcb20e508accd15e58f6d8fc3ecc94b27",
                 "shasum": ""
             },
             "require-dev": {
@@ -41,7 +41,7 @@
             ],
             "description": "The flux package from FluidTYPO3",
             "homepage": "http://fluidtypo3.org",
-            "time": "2015-02-21 19:17:52"
+            "time": "2015-02-21 21:03:21"
         },
         {
             "name": "fluidtypo3/vhs",

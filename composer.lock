@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5bd4951c2ef9a87c0d2ee13cad4261c9",
+    "hash": "e410a6471122329a24cd60a32f39167b",
     "packages": [
         {
             "name": "fluidtypo3/flux",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/flux.git",
-                "reference": "7f8a59d24f7c9e973cf9994b32e538f21248717e"
+                "reference": "9d8bc9f6abe7aea9f2a65351b0f1b42b69fc52d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/7f8a59d24f7c9e973cf9994b32e538f21248717e",
-                "reference": "7f8a59d24f7c9e973cf9994b32e538f21248717e",
+                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/9d8bc9f6abe7aea9f2a65351b0f1b42b69fc52d4",
+                "reference": "9d8bc9f6abe7aea9f2a65351b0f1b42b69fc52d4",
                 "shasum": ""
             },
             "require-dev": {
@@ -41,26 +41,31 @@
             ],
             "description": "The flux package from FluidTYPO3",
             "homepage": "http://fluidtypo3.org",
-            "time": "2015-02-21 21:57:19"
+            "time": "2015-02-22 22:55:07"
         },
         {
             "name": "fluidtypo3/vhs",
-            "version": "2.2.0",
+            "version": "dev-development",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/vhs.git",
-                "reference": "4fb8919f7a18d6cb35ad4f568e1c88f9f245242b"
+                "reference": "a00467eb160dabc31c7e822732756e2d9f03679f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/vhs/zipball/4fb8919f7a18d6cb35ad4f568e1c88f9f245242b",
-                "reference": "4fb8919f7a18d6cb35ad4f568e1c88f9f245242b",
+                "url": "https://api.github.com/repos/FluidTYPO3/vhs/zipball/a00467eb160dabc31c7e822732756e2d9f03679f",
+                "reference": "a00467eb160dabc31c7e822732756e2d9f03679f",
                 "shasum": ""
             },
             "require-dev": {
-                "satooshi/php-coveralls": "dev-master"
+                "fluidtypo3/development": "*"
             },
             "type": "typo3-cms-extension",
+            "autoload": {
+                "psr-4": {
+                    "FluidTYPO3\\Vhs\\": "Classes/"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0+"
@@ -75,7 +80,7 @@
                 "utility",
                 "viewhelper"
             ],
-            "time": "2014-12-03 10:59:40"
+            "time": "2015-02-21 14:02:33"
         }
     ],
     "packages-dev": [
@@ -1690,7 +1695,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "fluidtypo3/flux": 20
+        "fluidtypo3/flux": 20,
+        "fluidtypo3/vhs": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

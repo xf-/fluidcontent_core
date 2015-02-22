@@ -7,6 +7,7 @@
     },
     "require-dev": {
         "fluidtypo3/flux": "dev-development",
+        "fluidtypo3/vhs": "dev-development",
         "fluidtypo3/development": "*"
     },
     "autoload": {

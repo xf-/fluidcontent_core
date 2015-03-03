@@ -176,8 +176,11 @@ class CoreContentProviderTest extends UnitTestCase {
 	public function testPostProcessRecord(array $row, array $defaults, $expected) {
 		$instance = new CoreContentProvider();
 		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
+		$contentService = $this->getMock('FluidTYPO3\\Flux\\Service\\ContentService', array('affectRecordByRequestParameters'));
+		$contentService->expects($this->any())->method('affectRecordByRequestParameters');
 		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
 		$instance->injectConfigurationService($service);
+		$instance->injectContentService($contentService);
 		$copy = $row;
 		$handler = new DataHandler();
 		$instance->postProcessRecord('anything', 1, $copy, $handler);

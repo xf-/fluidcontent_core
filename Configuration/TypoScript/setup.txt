@@ -1,7 +1,6 @@
 [global]
 plugin.tx_fluidcontentcore {
 	view {
-		extensionKey = fluidcontent_core
 		templateRootPaths.0 = {$plugin.tx_fluidcontentcore.view.templateRootPaths.default}
 		partialRootPaths.0 = {$plugin.tx_fluidcontentcore.view.partialRootPaths.default}
 		layoutRootPaths.0 = {$plugin.tx_fluidcontentcore.view.layoutRootPaths.default}

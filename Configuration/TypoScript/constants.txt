@@ -1,8 +1,8 @@
 plugin.tx_fluidcontentcore {
 	view {
-		templateRootPath = EXT:fluidcontent_core/Resources/Private/Templates/
-		partialRootPath = EXT:fluidcontent_core/Resources/Private/Partials/
-		layoutRootPath = EXT:fluidcontent_core/Resources/Private/Layouts/
+		templateRootPaths.default = EXT:fluidcontent_core/Resources/Private/Templates/
+		partialRootPaths.default = EXT:fluidcontent_core/Resources/Private/Partials/
+		layoutRootPaths.default = EXT:fluidcontent_core/Resources/Private/Layouts/
 	}
 	settings {
 		defaults {

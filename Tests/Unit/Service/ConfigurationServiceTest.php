@@ -12,6 +12,7 @@ use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
 use FluidTYPO3\FluidcontentCore\Tests\Fixtures\Service\AccessibleConfigurationService;
 use FluidTYPO3\Flux\View\TemplatePaths;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Class ConfigurationServiceTest
@@ -44,6 +45,7 @@ class ConfigurationServiceTest extends UnitTestCase {
 	 */
 	public function testInitializeVariants(array $variants, array $expectedVariants, array $expectedVersions) {
 		$templatePaths = new TemplatePaths('fluidcontent_core');
+		$templatePaths->setTemplateRootPaths(array(ExtensionManagementUtility::extPath('fluidcontent_core', 'Tests/Fixtures/Templates/')));
 		$paths = $templatePaths->toArray();
 		$instance = new AccessibleConfigurationService();
 		$instance->setRegisteredVariants($variants);
@@ -63,22 +65,22 @@ class ConfigurationServiceTest extends UnitTestCase {
 			array(
 				array('test' => 'fluidcontent_core'),
 				array('test' => array(array('fluidcontent_core', 'fluidcontent_core.variantLabel', NULL))),
-				array('test' => array('fluidcontent_core' => $this->defaultTypes))
+				array('test' => array('fluidcontent_core' => array('Text')))
 			),
 			array(
 				array('test' => array('fluidcontent_core', 'customlabel')),
 				array('test' => array(array('fluidcontent_core', 'customlabel', NULL))),
-				array('test' => array('fluidcontent_core' => $this->defaultTypes))
+				array('test' => array('fluidcontent_core' => array('Text')))
 			),
 			array(
 				array('test' => array('fluidcontent_core', 'customlabel', 'customicon')),
 				array('test' => array(array('fluidcontent_core', 'customlabel', 'customicon'))),
-				array('test' => array('fluidcontent_core' => $this->defaultTypes))
+				array('test' => array('fluidcontent_core' => array('Text')))
 			),
 			array(
 				array('test' => 'otherext'),
 				array('test' => array(array('otherext', 'fluidcontent_core.variantLabel', NULL))),
-				array('test' => array('otherext' => $this->defaultTypes))
+				array('test' => array('otherext' => array('Text')))
 			),
 		);
 	}

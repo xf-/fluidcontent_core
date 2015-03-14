@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e410a6471122329a24cd60a32f39167b",
+    "hash": "cf9e1561772b0351c18292de5653f0cf",
     "packages": [
         {
             "name": "fluidtypo3/flux",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/flux.git",
-                "reference": "53356c80c5abab81394a26e0f43481f30e91d66c"
+                "reference": "a77e3de6ce62507b4fb71b9a6934553685827c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/53356c80c5abab81394a26e0f43481f30e91d66c",
-                "reference": "53356c80c5abab81394a26e0f43481f30e91d66c",
+                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/a77e3de6ce62507b4fb71b9a6934553685827c23",
+                "reference": "a77e3de6ce62507b4fb71b9a6934553685827c23",
                 "shasum": ""
             },
             "require-dev": {
@@ -41,7 +41,7 @@
             ],
             "description": "The flux package from FluidTYPO3",
             "homepage": "http://fluidtypo3.org",
-            "time": "2015-03-03 22:42:20"
+            "time": "2015-03-14 18:55:33"
         },
         {
             "name": "fluidtypo3/vhs",
@@ -49,13 +49,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/vhs.git",
-                "reference": "2dd170cd631aabfda4ddcdc25a2fc5a401e54779"
+                "reference": "cfb459496c794a68d803d4fb3033d1f799b02567"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/vhs/zipball/2dd170cd631aabfda4ddcdc25a2fc5a401e54779",
-                "reference": "2dd170cd631aabfda4ddcdc25a2fc5a401e54779",
+                "url": "https://api.github.com/repos/FluidTYPO3/vhs/zipball/cfb459496c794a68d803d4fb3033d1f799b02567",
+                "reference": "cfb459496c794a68d803d4fb3033d1f799b02567",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
             },
             "require-dev": {
                 "fluidtypo3/development": "*"
@@ -71,7 +74,7 @@
                 "GPL-2.0+"
             ],
             "description": "The vhs package from FluidTYPO3",
-            "homepage": "http://fluidtypo3.org",
+            "homepage": "https://fluidtypo3.org",
             "keywords": [
                 "TYPO3 CMS",
                 "fedext",
@@ -80,7 +83,7 @@
                 "utility",
                 "viewhelper"
             ],
-            "time": "2015-02-28 14:22:26"
+            "time": "2015-03-14 15:29:33"
         }
     ],
     "packages-dev": [
@@ -159,16 +162,16 @@
         },
         {
             "name": "fluidtypo3/development",
-            "version": "1.1.9",
+            "version": "1.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/fluidtypo3-development.git",
-                "reference": "97bdf7fec76386261186a882385ad93c3bd3dcf7"
+                "reference": "cd00d5894b1ddfddfef4b6e4b006ba4b7ce9317c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/fluidtypo3-development/zipball/97bdf7fec76386261186a882385ad93c3bd3dcf7",
-                "reference": "97bdf7fec76386261186a882385ad93c3bd3dcf7",
+                "url": "https://api.github.com/repos/FluidTYPO3/fluidtypo3-development/zipball/cd00d5894b1ddfddfef4b6e4b006ba4b7ce9317c",
+                "reference": "cd00d5894b1ddfddfef4b6e4b006ba4b7ce9317c",
                 "shasum": ""
             },
             "require": {
@@ -213,7 +216,7 @@
                 "php",
                 "typo3"
             ],
-            "time": "2015-02-19 15:53:48"
+            "time": "2015-03-06 03:18:16"
         },
         {
             "name": "guzzle/guzzle",
@@ -1234,20 +1237,21 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "b301c98f19414d836fdaa678648745fcca5aeb4f"
+                "reference": "5046b0e01c416fc2b06df961d0673c85bcdc896c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/b301c98f19414d836fdaa678648745fcca5aeb4f",
-                "reference": "b301c98f19414d836fdaa678648745fcca5aeb4f",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5046b0e01c416fc2b06df961d0673c85bcdc896c",
+                "reference": "5046b0e01c416fc2b06df961d0673c85bcdc896c",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
                 "php": ">=5.1.2"
             },
             "bin": [
@@ -1255,6 +1259,11 @@
                 "scripts/phpcbf"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "CodeSniffer.php",
@@ -1298,7 +1307,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2015-01-21 22:44:05"
+            "time": "2015-03-04 02:07:03"
         },
         {
             "name": "symfony/config",

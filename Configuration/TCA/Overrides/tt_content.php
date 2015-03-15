@@ -65,6 +65,5 @@ unset(
 	$GLOBALS['TCA']['tt_content']['palettes']['imageblock'],
 	$GLOBALS['TCA']['tt_content']['palettes']['imagelinks'],
 	$GLOBALS['TCA']['tt_content']['palettes']['image_accessibility'],
-	$GLOBALS['TCA']['tt_content']['palettes']['image_settings'],
 	$GLOBALS['TCA']['tt_content']['palettes']['table']
 );

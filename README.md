@@ -1,7 +1,9 @@
+<img src="https://fluidtypo3.org/logo.svgz" width="100%" />
+
 Fluid Content: Core Elements
 ============================
 
-[![Build Status](https://travis-ci.org/FluidTYPO3/fluidcontent_core.svg?branch=development)](https://travis-ci.org/FluidTYPO3/fluidcontent_core)
+[![Build Status](https://img.shields.io/jenkins/s/https/jenkins.fluidtypo3.org/fluidcontent_core.svg?style=flat-square)](https://jenkins.fluidtypo3.org/job/fluidcontent_core) [![Coverage Status](https://img.shields.io/coveralls/FluidTYPO3/fluidcontent_core/development.svg?style=flat-square)](https://coveralls.io/r/FluidTYPO3/fluidcontent_core)
 
 > A replacement for `EXT:css_styled_content` 100% powered by Fluid and Flux Forms.
 
@@ -74,6 +76,36 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][]
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['image'][] = 'myextensionkey';
 ```
 
+Or if your extension uses namespaces **and contains a vendor name**:
+
+```php
+// ext_tables.php
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = 'VendorName.ExtensionName';
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['image'][] = 'VendorName.ExtensionName';
+```
+
+When displayed, the variant selection box will by default look for an LLL label in:
+
+```plain
+EXT:myextensionkey/Resources/Private/Language/locallang.xlf:fluidcontent_core.variantLabel
+```
+
+Or you can manually choose a label and an optional icon for your variant by using a slightly extended registration:
+
+```php
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = array(
+	
+	'myextensionkey',
+	// the first array member must be the extension key, with or without vendor as required
+	
+	'LLL:EXT:myextensionkey/Resources/Private/Language/locallang.xlf:my_custom_label',
+	// a complete LLL file-and-label reference pointing to the label you want
+	
+	ExtensionManagementUtility::extRelPath('myextensionkey') . 'icon.png'
+	// or another file name, or a path (NB: siteroot-relative!) - or NULL for no icon.
+);
+```
+
 Then create the template files:
 
 ```xml
@@ -93,7 +125,7 @@ Selecting a variant when editing either `text` or `image` elements from then on,
 
 > Note: changing the TypoScript that sets templateRootPath etc. for `myextensionkey` in this example, will make FluidcontentCore look in that other location for the template files belonging to your variant!
 
-You cannot choose custom template file names for your variants, nor a custom location - they must be in the `Content` template folder and must be named in UpperCamelCase according to the `CType` they cover: `Text.html`, `Image.html`, `Uploads.html` etc.
+You cannot choose custom template file names for your variants, nor a custom location - they must be in the `CoreContent` template folder and must be named in UpperCamelCase according to the `CType` they cover: `Text.html`, `Image.html`, `Uploads.html` etc.
 
 > Note: the template files **must exist or your variant will be ignored!**
 
@@ -106,6 +138,13 @@ Since this concept only applies to you when you use variants, you must first reg
 ```php
 // ext_tables.php
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = 'myextensionkey';
+```
+
+Or if your extension uses namespaces **and contain a vendor name**:
+
+```php
+// ext_tables.php
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = 'VendorName.ExtensionName';
 ```
 
 ```xml

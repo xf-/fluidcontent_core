@@ -5,6 +5,16 @@
         "fluidtypo3/flux": "*",
         "fluidtypo3/vhs": "*"
     },
+    "require-dev": {
+        "fluidtypo3/flux": "dev-development",
+        "fluidtypo3/vhs": "dev-development",
+        "fluidtypo3/development": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "FluidTYPO3\\FluidcontentCore\\": "Classes/"
+        }
+    },
     "type": "typo3-cms-extension",
     "keywords": ["TYPO3 CMS", "templating", "bootstrap", "flux", "fluidcontent", "fedext", "fluid"],
     "homepage": "http://fluidtypo3.org/",
@@ -18,5 +28,29 @@
         "fluidtypo3/fluidcontent": "Gives the ability to render Content Templates with pure fluid.",
         "fluidtypo3/fluidpages": "Gives the ability to render Page Templates with pure fluid.",
         "fluidbt/fluidbootstraptheme": "Provides Twitter Bootstrap templates for fluidcontent and fluidpages"
-    }
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "typo3/cms",
+                "version": "6.2.10",
+                "dist": {
+                    "url": "https://github.com/TYPO3/TYPO3.CMS/archive/6.2.10.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "typo3/cms",
+                "version": "7.1.0",
+                "dist": {
+                    "url": "https://github.com/TYPO3/TYPO3.CMS/archive/7.1.0.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ]
 }

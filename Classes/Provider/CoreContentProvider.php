@@ -1,34 +1,19 @@
 <?php
 namespace FluidTYPO3\FluidcontentCore\Provider;
-/*****************************************************************
- *  Copyright notice
- *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- *****************************************************************/
 
+/*
+ * This file is part of the FluidTYPO3/FluidcontentCore project under GPLv2 or later.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
 use FluidTYPO3\Flux\Form;
-use FluidTYPO3\Flux\Provider\AbstractProvider;
+use FluidTYPO3\Flux\Provider\ContentProvider;
 use FluidTYPO3\Flux\Provider\ProviderInterface;
+use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
 use FluidTYPO3\Flux\Utility\PathUtility;
-use FluidTYPO3\Flux\Utility\ResolveUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -42,7 +27,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * processing records. This processing ensures that relationships
  * between content elements get stored correctly.
  */
-class CoreContentProvider extends AbstractProvider implements ProviderInterface {
+class CoreContentProvider extends ContentProvider implements ProviderInterface {
 
 	const MODE_RECORD = 'record';
 	const MODE_PRESELECT = 'preselect';
@@ -68,12 +53,7 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	/**
 	 * @var string
 	 */
-	protected $extensionKey = 'fluidcontent_core';
-
-	/**
-	 * @var string
-	 */
-	protected $packageName = 'FluidTYPO3.FluidcontentCore';
+	protected $extensionKey = 'FluidTYPO3.FluidcontentCore';
 
 	/**
 	 * @var integer
@@ -89,16 +69,6 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	 * @var string
 	 */
 	protected $fieldName = 'content_options';
-
-	/**
-	 * @var array
-	 */
-	protected static $variants = array();
-
-	/**
-	 * @var array
-	 */
-	protected static $versions = array();
 
 	/**
 	 * Filled with an integer-or-string -> Fluid section name
@@ -124,17 +94,25 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	);
 
 	/**
+	 * @var ConfigurationService
+	 */
+	protected $configurationService;
+
+	/**
+	 * @param ConfigurationService $configurationService
+	 * @return void
+	 */
+	public function injectConfigurationService(ConfigurationService $configurationService) {
+		$this->configurationService = $configurationService;
+	}
+
+	/**
 	 * @return void
 	 */
 	public function initializeObject() {
-		$typoScript = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$settings = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['settings.'];
-		$settings = GeneralUtility::removeDotsFromTS($settings);
-		$paths = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['view.'];
-		$paths = GeneralUtility::removeDotsFromTS($paths);
-		$paths = PathUtility::translatePath($paths);
+		$typoScript = $this->configurationService->getAllTypoScript();
+		$settings = $typoScript['plugin']['tx_fluidcontentcore']['settings'];
 		$this->templateVariables['settings'] = $settings;
-		$this->templatePaths = $paths;
 		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaults']['template']);
 	}
 
@@ -176,81 +154,22 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	}
 
 	/**
-	 * @param string $contentType
-	 * @return array
-	 */
-	public function getVariantExtensionKeysForContentType($contentType) {
-		if (FALSE === isset($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'][$contentType])) {
-			return array();
-		}
-		if (TRUE === isset(self::$variants[$contentType])) {
-			return self::$variants[$contentType];
-		}
-		self::$variants[$contentType] = array();
-		foreach ($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'][$contentType] as $variantExtensionKey) {
-			$templatePathAndFilename = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($variantExtensionKey, $contentType, $variantExtensionKey);
-			if (TRUE === file_exists(PathUtility::translatePath($templatePathAndFilename))) {
-				array_push(self::$variants[$contentType], $variantExtensionKey);
-			}
-		}
-		return self::$variants[$contentType];
-	}
-
-	/**
-	 * @param string $contentType
-	 * @param string $variant
-	 * @return array
-	 */
-	public function getVariantVersions($contentType, $variant) {
-		if (TRUE === isset(self::$versions[$contentType][$variant])) {
-			return self::$versions[$contentType][$variant];
-		}
-		if (FALSE === isset(self::$versions[$contentType])) {
-			self::$versions[$contentType] = array();
-		}
-		$paths = $this->configurationService->getViewConfigurationForExtensionName($variant);
-		$versionsDirectory = rtrim($paths['templateRootPath'], '/') . '/CoreContent/' . ucfirst($contentType) . '/';
-		$versionsDirectory = PathUtility::translatePath($versionsDirectory);
-		if (FALSE === is_dir($versionsDirectory)) {
-			self::$versions[$contentType][$variant] = array();
-		} else {
-			$files = glob($versionsDirectory . '*.html');
-			foreach ($files as &$file) {
-				$file = basename($file, '.html');
-			}
-			self::$versions[$contentType][$variant] = $files;
-		}
-		return self::$versions[$contentType][$variant];
-	}
-
-	/**
-	 * @param string $extensionKey
-	 * @param string $contentType
-	 * @param string $variant
-	 * @param string $version
-	 * @return string
-	 */
-	protected function getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($extensionKey, $contentType, $variant = NULL, $version = NULL) {
-		if (FALSE === empty($variant)) {
-			$extensionKey = $variant;
-		}
-		$paths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
-		$controllerName = 'CoreContent';
-		$controllerAction = $contentType;
-		$format = 'html';
-		if (FALSE === empty($version)) {
-			$controllerAction .= '/' . $version;
-		}
-
-		$templatePathAndFilename = ResolveUtility::resolveTemplatePathAndFilenameByPathAndControllerNameAndActionAndFormat($paths, $controllerName, $controllerAction, $format);
-		return $templatePathAndFilename;
-	}
-
-	/**
 	 * @param array $row
 	 * @return string|NULL
 	 */
 	public function getExtensionKey(array $row) {
+		$extensionKey = $this->extensionKey;
+		if (FALSE === empty($row['content_variant'])) {
+			$extensionKey = $row['content_variant'];
+		}
+		return ExtensionNamingUtility::getExtensionKey($extensionKey);
+	}
+
+	/**
+	 * @param array $row
+	 * @return string
+	 */
+	public function getControllerExtensionKeyFromRecord(array $row) {
 		if (FALSE === empty($row['content_variant'])) {
 			return $row['content_variant'];
 		}
@@ -265,21 +184,10 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 		$extensionKey = $this->getExtensionKey($row);
 		$variant = $this->getVariant($row);
 		$version = $this->getVersion($row);
-		$template = $this->getTemplatePathAndFilenameByExtensionKeyAndContentTypeAndVariantAndVersion($extensionKey, $row['CType'], $variant, $version);
-		if (TRUE === file_exists(PathUtility::translatePath($template))) {
-			return GeneralUtility::getFileAbsFileName($template);
-		}
-		return GeneralUtility::getFileAbsFileName($this->templatePathAndFilename);
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getDefaults() {
-		$typoScript = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$defaults = (array) $typoScript['plugin.']['tx_fluidcontentcore.']['settings.']['defaults.'];
-		$defaults = GeneralUtility::removeDotsFromTS($defaults);
-		return $defaults;
+		$registeredTypes = (array) $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'];
+		$templateName = TRUE === in_array($row['CType'], $registeredTypes) ? $row['CType'] : 'default';
+		$template = $this->configurationService->resolveTemplateFileForVariant($extensionKey, $templateName, $variant, $version);
+		return $template;
 	}
 
 	/**
@@ -287,7 +195,7 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	 * @return string
 	 */
 	protected function getVariant(array $row) {
-		$defaults = $this->getDefaults();
+		$defaults = $this->configurationService->getDefaults();
 		if (self::MODE_RECORD !== $defaults['mode'] && TRUE === empty($row['content_variant'])) {
 			return $defaults['variant'];
 		}
@@ -299,7 +207,7 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	 * @return string
 	 */
 	protected function getVersion(array $row) {
-		$defaults = $this->getDefaults();
+		$defaults = $this->configurationService->getDefaults();
 		if (self::MODE_RECORD !== $defaults['mode'] && TRUE === empty($row['content_version'])) {
 			return $defaults['version'];
 		}
@@ -319,10 +227,11 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 	 * @param integer $id
 	 * @param array $row
 	 * @param DataHandler $reference
+	 * @param array $removals Allows overridden methods to pass an additional array of field names to remove from the stored Flux value
 	 * @return void
 	 */
-	public function postProcessRecord($operation, $id, array &$row, DataHandler $reference) {
-		$defaults = $this->getDefaults();
+	public function postProcessRecord($operation, $id, array &$row, DataHandler $reference, array $removals = array()) {
+		$defaults = $this->configurationService->getDefaults();
 		if (self::MODE_RECORD === $defaults['mode']) {
 			if (TRUE === empty($row['content_variant'])) {
 				$row['content_variant'] = $defaults['variant'];
@@ -332,6 +241,25 @@ class CoreContentProvider extends AbstractProvider implements ProviderInterface 
 			}
 		}
 		return parent::postProcessRecord($operation, $id, $row, $reference);
+	}
+
+	/**
+	 * @param array $row
+	 * @return array
+	 */
+	public function getTemplatePaths(array $row) {
+		$paths = parent::getTemplatePaths($row);
+
+		$variant = $this->getVariant($row);
+		if (FALSE === empty($variant)) {
+			$extensionKey = ExtensionNamingUtility::getExtensionKey($variant);
+			if (FALSE === empty($extensionKey)) {
+				$overlayPaths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
+				$paths['overlays'][$extensionKey] = $overlayPaths;
+			}
+		}
+
+		return $paths;
 	}
 
 }

@@ -1,30 +1,15 @@
 <?php
 namespace FluidTYPO3\FluidcontentCore\UserFunction;
-/*****************************************************************
- *  Copyright notice
+
+/*
+ * This file is part of the FluidTYPO3/FluidcontentCore project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- *****************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
 
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
+use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -40,16 +25,32 @@ class ProviderField {
 	protected $objectManager;
 
 	/**
-	 * @var CoreContentProvider
+	 * @var ConfigurationService
 	 */
-	protected $provider;
+	protected $configurationService;
+
+	/**
+	 * @param ObjectManagerInterface $objectManager
+	 * @reutrn void
+	 */
+	public function injectObjectManager(ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+	/**
+	 * @param ConfigurationService $configurationService
+	 * @return void
+	 */
+	public function injectConfigurationService(ConfigurationService $configurationService) {
+		$this->configurationService = $configurationService;
+	}
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-		$this->provider = $this->objectManager->get('FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider');
+		$this->injectObjectManager(GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'));
+		$this->injectConfigurationService($this->objectManager->get('FluidTYPO3\FluidcontentCore\Service\ConfigurationService'));
 	}
 
 	/**
@@ -57,18 +58,38 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVariantsField(array $parameters) {
-		$extensionKeys = $this->provider->getVariantExtensionKeysForContentType($parameters['row']['CType']);
-		$defaults = $this->provider->getDefaults();
+		$extensionKeys = $this->configurationService->getVariantExtensionKeysForContentType($parameters['row']['CType']);
+		$defaults = $this->configurationService->getDefaults();
 		$preSelected = $parameters['row']['content_variant'];
 		if (CoreContentProvider::MODE_PRESELECT === $defaults['mode'] && TRUE === empty($preSelected)) {
 			$preSelected = $defaults['variant'];
 		}
 		if (TRUE === is_array($extensionKeys) && 0 < count($extensionKeys)) {
-			$options = array_combine($extensionKeys, $extensionKeys);
+			$options = $this->renderOptions($extensionKeys);
 		} else {
 			$options = array();
 		}
 		return $this->renderSelectField($parameters, $options, $preSelected);
+	}
+
+	/**
+	 * @param array $variants
+	 * @return array
+	 */
+	protected function renderOptions(array $variants) {
+		$options = array();
+		foreach ($variants as $variantSetup) {
+			list ($extensionKey, $labelReference, $icon) = $variantSetup;
+			$translatedLabel = LocalizationUtility::translate($labelReference, $extensionKey);
+			if (NULL === $translatedLabel) {
+				$translatedLabel = $extensionKey;
+			}
+			if (NULL !== $icon) {
+				$translatedLabel = '<img src="' . $icon . '" alt="' . $extensionKey . '" /> ' . $translatedLabel;
+			}
+			$options[$extensionKey] = $translatedLabel;
+		}
+		return $options;
 	}
 
 	/**
@@ -78,10 +99,10 @@ class ProviderField {
 	 * @return string
 	 */
 	protected function renderSelectField($parameters, $options, $selectedValue) {
-		$hasSelectedValue = (TRUE === empty($selectedValue) || TRUE === in_array($selectedValue, $options));
+		$hasSelectedValue = (TRUE === empty($selectedValue) || TRUE === array_key_exists($selectedValue, $options));
 		$selected = (TRUE === empty($selectedValue) ? ' selected="selected"' : NULL);
 		$html = array(
-			'<select class="select" name="' . $parameters['itemFormElName'] . '" onchange="' . $parameters['fieldChangeFunc']['TBE_EDITOR_fieldChanged'] . ';' . $parameters['fieldChangeFunc']['alert'] . '">',
+			'<div class="form-control-wrap"><select class="select form-control" name="' . $parameters['itemFormElName'] . '" onchange="' . $parameters['fieldChangeFunc']['TBE_EDITOR_fieldChanged'] . ';' . $parameters['fieldChangeFunc']['alert'] . '">',
 			'<option' . $selected . ' value="">' . LocalizationUtility::translate('tt_content.nativeLabel', 'FluidcontentCore') . '</option>'
 		);
 		foreach ($options as $value => $label) {
@@ -91,7 +112,7 @@ class ProviderField {
 		if (FALSE === $hasSelectedValue) {
 			$html[] = '<option selected="selected">INVALID: ' . $selectedValue . '</option>';
 		}
-		$html[] = '</select>';
+		$html[] = '</select></div>';
 		return implode(LF, $html);
 	}
 
@@ -100,7 +121,7 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVersionsField(array $parameters) {
-		$defaults = $this->provider->getDefaults();
+		$defaults = $this->configurationService->getDefaults();
 		$preSelectedVariant = $parameters['row']['content_variant'];
 		$preSelectedVersion = $parameters['row']['content_version'];
 		if (CoreContentProvider::MODE_PRESELECT === $defaults['mode']) {
@@ -112,20 +133,13 @@ class ProviderField {
 			}
 		}
 
-		$versions = $this->provider->getVariantVersions($parameters['row']['CType'], $preSelectedVariant);
+		$versions = $this->configurationService->getVariantVersions($parameters['row']['CType'], $preSelectedVariant);
 		if (TRUE === is_array($versions) && 0 < count($versions)) {
 			$options = array_combine($versions, $versions);
 		} else {
 			$options = array();
 		}
 		return $this->renderSelectField($parameters, $options, $preSelectedVersion);
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getNoneFoundLabel() {
-		return LocalizationUtility::translate('tt_content.noneFoundLabel', 'FluidcontentCore');
 	}
 
 }

@@ -1,10 +1,9 @@
 [global]
 plugin.tx_fluidcontentcore {
 	view {
-		extensionKey = fluidcontent_core
-		templateRootPath = {$plugin.tx_fluidcontentcore.view.templateRootPath}
-		partialRootPath = {$plugin.tx_fluidcontentcore.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_fluidcontentcore.view.layoutRootPath}
+		templateRootPaths.0 = {$plugin.tx_fluidcontentcore.view.templateRootPaths.default}
+		partialRootPaths.0 = {$plugin.tx_fluidcontentcore.view.partialRootPaths.default}
+		layoutRootPaths.0 = {$plugin.tx_fluidcontentcore.view.layoutRootPaths.default}
 	}
 	settings {
 		defaults {
@@ -75,8 +74,6 @@ tt_content.header < plugin.tx_fluidcontentcore.bootstrap
 tt_content.header.pluginName = Header
 tt_content.image < plugin.tx_fluidcontentcore.bootstrap
 tt_content.image.pluginName = Image
-tt_content.textpic < plugin.tx_fluidcontentcore.bootstrap
-tt_content.textpic.pluginName = Textpic
 tt_content.bullets < plugin.tx_fluidcontentcore.bootstrap
 tt_content.bullets.pluginName = Bullets
 tt_content.uploads < plugin.tx_fluidcontentcore.bootstrap

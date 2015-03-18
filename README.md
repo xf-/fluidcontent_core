@@ -1,3 +1,5 @@
+<img src="https://fluidtypo3.org/logo.svgz" width="100%" />
+
 Fluid Content: Core Elements
 ============================
 
@@ -82,6 +84,27 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][]
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['image'][] = 'VendorName.ExtensionName';
 ```
 
+When displayed, the variant selection box will by default look for an LLL label in:
+
+```plain
+EXT:myextensionkey/Resources/Private/Language/locallang.xlf:fluidcontent_core.variantLabel
+```
+
+Or you can manually choose a label and an optional icon for your variant by using a slightly extended registration:
+
+```php
+$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['text'][] = array(
+	
+	'myextensionkey',
+	// the first array member must be the extension key, with or without vendor as required
+	
+	'LLL:EXT:myextensionkey/Resources/Private/Language/locallang.xlf:my_custom_label',
+	// a complete LLL file-and-label reference pointing to the label you want
+	
+	ExtensionManagementUtility::extRelPath('myextensionkey') . 'icon.png'
+	// or another file name, or a path (NB: siteroot-relative!) - or NULL for no icon.
+);
+```
 
 Then create the template files:
 

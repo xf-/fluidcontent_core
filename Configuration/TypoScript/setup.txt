@@ -74,8 +74,6 @@ tt_content.header < plugin.tx_fluidcontentcore.bootstrap
 tt_content.header.pluginName = Header
 tt_content.image < plugin.tx_fluidcontentcore.bootstrap
 tt_content.image.pluginName = Image
-tt_content.textpic < plugin.tx_fluidcontentcore.bootstrap
-tt_content.textpic.pluginName = Textpic
 tt_content.bullets < plugin.tx_fluidcontentcore.bootstrap
 tt_content.bullets.pluginName = Bullets
 tt_content.uploads < plugin.tx_fluidcontentcore.bootstrap

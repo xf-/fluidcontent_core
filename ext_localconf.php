@@ -36,4 +36,4 @@ for ($i = 0; $i < $types; $i++) {
 		array('CoreContent' => 'render,error'),
 		array());
 }
-unset($types);
+unset($types, $i);

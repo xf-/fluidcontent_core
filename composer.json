@@ -1,5 +1,8 @@
 {
     "name": "fluidtypo3/fluidcontent_core",
+    "config": {
+        "preferred-install": "dist"
+    },
     "description": "Replace css_styled_content with your own templates",
     "require": {
         "fluidtypo3/flux": "*",

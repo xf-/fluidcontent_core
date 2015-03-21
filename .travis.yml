@@ -1,5 +1,7 @@
 language: php
 
+sudo: false
+
 env: TYPO3="7.1.*"
 
 php:

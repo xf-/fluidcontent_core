@@ -25,6 +25,8 @@ cache:
   directories:
     - vendor
 
-install: composer require typo3/cms:$TYPO3
+before_cache: touch vendor/.cached
+
+install: if [ -a vendor/.cached ] ; then echo ; else composer require typo3/cms:$TYPO3 ; fi;
 
 script: ./vendor/bin/ci-runner

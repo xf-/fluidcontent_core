@@ -21,7 +21,11 @@ matrix:
     - php: "hhvm"
       env: TYPO3="7.1.*"
 
-before_install: composer require typo3/cms:$TYPO3 --prefer-dist
+cache:
+  directories:
+    - vendor
+
+before_cache: composer require typo3/cms:$TYPO3 --prefer-dist
 
 install: composer install --prefer-dist
 

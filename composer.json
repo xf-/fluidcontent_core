@@ -18,6 +18,7 @@
             "FluidTYPO3\\FluidcontentCore\\": "Classes/"
         }
     },
+    "preferred-install": "dist",
     "type": "typo3-cms-extension",
     "keywords": ["TYPO3 CMS", "templating", "bootstrap", "flux", "fluidcontent", "fedext", "fluid"],
     "homepage": "http://fluidtypo3.org/",

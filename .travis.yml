@@ -25,8 +25,8 @@ cache:
   directories:
     - vendor
 
-before_install: composer require typo3/cms:$TYPO3 --prefer-dist
+before_install: composer require typo3/cms:$TYPO3 --no-update
 
-install: composer install --prefer-dist
+install: composer install
 
 script: ./vendor/bin/ci-runner

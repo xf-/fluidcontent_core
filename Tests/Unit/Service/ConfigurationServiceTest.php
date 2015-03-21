@@ -33,8 +33,8 @@ class ConfigurationServiceTest extends UnitTestCase {
 		$GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'] = array('foo' => 'bar');
 		$instance = new ConfigurationService();
 		$result = $instance->getAllRegisteredVariants();
-		$this->assertEquals(array('foo' => 'bar'), $result);
 		unset($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']);
+		$this->assertEquals(array('foo' => 'bar'), $result);
 	}
 
 	/**
@@ -63,22 +63,22 @@ class ConfigurationServiceTest extends UnitTestCase {
 			array(array(), array(), array()),
 			array(array(array()), array(), array()),
 			array(
-				array('test' => 'fluidcontent_core'),
+				array('test' => array('fluidcontent_core')),
 				array('test' => array(array('fluidcontent_core', 'fluidcontent_core.variantLabel', NULL))),
 				array('test' => array('fluidcontent_core' => array('Text')))
 			),
 			array(
-				array('test' => array('fluidcontent_core', 'customlabel')),
+				array('test' => array(array('fluidcontent_core', 'customlabel'))),
 				array('test' => array(array('fluidcontent_core', 'customlabel', NULL))),
 				array('test' => array('fluidcontent_core' => array('Text')))
 			),
 			array(
-				array('test' => array('fluidcontent_core', 'customlabel', 'customicon')),
+				array('test' => array(array('fluidcontent_core', 'customlabel', 'customicon'))),
 				array('test' => array(array('fluidcontent_core', 'customlabel', 'customicon'))),
 				array('test' => array('fluidcontent_core' => array('Text')))
 			),
 			array(
-				array('test' => 'otherext'),
+				array('test' => array('otherext')),
 				array('test' => array(array('otherext', 'fluidcontent_core.variantLabel', NULL))),
 				array('test' => array('otherext' => array('Text')))
 			),

@@ -71,7 +71,6 @@ class CoreContentControllerTest extends BaseTestCase {
 			array('uploads'),
 			array('table'),
 			array('media'),
-			array('shortcut'),
 			array('div'),
 			array('html')
 		);
@@ -113,4 +112,32 @@ class CoreContentControllerTest extends BaseTestCase {
 		);
 	}
 
+	/**
+	 * The shortcut action should throw away all non tt_content rows that are associated
+	 * to avoid collisions and have a minimal working sample.
+	 *
+	 * @return void
+	 */
+	public function testShortcutAction() {
+
+		$instance = $this->getMock(
+			'FluidTYPO3\\FluidcontentCore\\Controller\\CoreContentController',
+			array('getRecord', 'initializeViewVariables', 'initializeViewSettings', 'initializeViewObject', 'initializeSettings')
+		);
+
+		$mockView = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
+		$mockView->expects($this->once())->method('assign', '35,54');
+
+		$instance->expects($this->once())
+			->method('getRecord')
+			->willReturn([
+				'uid' => 1234,
+				'pid' => 456,
+				'records' => 'tt_content_45,tt_content_54,tt_blafoo_45'
+			]);
+
+		$this->inject($instance, 'view', $mockView);
+
+		$instance->shortcutAction();
+	}
 }

@@ -34,7 +34,7 @@ plugin.tx_fluidcontentcore {
 				uploads = div
 				table = none
 				media = div
-				menu = navigation
+				menu = nav
 				html = none
 				list = div
 			}

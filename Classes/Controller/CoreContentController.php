@@ -11,6 +11,7 @@ namespace FluidTYPO3\FluidcontentCore\Controller;
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
 use FluidTYPO3\Flux\Controller\AbstractFluxController;
 use FluidTYPO3\Flux\Utility\RecursiveArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class CoreContentController
@@ -140,6 +141,15 @@ class CoreContentController extends AbstractFluxController {
 	 */
 	public function shortcutAction() {
 
+		$record = $this->getRecord();
+		$contentUids = array_map(function($index) {
+			if (0 !== strpos($index, 'tt_content_')) {
+				return FALSE;
+			}
+			return str_replace('tt_content_', '', $index);
+		}, GeneralUtility::trimExplode(',', $record['records']));
+
+		$this->view->assign('contentUids', implode(',', $contentUids));
 	}
 
 	/**

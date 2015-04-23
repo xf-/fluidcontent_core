@@ -237,14 +237,14 @@ class CoreContentProviderTest extends UnitTestCase {
 	 */
 	public function getTemplatePathsTestValues() {
 		$paths1 = array(
-			'templateRootPaths' => array('EXT:test/Resources/Private/Templates/'),
-			'partialRootPaths' => array('EXT:test/Resources/Private/Partials/'),
-			'layoutRootPaths' => array('EXT:test/Resources/Private/Layouts/'),
+			'templateRootPaths' => array(10 => 'EXT:test/Resources/Private/Templates/'),
+			'partialRootPaths' => array(10 => 'EXT:test/Resources/Private/Partials/'),
+			'layoutRootPaths' => array(10 => 'EXT:test/Resources/Private/Layouts/'),
 		);
 		$paths2 = array(
-			'templateRootPaths' => array('EXT:test2/Resources/Private/Templates/'),
-			'partialRootPaths' => array('EXT:test2/Resources/Private/Partials/'),
-			'layoutRootPaths' => array('EXT:test2/Resources/Private/Layouts/'),
+			'templateRootPaths' => array(10 => 'EXT:test2/Resources/Private/Templates/'),
+			'partialRootPaths' => array(10 => 'EXT:test2/Resources/Private/Partials/'),
+			'layoutRootPaths' => array(10 => 'EXT:test2/Resources/Private/Layouts/'),
 		);
 		return array(
 			array(array(), array('foo' => 'bar')),

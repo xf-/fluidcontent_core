@@ -10,10 +10,3 @@ if ('BE' === TYPO3_MODE) {
 }
 
 \FluidTYPO3\Flux\Core::registerConfigurationProvider('FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider');
-foreach ($GLOBALS['TCA']['tt_content']['columns']['CType']['config']['items'] as $index => $item) {
-	if ($item[1] === 'textpic') {
-		unset($GLOBALS['TCA']['tt_content']['columns']['CType']['config']['items'][$index]);
-	}
-};
-unset($index, $item);
-

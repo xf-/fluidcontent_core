@@ -126,16 +126,15 @@ class CoreContentControllerTest extends BaseTestCase {
 		);
 
 		$mockView = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
-		$mockView->expects($this->once())->method('assign', '35,54');
+		$mockView->expects($this->once())->method('assign')->with('contentUids', '45,45,54,87');
 
 		$instance->expects($this->once())
 			->method('getRecord')
 			->willReturn([
 				'uid' => 1234,
 				'pid' => 456,
-				'records' => 'tt_content_45,tt_content_54,tt_blafoo_45'
+				'records' => 'tt_content_45,45,tt_content_54,87,tt_blafoo_45'
 			]);
-
 		$this->inject($instance, 'view', $mockView);
 
 		$instance->shortcutAction();

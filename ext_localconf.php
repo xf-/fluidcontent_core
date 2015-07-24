@@ -38,3 +38,8 @@ for ($i = 0; $i < $types; $i++) {
 		array());
 }
 unset($types, $i);
+
+// Include new content elements to modWizards
+if (TRUE === version_compare(TYPO3_version, '7.3', '>')) {
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:fluidcontent_core/Configuration/PageTS/modWizards.ts">');
+}

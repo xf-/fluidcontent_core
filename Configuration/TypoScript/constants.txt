@@ -31,6 +31,9 @@ plugin.tx_fluidcontentcore {
 			# cat=fluidcontent_core: image/110/classNames; type=string; label=Available CSS class names for images (comma separated)
 			classNames = image,responsive-image
 		}
+		table {
+			classNames =
+		}
 		caption {
 			# cat=fluidcontent_core: image/120/types; type=string; label=HTML element types for image caption (comma separated)
 			types = none,div,span,p,figure

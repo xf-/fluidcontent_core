@@ -12,6 +12,7 @@
  *
  * @package FluidcontentCore
  */
+// @codingStandardsIgnoreStart
 class ext_update {
 
 	/**

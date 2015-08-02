@@ -43,7 +43,11 @@ class ext_update {
 			// expected opening PHP tag; to make sure it ends up in the output.
 			return array('<?php');
 		}
-		return file($this->targetConfigurationFile);
+		$lines = explode(PHP_EOL, trim(file_get_contents($this->targetConfigurationFile)));
+		if (0 === count($lines) || '<?php' !== $lines[0]) {
+			array_unshift($lines, '<?php');
+		}
+		return $lines;
 	}
 
 	/**
@@ -101,7 +105,7 @@ class ext_update {
 	 * @return void
 	 */
 	protected function writeAdditionalConfigurationFile(array $lines) {
-		$content = implode(PHP_EOL, $lines);
+		$content = implode(PHP_EOL, $lines) . PHP_EOL;
 		file_put_contents($this->targetConfigurationFile, $content);
 	}
 

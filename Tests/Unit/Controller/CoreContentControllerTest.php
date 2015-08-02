@@ -108,7 +108,8 @@ class CoreContentControllerTest extends BaseTestCase {
 		return array(
 			array(array(), array()),
 			array(array(CoreContentProvider::MENUTYPE_FIELDNAME => CoreContentProvider::MENU_CATEGORIZEDPAGES), array('pageUids')),
-			array(array(CoreContentProvider::MENUTYPE_FIELDNAME => CoreContentProvider::MENU_CATEGORIZEDCONTENT), array('contentUids'))
+			array(array(CoreContentProvider::MENUTYPE_FIELDNAME => CoreContentProvider::MENU_CATEGORIZEDCONTENT), array('contentUids')),
+			array(array(CoreContentProvider::MENUTYPE_FIELDNAME => CoreContentProvider::MENU_RELATEDPAGES), array('pageUids')),
 		);
 	}
 

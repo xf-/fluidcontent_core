@@ -41,7 +41,7 @@ class CoreContentControllerTest extends BaseTestCase {
 		$instance->expects($this->once())->method('initializeSettings');
 		$instance->expects($this->once())->method('initializeViewObject');
 		$service = $this->getMock('FluidTYPO3\\Flux\\Service\\FluxService', array('convertFlexFormContentToArray'));
-		$service->expects($this->once())->method('convertFlexFormContentToArray')->willReturn(array());
+		$service->expects($this->exactly(2))->method('convertFlexFormContentToArray')->willReturn(array());
 		$instance->injectObjectManager(GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager'));
 		$instance->injectConfigurationService($service);
 		$instance->initializeView(new StandaloneView());

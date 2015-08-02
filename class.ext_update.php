@@ -86,7 +86,7 @@ class ext_update {
 		for ($i = count($currentConfigurationLines) - 1; $i--; $i >= 0) {
 			$line = trim($currentConfigurationLines[$i]);
 			if (TRUE === empty($line) || '?>' === $line) {
-				unset($currentConfigurationLines[$line]);
+				unset($currentConfigurationLines[$i]);
 			}
 		}
 		// add expected lines if they are not found:

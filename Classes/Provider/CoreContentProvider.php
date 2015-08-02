@@ -255,7 +255,7 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 			$extensionKey = ExtensionNamingUtility::getExtensionKey($variant);
 			if (FALSE === empty($extensionKey)) {
 				$overlayPaths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
-				$paths['overlays'][$extensionKey] = $overlayPaths;
+				$paths = array_merge_recursive($paths, $overlayPaths);
 			}
 		}
 

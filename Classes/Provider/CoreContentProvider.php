@@ -16,7 +16,6 @@ use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
 use FluidTYPO3\Flux\Utility\PathUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -255,7 +254,7 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 			$extensionKey = ExtensionNamingUtility::getExtensionKey($variant);
 			if (FALSE === empty($extensionKey)) {
 				$overlayPaths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
-				$paths['overlays'][$extensionKey] = $overlayPaths;
+				$paths = array_merge_recursive($paths, $overlayPaths);
 			}
 		}
 

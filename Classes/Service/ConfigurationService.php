@@ -8,14 +8,13 @@ namespace FluidTYPO3\FluidcontentCore\Service;
  * LICENSE.md file that was distributed with this source code.
  */
 
+use FluidTYPO3\Flux\Form;
 use FluidTYPO3\Flux\Service\FluxService;
 use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
-use FluidTYPO3\Flux\Utility\PathUtility;
-use FluidTYPO3\Flux\Utility\ResolveUtility;
+use FluidTYPO3\Flux\Utility\MiscellaneousUtility;
+use FluidTYPO3\Flux\View\ViewContext;
 use FluidTYPO3\Flux\View\TemplatePaths;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Class ConfigurationService
@@ -138,6 +137,29 @@ class ConfigurationService extends FluxService implements SingletonInterface {
 		$controllerName = 'CoreContent';
 		$controllerAction = FALSE === empty($version) ? $contentType . '/' . $version : $contentType;
 		return $templatePaths->resolveTemplateFileForControllerAndActionAndFormat($controllerName, $controllerAction);
+	}
+
+
+	/**
+	 * @param string $extension
+	 * @param string $contentType
+	 * @param string $version
+	 * @return string
+	 */
+	public function getIconFromVersion($extension, $contentType, $version = NULL) {
+		$extensionKey = ExtensionNamingUtility::getExtensionKey($extension);
+		$templatePathAndFilename = $this->resolveTemplateFileForVariant($extensionKey, $contentType, $extension, $version);
+		$paths = $this->getViewConfigurationForExtensionName($extensionKey);
+		$templatePaths = new TemplatePaths($paths);
+		$viewContext = new ViewContext($templatePathAndFilename, $extensionKey);
+		$viewContext->setTemplatePaths($templatePaths);
+		$viewContext->setSectionName('Configuration');
+		$form = FluxService::getFormFromTemplateFile($viewContext);
+		if (FALSE === $form instanceof Form) {
+			return '';
+		} else {
+			return MiscellaneousUtility::getIconForTemplate($form);
+		}
 	}
 
 }

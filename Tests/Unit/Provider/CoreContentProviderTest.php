@@ -9,7 +9,9 @@ namespace FluidTYPO3\FluidcontentCore\Tests\Unit\Provider;
  */
 
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
+use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
 use FluidTYPO3\Flux\Form;
+use FluidTYPO3\Flux\Service\ContentService;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -49,10 +51,12 @@ class CoreContentProviderTest extends UnitTestCase {
 	 * @param array $record
 	 */
 	public function testGetForm(array $record) {
+		/** @var CoreContentProvider $instance */
 		$instance = $this->getMock(
 			'FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider',
 			array('resolveFormClassName', 'setDefaultValuesInFieldsWithInheritedValues')
 		);
+		/** @var Form $form */
 		$form = Form::create();
 		$instance->setForm($form);
 		$result = $instance->getForm($record);
@@ -122,6 +126,7 @@ class CoreContentProviderTest extends UnitTestCase {
 	public function testGetVariant(array $row, $expected) {
 		$defaults = array('version' => 'version', 'variant' => 'variant');
 		$instance = new CoreContentProvider();
+		/** @var ConfigurationService|\PHPUnit_Framework_MockObject_MockObject $service */
 		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
 		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
 		$instance->injectConfigurationService($service);
@@ -137,6 +142,7 @@ class CoreContentProviderTest extends UnitTestCase {
 	public function testGetVersion(array $row, $expected) {
 		$defaults = array('version' => 'version', 'variant' => 'variant');
 		$instance = new CoreContentProvider();
+		/** @var ConfigurationService|\PHPUnit_Framework_MockObject_MockObject $service */
 		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
 		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
 		$instance->injectConfigurationService($service);
@@ -186,7 +192,9 @@ class CoreContentProviderTest extends UnitTestCase {
 	 */
 	public function testPostProcessRecord(array $row, array $defaults, $expected) {
 		$instance = new CoreContentProvider();
+		/** @var ConfigurationService|\PHPUnit_Framework_MockObject_MockObject $service */
 		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
+		/** @var ContentService|\PHPUnit_Framework_MockObject_MockObject $contentService */
 		$contentService = $this->getMock('FluidTYPO3\\Flux\\Service\\ContentService', array('affectRecordByRequestParameters'));
 		$contentService->expects($this->any())->method('affectRecordByRequestParameters');
 		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
@@ -225,9 +233,10 @@ class CoreContentProviderTest extends UnitTestCase {
 	 * @param array $expected
 	 */
 	public function testGetTemplatePaths(array $row, array $expected) {
+		/** @var CoreContentProvider $instance */
 		$instance = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
 			->get('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider');
-		$instance->setTemplatePaths(array('foo' => 'bar'));
+		$instance->setTemplatePaths(array());
 		$result = $instance->getTemplatePaths($row);
 		$this->assertEquals($expected, $result);
 	}
@@ -247,9 +256,9 @@ class CoreContentProviderTest extends UnitTestCase {
 			'layoutRootPaths' => array('EXT:test2/Resources/Private/Layouts/'),
 		);
 		return array(
-			array(array(), array('foo' => 'bar')),
-			array(array('content_variant' => 'test'), array('foo' => 'bar', 'overlays' => array('test' => $paths1))),
-			array(array('content_variant' => 'test2'), array('foo' => 'bar', 'overlays' => array('test2' => $paths2))),
+			array(array(), array()),
+			array(array('content_variant' => 'test'), $paths1),
+			array(array('content_variant' => 'test2'), $paths2),
 		);
 	}
 

@@ -11,6 +11,7 @@ namespace FluidTYPO3\FluidcontentCore\UserFunction;
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
 use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -49,8 +50,12 @@ class ProviderField {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->injectObjectManager(GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'));
-		$this->injectConfigurationService($this->objectManager->get('FluidTYPO3\FluidcontentCore\Service\ConfigurationService'));
+		/** @var ObjectManager $objectManager */
+		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->injectObjectManager($objectManager);
+		/** @var ConfigurationService $configurationService */
+		$configurationService = $this->objectManager->get('FluidTYPO3\FluidcontentCore\Service\ConfigurationService');
+		$this->injectConfigurationService($configurationService);
 	}
 
 	/**
@@ -131,6 +136,7 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVersionsField(array $parameters) {
+		$options = array();
 		$defaults = $this->configurationService->getDefaults();
 		$preSelectedVariant = $parameters['row']['content_variant'];
 		$preSelectedVersion = $parameters['row']['content_version'];
@@ -145,9 +151,11 @@ class ProviderField {
 
 		$versions = $this->configurationService->getVariantVersions($parameters['row']['CType'], $preSelectedVariant);
 		if (TRUE === is_array($versions) && 0 < count($versions)) {
-			$options = array_combine($versions, $versions);
-		} else {
-			$options = array();
+			foreach ($versions as $version) {
+				$icon = $this->configurationService->getIconFromVersion($preSelectedVariant, $parameters['row']['CType'], $version);
+				$versionIcon = '<img src="' . $icon . '" alt="" /> ';
+				$options[$version] = array($versionIcon, $version);
+			}
 		}
 		return $this->renderSelectField($parameters, $options, $preSelectedVersion);
 	}

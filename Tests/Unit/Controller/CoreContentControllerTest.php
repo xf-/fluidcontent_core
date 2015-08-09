@@ -20,7 +20,6 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  * Class CoreContentControllerTest
  */
 class CoreContentControllerTest extends BaseTestCase {
-
 	/**
 	 * @return void
 	 */
@@ -145,11 +144,11 @@ class CoreContentControllerTest extends BaseTestCase {
 
 		$instance->expects($this->once())
 			->method('getRecord')
-			->willReturn([
+			->willReturn(array(
 				'uid' => 1234,
 				'pid' => 456,
 				'records' => 'tt_content_45,45,tt_content_54,87,tt_blafoo_45'
-			]);
+			));
 		$this->inject($instance, 'view', $mockView);
 
 		$instance->shortcutAction();

@@ -22,6 +22,18 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'] = array(
 \FluidTYPO3\Flux\Core::registerConfigurationProvider('FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider');
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms']['db_new_content_el']['wizardItemsHook']['fluidcontent_core'] = 'FluidTYPO3\FluidcontentCore\Hooks\WizardItemsHookSubscriber';
 
+
+// enable SignalSlot
+/** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
+$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
+$signalSlotDispatcher->connect(
+	'TYPO3\CMS\Extensionmanager\Utility\InstallUtility',
+	'afterExtensionInstall',
+	'FluidTYPO3\FluidcontentCore\Hooks\InstallSignalSlot',
+	'installAddionalConfiguration',
+	FALSE
+);
+
 // Prepare a global variants registration array indexed by CType value.
 // To add your own, do fx: $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants']['textpic'][] = 'myextensionkey';
 $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['variants'] = array_combine(

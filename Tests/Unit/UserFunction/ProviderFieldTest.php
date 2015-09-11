@@ -116,16 +116,16 @@ class ProviderFieldTest extends BaseTestCase {
 				array('<select', '<option')
 			),
 			array(
-				array('test' => array('ver' => array('ver', 'label', 'icon'))),
-				array('test' => array('ver' => array('Test'))),
-				array('mode' => CoreContentProvider::MODE_PRESELECT, 'version' => 'ver'),
-				array('row' => array('CType' => 'test', 'content_variant' => 'ver', 'content_version' => 'Test')),
+				array('test' => array('fluidcontent_core' => array('fluidcontent_core', 'label', 'icon'))),
+				array('test' => array('fluidcontent_core' => array('Test'))),
+				array('mode' => CoreContentProvider::MODE_PRESELECT, 'version' => 'fluidcontent_core'),
+				array('row' => array('CType' => 'test', 'content_variant' => 'fluidcontent_core', 'content_version' => 'Test')),
 				array('<select', '<option', 'value="Test"', 'selected="selected"')
 			),
 			array(
 				array('test' => array(array('fluidcontent_core', 'label', 'icon'))),
-				array('test' => array('ver' => array('Test'))),
-				array('mode' => CoreContentProvider::MODE_PRESELECT, 'version' => 'Test', 'variant' => 'ver'),
+				array('test' => array('fluidcontent_core' => array('Test'))),
+				array('mode' => CoreContentProvider::MODE_PRESELECT, 'version' => 'Test', 'variant' => 'fluidcontent_core'),
 				array('row' => array('CType' => 'test', 'content_variant' => '', 'content_version' => '')),
 				array('<select', '<option', 'value="Test"', 'selected="selected"')
 			),

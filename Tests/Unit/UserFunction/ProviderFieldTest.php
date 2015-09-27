@@ -40,7 +40,8 @@ class ProviderFieldTest extends BaseTestCase {
 		$service = new AccessibleConfigurationService();
 		$service->setVariants($variants);
 		$service->setDefaults($defaults);
-		$instance = new ProviderField();
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField', array('loadRecord'));
+		$instance->expects($this->once())->method('loadRecord')->willReturn($parameters['row']);
 		$instance->injectConfigurationService($service);
 		$result = $instance->createVariantsField($parameters);
 		foreach ($mustContain as $requiredContent) {
@@ -94,7 +95,8 @@ class ProviderFieldTest extends BaseTestCase {
 		$service->setVariants($variants);
 		$service->setVersions($versions);
 		$service->setDefaults($defaults);
-		$instance = new ProviderField();
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField', array('loadRecord'));
+		$instance->expects($this->once())->method('loadRecord')->willReturn($parameters['row']);
 		$instance->injectConfigurationService($service);
 		$result = $instance->createVersionsField($parameters);
 		foreach ($mustContain as $requiredContent) {

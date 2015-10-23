@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/flux.git",
-                "reference": "1a1407df79fcdc9da4b4a0f5ef34fb44d157948f"
+                "reference": "07e804ced973421e1224a4cd02d693e94070bad9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/1a1407df79fcdc9da4b4a0f5ef34fb44d157948f",
-                "reference": "1a1407df79fcdc9da4b4a0f5ef34fb44d157948f",
+                "url": "https://api.github.com/repos/FluidTYPO3/flux/zipball/07e804ced973421e1224a4cd02d693e94070bad9",
+                "reference": "07e804ced973421e1224a4cd02d693e94070bad9",
                 "shasum": ""
             },
             "require-dev": {
@@ -42,7 +42,7 @@
             ],
             "description": "The flux package from FluidTYPO3",
             "homepage": "http://fluidtypo3.org",
-            "time": "2015-10-10 12:37:46"
+            "time": "2015-10-23 11:59:44"
         },
         {
             "name": "fluidtypo3/vhs",
@@ -50,12 +50,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FluidTYPO3/vhs.git",
-                "reference": "ffe5bcfc8e07d18a922cf7c68bbb2a046a5e5d10"
+                "reference": "ba3143cb7a8cbecc3507e2adf6d9eec4982e5856"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FluidTYPO3/vhs/zipball/ffe5bcfc8e07d18a922cf7c68bbb2a046a5e5d10",
-                "reference": "ffe5bcfc8e07d18a922cf7c68bbb2a046a5e5d10",
+                "url": "https://api.github.com/repos/FluidTYPO3/vhs/zipball/ba3143cb7a8cbecc3507e2adf6d9eec4982e5856",
+                "reference": "ba3143cb7a8cbecc3507e2adf6d9eec4982e5856",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "utility",
                 "viewhelper"
             ],
-            "time": "2015-10-10 12:39:05"
+            "time": "2015-10-22 14:14:03"
         }
     ],
     "packages-dev": [

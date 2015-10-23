@@ -14,13 +14,13 @@ use FluidTYPO3\Flux\Service\FluxService;
 use TYPO3\CMS\Core\Tests\Unit\Resource\BaseTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Class CoreContentControllerTest
  */
 class CoreContentControllerTest extends BaseTestCase {
-
 	/**
 	 * @return void
 	 */
@@ -41,11 +41,9 @@ class CoreContentControllerTest extends BaseTestCase {
 		/** @var CoreContentController|\PHPUnit_Framework_MockObject_MockObject $instance */
 		$instance = $this->getMock(
 			'FluidTYPO3\\FluidcontentCore\\Controller\\CoreContentController',
-			array('getRecord', 'initializeSettings', 'initializeViewObject')
+			array('getRecord')
 		);
 		$instance->expects($this->atLeastOnce())->method('getRecord')->willReturn(array('uid' => 0));
-		$instance->expects($this->once())->method('initializeSettings');
-		$instance->expects($this->once())->method('initializeViewObject');
 		/** @var FluxService|\PHPUnit_Framework_MockObject_MockObject $service */
 		$service = $this->getMock('FluidTYPO3\\Flux\\Service\\FluxService', array('convertFlexFormContentToArray'));
 		$service->expects($this->exactly(2))->method('convertFlexFormContentToArray')->willReturn(array());
@@ -53,7 +51,15 @@ class CoreContentControllerTest extends BaseTestCase {
 		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 		$instance->injectObjectManager($objectManager);
 		$instance->injectConfigurationService($service);
-		$instance->initializeView(new StandaloneView());
+		$provider = $this->getMock('FluidTYPO3\\Flux\\Provider\\Provider', array('getTemplateVariables', 'getForm'));
+		$provider->expects($this->any())->method('getTemplateVariables')->willReturn(array());
+		$provider->expects($this->any())->method('getForm')->willReturn(NULL);
+		$view = $this->getMock('FluidTYPO3\\Flux\\View\\ExposedTemplateView', array('assign', 'assignMultiple'));
+		$view->expects($this->any())->method('assign');
+		$view->expects($this->any())->method('assignMultiple');
+		ObjectAccess::setProperty($instance, 'provider', $provider, TRUE);
+		ObjectAccess::setProperty($instance, 'view', $view, TRUE);
+		$this->callInaccessibleMethod($instance, 'initializeViewVariables');
 	}
 
 	/**
@@ -145,11 +151,11 @@ class CoreContentControllerTest extends BaseTestCase {
 
 		$instance->expects($this->once())
 			->method('getRecord')
-			->willReturn([
+			->willReturn(array(
 				'uid' => 1234,
 				'pid' => 456,
 				'records' => 'tt_content_45,45,tt_content_54,87,tt_blafoo_45'
-			]);
+			));
 		$this->inject($instance, 'view', $mockView);
 
 		$instance->shortcutAction();

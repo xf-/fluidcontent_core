@@ -10,6 +10,7 @@ namespace FluidTYPO3\FluidcontentCore\UserFunction;
 
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
 use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
+use TYPO3\CMS\Core\Resource\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
@@ -63,6 +64,7 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVariantsField(array $parameters) {
+		$parameters['row'] = $this->loadRecord('tt_content', $parameters['row']['uid']);
 		$extensionKeys = $this->configurationService->getVariantExtensionKeysForContentType($parameters['row']['CType']);
 		$defaults = $this->configurationService->getDefaults();
 		$preSelected = $parameters['row']['content_variant'];
@@ -136,6 +138,7 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVersionsField(array $parameters) {
+		$parameters['row'] = $this->loadRecord('tt_content', $parameters['row']['uid']);
 		$options = array();
 		$defaults = $this->configurationService->getDefaults();
 		$preSelectedVariant = $parameters['row']['content_variant'];
@@ -158,6 +161,16 @@ class ProviderField {
 			}
 		}
 		return $this->renderSelectField($parameters, $options, $preSelectedVersion);
+	}
+
+	/**
+	 * @param string $table
+	 * @param integer $uid
+	 * @return array
+	 * @codeCoverageIgnore
+	 */
+	protected function loadRecord($table, $uid) {
+		return \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord($table, (integer) $uid);
 	}
 
 }

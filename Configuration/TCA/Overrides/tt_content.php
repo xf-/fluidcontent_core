@@ -10,13 +10,15 @@ $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes'] = array_merge(
 		'text' => 'mimetypes-x-content-text'
 	)
 );
-$GLOBALS['TCA']['tt_content']['ctrl']['typeicons'] = array_merge(
-	$GLOBALS['TCA']['tt_content']['ctrl']['typeicons'],
-	array(
-		'image' => 'tt_content_image.gif',
-		'text' => 'tt_content.gif'
-	)
-);
+if (TRUE === isset($GLOBALS['TCA']['tt_content']['ctrl']['typeicons'])) {
+    $GLOBALS['TCA']['tt_content']['ctrl']['typeicons'] = array_merge(
+        $GLOBALS['TCA']['tt_content']['ctrl']['typeicons'],
+        array(
+            'image' => 'tt_content_image.gif',
+            'text' => 'tt_content.gif'
+        )
+    );
+}
 array_splice(
 	$GLOBALS['TCA']['tt_content']['columns']['CType']['config']['items'],
 	2,
@@ -267,7 +269,6 @@ unset(
 	$GLOBALS['TCA']['tt_content']['types']['swfobject'],
 	$GLOBALS['TCA']['tt_content']['types']['qtobject'],
 	$GLOBALS['TCA']['tt_content']['types']['multimedia'],
-	$GLOBALS['TCA']['tt_content']['types']['mailform'],
 	$GLOBALS['TCA']['tt_content']['types']['search'],
 	$GLOBALS['TCA']['tt_content']['types']['textpic'],
 	$GLOBALS['TCA']['tt_content']['columns']['text_properties'],
@@ -294,6 +295,10 @@ unset(
 	$GLOBALS['TCA']['tt_content']['palettes']['image_accessibility'],
 	$GLOBALS['TCA']['tt_content']['palettes']['table']
 );
+
+if (FALSE === \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('form')) {
+	unset( $GLOBALS['TCA']['tt_content']['types']['mailform'] );
+}
 
 foreach ($GLOBALS['TCA']['tt_content']['columns']['CType']['config']['items'] as $index => $item) {
 	if ($item[1] === 'textpic') {

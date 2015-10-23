@@ -40,7 +40,8 @@ class ProviderFieldTest extends BaseTestCase {
 		$service = new AccessibleConfigurationService();
 		$service->setVariants($variants);
 		$service->setDefaults($defaults);
-		$instance = new ProviderField();
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField', array('loadRecord'));
+		$instance->expects($this->once())->method('loadRecord')->willReturn($parameters['row']);
 		$instance->injectConfigurationService($service);
 		$result = $instance->createVariantsField($parameters);
 		foreach ($mustContain as $requiredContent) {
@@ -94,7 +95,8 @@ class ProviderFieldTest extends BaseTestCase {
 		$service->setVariants($variants);
 		$service->setVersions($versions);
 		$service->setDefaults($defaults);
-		$instance = new ProviderField();
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField', array('loadRecord'));
+		$instance->expects($this->once())->method('loadRecord')->willReturn($parameters['row']);
 		$instance->injectConfigurationService($service);
 		$result = $instance->createVersionsField($parameters);
 		foreach ($mustContain as $requiredContent) {
@@ -116,16 +118,16 @@ class ProviderFieldTest extends BaseTestCase {
 				array('<select', '<option')
 			),
 			array(
-				array('test' => array('ver' => array('ver', 'label', 'icon'))),
-				array('test' => array('ver' => array('Test'))),
-				array('mode' => CoreContentProvider::MODE_PRESELECT, 'version' => 'ver'),
-				array('row' => array('CType' => 'test', 'content_variant' => 'ver', 'content_version' => 'Test')),
+				array('test' => array('fluidcontent_core' => array('fluidcontent_core', 'label', 'icon'))),
+				array('test' => array('fluidcontent_core' => array('Test'))),
+				array('mode' => CoreContentProvider::MODE_PRESELECT, 'version' => 'fluidcontent_core'),
+				array('row' => array('CType' => 'test', 'content_variant' => 'fluidcontent_core', 'content_version' => 'Test')),
 				array('<select', '<option', 'value="Test"', 'selected="selected"')
 			),
 			array(
 				array('test' => array(array('fluidcontent_core', 'label', 'icon'))),
-				array('test' => array('ver' => array('Test'))),
-				array('mode' => CoreContentProvider::MODE_PRESELECT, 'version' => 'Test', 'variant' => 'ver'),
+				array('test' => array('fluidcontent_core' => array('Test'))),
+				array('mode' => CoreContentProvider::MODE_PRESELECT, 'version' => 'Test', 'variant' => 'fluidcontent_core'),
 				array('row' => array('CType' => 'test', 'content_variant' => '', 'content_version' => '')),
 				array('<select', '<option', 'value="Test"', 'selected="selected"')
 			),

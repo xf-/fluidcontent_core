@@ -10,6 +10,7 @@ namespace FluidTYPO3\FluidcontentCore\Tests\Unit\Controller;
 
 use FluidTYPO3\FluidcontentCore\Controller\CoreContentController;
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
+use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
 use FluidTYPO3\Flux\Service\FluxService;
 use TYPO3\CMS\Core\Tests\Unit\Resource\BaseTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -27,11 +28,14 @@ class CoreContentControllerTest extends BaseTestCase {
 	public function testInitializeProvider() {
 		/** @var CoreContentController $instance */
 		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\Controller\\CoreContentController', array('dummy'));
+		$provider = new CoreContentProvider();
+
 		/** @var ObjectManager $objectManager */
-		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array('get'));
+		$objectManager->expects($this->any())->method('get')->willReturn($provider);
 		$instance->injectObjectManager($objectManager);
 		$this->callInaccessibleMethod($instance, 'initializeProvider');
-		$this->assertAttributeInstanceOf('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider', 'provider', $instance);
+		$this->assertAttributeSame($provider, 'provider', $instance);
 	}
 
 	/**
@@ -41,7 +45,7 @@ class CoreContentControllerTest extends BaseTestCase {
 		/** @var CoreContentController|\PHPUnit_Framework_MockObject_MockObject $instance */
 		$instance = $this->getMock(
 			'FluidTYPO3\\FluidcontentCore\\Controller\\CoreContentController',
-			array('getRecord')
+			array('getRecord', 'initializeProvider')
 		);
 		$instance->expects($this->atLeastOnce())->method('getRecord')->willReturn(array('uid' => 0));
 		/** @var FluxService|\PHPUnit_Framework_MockObject_MockObject $service */
@@ -67,7 +71,7 @@ class CoreContentControllerTest extends BaseTestCase {
 	 * @param string $action
 	 */
 	public function testNoopAction($action) {
-		$instance = new CoreContentController();
+		$instance = $this->getMock(CoreContentController::class, array('initializeProvider'));
 		$actionMethod = $action . 'Action';
 		$result = $instance->$actionMethod();
 		$this->assertNull($result);
@@ -112,7 +116,8 @@ class CoreContentControllerTest extends BaseTestCase {
 			$view->expects($this->at($index))->method('assign')->with($expectedVariable, $this->anything());
 		}
 		/** @var ObjectManager $objectManager */
-		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array('get'));
+		$objectManager->expects($this->atLeastOnce())->method('get')->willReturn(new CoreContentProvider());
 		$instance->injectObjectManager($objectManager);
 		$this->callInaccessibleMethod($instance, 'initializeProvider');
 		$instance->initializeView($view);

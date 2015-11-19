@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'shy' => 0,
 	'version' => '1.3.0',
 	'dependencies' => 'cms,flux,vhs',
-	'conflicts' => 'css_styled_content',
+	'conflicts' => 'css_styled_content,fluid_styled_content',
 	'priority' => 'top',
 	'loadOrder' => '',
 	'module' => '',
@@ -40,7 +40,8 @@ $EM_CONF[$_EXTKEY] = array(
 			'vhs' => '2.1.0-2.4.99',
 		),
 		'conflicts' => array(
-			'css_styled_content' => ''
+			'css_styled_content' => '',
+			'fluid_styled_content' => ''
 		),
 		'suggests' => array(
 		),

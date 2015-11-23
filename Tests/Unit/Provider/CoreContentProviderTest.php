@@ -10,11 +10,13 @@ namespace FluidTYPO3\FluidcontentCore\Tests\Unit\Provider;
 
 use FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider;
 use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
+use FluidTYPO3\Flux\Configuration\BackendConfigurationManager;
 use FluidTYPO3\Flux\Form;
 use FluidTYPO3\Flux\Service\ContentService;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use FluidTYPO3\Flux\Configuration\ConfigurationManager;
 
 /**
  * Class CoreContentProviderTest
@@ -54,7 +56,7 @@ class CoreContentProviderTest extends UnitTestCase {
 		/** @var CoreContentProvider $instance */
 		$instance = $this->getMock(
 			'FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider',
-			array('resolveFormClassName', 'setDefaultValuesInFieldsWithInheritedValues')
+			array('resolveFormClassName', 'setDefaultValuesInFieldsWithInheritedValues', 'translateLabel')
 		);
 		/** @var Form $form */
 		$form = Form::create();
@@ -233,9 +235,13 @@ class CoreContentProviderTest extends UnitTestCase {
 	 * @param array $expected
 	 */
 	public function testGetTemplatePaths(array $row, array $expected) {
+		$configurationManager = $this->getMock(ConfigurationManager::class, array('getCurrentPageId'));
 		/** @var CoreContentProvider $instance */
-		$instance = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-			->get('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider');
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\Provider\\CoreContentProvider', array('initializeObject'));
+		$service = $this->getMock(ConfigurationService::class, array('getDefaults', 'getViewConfigurationForExtensionName'));
+		$service->injectConfigurationManager($configurationManager);
+		$service->expects($this->any())->method('getViewConfigurationForExtensionName')->willReturn($expected);
+		$instance->injectConfigurationService($service);
 		$instance->setTemplatePaths(array());
 		$result = $instance->getTemplatePaths($row);
 		$this->assertEquals($expected, $result);

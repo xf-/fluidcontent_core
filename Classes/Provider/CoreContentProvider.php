@@ -144,9 +144,9 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 		}
 		if (self::CTYPE_TABLE == $row[self::CTYPE_FIELDNAME]) {
 			$this->templateVariables['tableHeadPositions'] = array(
-				self::THEAD_NONE => LocalizationUtility::translate('tableHead.none', 'fluidcontent_core'),
-				self::THEAD_TOP => LocalizationUtility::translate('tableHead.top', 'fluidcontent_core'),
-				self::THEAD_LEFT => LocalizationUtility::translate('tableHead.left', 'fluidcontent_core'),
+				self::THEAD_NONE => $this->translateLabel('tableHead.none', 'fluidcontent_core'),
+				self::THEAD_TOP => $this->translateLabel('tableHead.top', 'fluidcontent_core'),
+				self::THEAD_LEFT => $this->translateLabel('tableHead.left', 'fluidcontent_core'),
 			);
 		}
 		return parent::getForm($row);
@@ -259,6 +259,14 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 		}
 
 		return $paths;
+	}
+
+	/**
+	 * @param string $key
+	 * @return string|NULL
+	 */
+	protected function translateLabel($key) {
+		return LocalizationUtility::translate($key, 'fluidcontent_core');
 	}
 
 }

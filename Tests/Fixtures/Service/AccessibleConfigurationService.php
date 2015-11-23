@@ -26,6 +26,20 @@ class AccessibleConfigurationService extends ConfigurationService {
 	protected $viewConfiguration = array();
 
 	/**
+	 * @return void
+	 */
+	public function initializeObject() {
+
+	}
+
+	/**
+	 * @return void
+	 */
+	public function initializeDefaults() {
+
+	}
+
+	/**
 	 * @param array $forcedVariants
 	 * @return void
 	 */

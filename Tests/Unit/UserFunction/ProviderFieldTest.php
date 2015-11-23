@@ -20,16 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ProviderFieldTest extends BaseTestCase {
 
 	/**
-	 * @return void
-	 */
-	public function testPerformsInjections() {
-		$instance = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-			->get('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField');
-		$this->assertAttributeInstanceOf('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface', 'objectManager', $instance);
-		$this->assertAttributeInstanceOf('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', 'configurationService', $instance);
-	}
-
-	/**
 	 * @dataProvider getCreateVariantsFieldTestValues
 	 * @param array $variants
 	 * @param array $defaults
@@ -40,8 +30,9 @@ class ProviderFieldTest extends BaseTestCase {
 		$service = new AccessibleConfigurationService();
 		$service->setVariants($variants);
 		$service->setDefaults($defaults);
-		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField', array('loadRecord'));
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField', array('loadRecord', 'translateLabel'), array(), '', FALSE);
 		$instance->expects($this->once())->method('loadRecord')->willReturn($parameters['row']);
+		$instance->expects($this->atLeastOnce())->method('translateLabel')->willReturnArgument(0);
 		$instance->injectConfigurationService($service);
 		$result = $instance->createVariantsField($parameters);
 		foreach ($mustContain as $requiredContent) {
@@ -54,7 +45,7 @@ class ProviderFieldTest extends BaseTestCase {
 	 */
 	public function getCreateVariantsFieldTestValues() {
 		return array(
-			array(array(), array(), array(), array('<select', '<option selected="selected" value="">Standard</option>')),
+			array(array(), array(), array(), array('<select', '<option selected="selected" value="">tt_content.nativeLabel</option>')),
 			array(
 				array('test' => array(array('fluidcontent_core', 'label', 'icon'))),
 				array(),
@@ -95,8 +86,9 @@ class ProviderFieldTest extends BaseTestCase {
 		$service->setVariants($variants);
 		$service->setVersions($versions);
 		$service->setDefaults($defaults);
-		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField', array('loadRecord'));
+		$instance = $this->getMock('FluidTYPO3\\FluidcontentCore\\UserFunction\\ProviderField', array('loadRecord', 'translateLabel'), array(), '', FALSE);
 		$instance->expects($this->once())->method('loadRecord')->willReturn($parameters['row']);
+		$instance->expects($this->atLeastOnce())->method('translateLabel')->willReturnArgument(0);
 		$instance->injectConfigurationService($service);
 		$result = $instance->createVersionsField($parameters);
 		foreach ($mustContain as $requiredContent) {
@@ -109,7 +101,7 @@ class ProviderFieldTest extends BaseTestCase {
 	 */
 	public function getCreateVersionsFieldTestValues() {
 		return array(
-			array(array(), array(), array(), array(), array('<select', '<option selected="selected" value="">Standard</option>')),
+			array(array(), array(), array(), array(), array('<select', '<option selected="selected" value="">tt_content.nativeLabel</option>')),
 			array(
 				array('test' => array(array('fluidcontent_core', 'label', 'icon'))),
 				array(),

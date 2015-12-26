@@ -95,21 +95,21 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 	/**
 	 * @var ConfigurationService
 	 */
-	protected $configurationService;
+	protected $contentConfigurationService;
 
 	/**
 	 * @param ConfigurationService $configurationService
 	 * @return void
 	 */
-	public function injectConfigurationService(ConfigurationService $configurationService) {
-		$this->configurationService = $configurationService;
+	public function injectContentConfigurationService(ConfigurationService $configurationService) {
+		$this->contentConfigurationService = $configurationService;
 	}
 
 	/**
 	 * @return void
 	 */
 	public function initializeObject() {
-		$typoScript = $this->configurationService->getAllTypoScript();
+		$typoScript = $this->contentConfigurationService->getAllTypoScript();
 		$settings = $typoScript['plugin']['tx_fluidcontentcore']['settings'];
 		$this->templateVariables['settings'] = $settings;
 		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaults']['template']);
@@ -194,7 +194,7 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 	 * @return string
 	 */
 	protected function getVariant(array $row) {
-		$defaults = $this->configurationService->getDefaults();
+		$defaults = $this->contentConfigurationService->getDefaults();
 		if (self::MODE_RECORD !== $defaults['mode'] && TRUE === empty($row['content_variant'])) {
 			return $defaults['variant'];
 		}
@@ -206,7 +206,7 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 	 * @return string
 	 */
 	protected function getVersion(array $row) {
-		$defaults = $this->configurationService->getDefaults();
+		$defaults = $this->contentConfigurationService->getDefaults();
 		if (self::MODE_RECORD !== $defaults['mode'] && TRUE === empty($row['content_version'])) {
 			return $defaults['version'];
 		}
@@ -230,7 +230,7 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 	 * @return void
 	 */
 	public function postProcessRecord($operation, $id, array &$row, DataHandler $reference, array $removals = array()) {
-		$defaults = $this->configurationService->getDefaults();
+		$defaults = $this->contentConfigurationService->getDefaults();
 		if (self::MODE_RECORD === $defaults['mode']) {
 			if (TRUE === empty($row['content_variant'])) {
 				$row['content_variant'] = $defaults['variant'];
@@ -253,7 +253,7 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 		if (FALSE === empty($variant)) {
 			$extensionKey = ExtensionNamingUtility::getExtensionKey($variant);
 			if (FALSE === empty($extensionKey)) {
-				$overlayPaths = $this->configurationService->getViewConfigurationForExtensionName($extensionKey);
+				$overlayPaths = $this->contentConfigurationService->getViewConfigurationForExtensionName($extensionKey);
 				$paths = array_merge_recursive($paths, $overlayPaths);
 			}
 		}

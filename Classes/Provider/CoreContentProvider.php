@@ -98,11 +98,11 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 	protected $contentConfigurationService;
 
 	/**
-	 * @param ConfigurationService $configurationService
+	 * @param ConfigurationService $contentConfigurationService
 	 * @return void
 	 */
-	public function injectContentConfigurationService(ConfigurationService $configurationService) {
-		$this->contentConfigurationService = $configurationService;
+	public function injectContentConfigurationService(ConfigurationService $contentConfigurationService) {
+		$this->contentConfigurationService = $contentConfigurationService;
 	}
 
 	/**
@@ -185,7 +185,7 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 		$version = $this->getVersion($row);
 		$registeredTypes = (array) $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'];
 		$templateName = TRUE === in_array($row['CType'], $registeredTypes) ? $row['CType'] : 'default';
-		$template = $this->configurationService->resolveTemplateFileForVariant($extensionKey, $templateName, $variant, $version);
+		$template = $this->contentConfigurationService->resolveTemplateFileForVariant($extensionKey, $templateName, $variant, $version);
 		return $template;
 	}
 

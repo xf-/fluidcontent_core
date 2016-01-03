@@ -131,7 +131,7 @@ class CoreContentProviderTest extends UnitTestCase {
 		/** @var ConfigurationService|\PHPUnit_Framework_MockObject_MockObject $service */
 		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
 		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
-		$instance->injectConfigurationService($service);
+		$instance->injectContentConfigurationService($service);
 		$result = $this->callInaccessibleMethod($instance, 'getVariant', $row);
 		$this->assertEquals(NULL === $expected ? $defaults['variant'] : $expected, $result);
 	}
@@ -147,7 +147,7 @@ class CoreContentProviderTest extends UnitTestCase {
 		/** @var ConfigurationService|\PHPUnit_Framework_MockObject_MockObject $service */
 		$service = $this->getMock('FluidTYPO3\\FluidcontentCore\\Service\\ConfigurationService', array('getDefaults'));
 		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
-		$instance->injectConfigurationService($service);
+		$instance->injectContentConfigurationService($service);
 		$result = $this->callInaccessibleMethod($instance, 'getVersion', $row);
 		$this->assertEquals(NULL === $expected ? $defaults['version'] : $expected, $result);
 	}
@@ -200,7 +200,7 @@ class CoreContentProviderTest extends UnitTestCase {
 		$contentService = $this->getMock('FluidTYPO3\\Flux\\Service\\ContentService', array('affectRecordByRequestParameters'));
 		$contentService->expects($this->any())->method('affectRecordByRequestParameters');
 		$service->expects($this->once())->method('getDefaults')->willReturn($defaults);
-		$instance->injectConfigurationService($service);
+		$instance->injectContentConfigurationService($service);
 		$instance->injectContentService($contentService);
 		$copy = $row;
 		$handler = new DataHandler();
@@ -241,7 +241,7 @@ class CoreContentProviderTest extends UnitTestCase {
 		$service = $this->getMock(ConfigurationService::class, array('getDefaults', 'getViewConfigurationForExtensionName'));
 		$service->injectConfigurationManager($configurationManager);
 		$service->expects($this->any())->method('getViewConfigurationForExtensionName')->willReturn($expected);
-		$instance->injectConfigurationService($service);
+		$instance->injectContentConfigurationService($service);
 		$instance->setTemplatePaths(array());
 		$result = $instance->getTemplatePaths($row);
 		$this->assertEquals($expected, $result);
